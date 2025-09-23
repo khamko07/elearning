@@ -31,10 +31,12 @@
 	}
 	function date_toText($datetime=""){
 		$nicetime = strtotime($datetime);
-		return strftime("%B %d, %Y at %I:%M %p", $nicetime);	
+		return date("F j, Y \a\\t g:i A", $nicetime);	
 					
 	}
-	function __autoload($class_name) {
+	
+	// Register autoloader function using spl_autoload_register
+	spl_autoload_register(function($class_name) {
 		$class_name = strtolower($class_name);
 		$path = LIB_PATH.DS."{$class_name}.php";
 		if(file_exists($path)){
@@ -42,8 +44,7 @@
 		}else{
 			die("The file {$class_name}.php could not be found.");
 		}
-					
-	}
+	});
 
 	function currentpage_public(){
 		$this_page = $_SERVER['SCRIPT_NAME']; // will return /path/to/file.php

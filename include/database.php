@@ -11,7 +11,8 @@ class Database {
 	
 	function __construct() {
 		$this->open_connection();
-		$this->magic_quotes_active = get_magic_quotes_gpc();
+		// Magic quotes were removed in PHP 8.0, so always false
+		$this->magic_quotes_active = false;
 		$this->real_escape_string_exists = function_exists("mysqli_real_escape_string");
 	}
 	
@@ -107,14 +108,12 @@ class Database {
 	}
 	
 	 public function escape_value( $value ) {
-		if( $this->real_escape_string_exists ) { // PHP v4.3.0 or higher
-			// undo any magic quote effects so mysql_real_escape_string can do the work
-			if($this->magic_quotes_active) { $value = stripslashes($value); }
+		// Use mysqli_real_escape_string for modern PHP versions
+		if( $this->real_escape_string_exists ) {
 			$value = mysqli_real_escape_string($this->conn,$value);
-		} else { // before PHP v4.3.0
-			// if magic quotes aren't already on then add slashes manually
-			if( !$this->magic_quotes_active ) { $value = addslashes($value); }
-			// if magic quotes are active, then the slashes already exist
+		} else {
+			// Fallback for very old PHP versions (unlikely in modern systems)
+			$value = addslashes($value);
 		}
 		return $value;
    	}

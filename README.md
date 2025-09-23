@@ -127,8 +127,8 @@ This system aims to:
 
 ### Admin Access
 - **URL**: `http://localhost/elearning/admin/`
-- **Username**: [Check the database for default admin credentials]
-- **Password**: [Check the database for default admin credentials]
+- **Username**: janobe
+- **Password**: admin
 
 ### Student Access
 - Students need to register through the registration page

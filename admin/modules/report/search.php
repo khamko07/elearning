@@ -50,12 +50,15 @@ if(isset($_POST['submit'])){
 	$query = "SELECT  `FIRSTNAME` ,  ' ',  `LASTNAME` ,  `ORDERNUMBER` ,  `DATEORDER` ,  `PAYMENTMETHOD` ,  `CLAIMDATE` ,ALLQTY,  `TOTALPRICE` ,  `STATS` 
 				FROM  `tblcustomer` c,  `tblpayment` p
 				WHERE c.`CUSTOMERID` = p.`CUSTOMERID` AND STATS='Confirmed' AND date(DATEORDER)>='".$_POST['start']."' AND date(DATEORDER) <='".$_POST['end']."'";
-				$result = mysql_query($query) or die(mysql_error());
-
-		$rowcount = mysql_num_rows($result) or die(mysql_error());
+				
+		// Use the global database connection from the Database class
+		global $mydb;
+		$mydb->setQuery($query);
+		$result = $mydb->executeQuery();
+		$rowcount = $mydb->num_rows($result);
  
 	if ($rowcount>0)	{
-		while ($row = mysql_fetch_array($result)) {
+		while ($row = $mydb->fetch_array($result)) {
 			# code...
 
 		echo '	<tr >';
