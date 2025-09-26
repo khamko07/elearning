@@ -9,7 +9,8 @@ if (isset($_SESSION['StudentID'])) {
 
 <style type="text/css">
   body {
-    background-color: #fff;
+    background: url('assets/ued.jpg') no-repeat center center fixed;
+    background-size: cover;
   }
 </style>
 
@@ -33,10 +34,10 @@ if (isset($_SESSION['StudentID'])) {
 <body>
   
   <div class="limiter">
-    <div class="container-login100">
+    <div class="container-login100" style="background: url('assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
            <?php check_message(); ?>
       <div class="wrap-login100">
-        <div class="login100-pic js-tilt" data-tilt  style="background: #0037a4f5;">
+        <div class="login100-pic js-tilt" data-tilt  style="background: transparent;">
           <img src="images/login.png" style="width: 100%;object-fit: contain;height: 100%" alt="IMG">
         </div>
          

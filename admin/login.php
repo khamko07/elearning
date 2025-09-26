@@ -52,11 +52,11 @@ require_once("../include/initialize.php");
     height: 100%;
   }
 </style>
-<body style="background-color: #666666;">
+<body style="background: url('../assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
   
   <div class="limiter">
-    <div class="container-login100">
-      <div class="wrap-login100">
+    <div class="container-login100" style="background: url('../assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
+      <div class="wrap-login100" style="background: transparent;">
         <form class="login100-form validate-form" action="" method="POST">
           <span class="login100-form-title p-b-43">
             Login to continue
@@ -115,9 +115,7 @@ require_once("../include/initialize.php");
           </div> -->
         </form>
 
-        <div class="login100-more" style="background: #0037a4f5;">
-          <img src="adminMenu/images/login.png" style="object-fit: contain">
-        </div>
+        <div class="login100-more" style="background: transparent;"></div>
       </div>
     </div>
   </div>
