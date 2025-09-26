@@ -1,8 +1,7 @@
 <?php 
 require_once("include/initialize.php");  
 if (!isset($_SESSION['StudentID'])) {
-  # code...
-  redirect('login.php');
+  redirect('home_public.php');
 }
 $content='home.php';
 $view = (isset($_GET['q']) && $_GET['q'] != '') ? $_GET['q'] : '';
