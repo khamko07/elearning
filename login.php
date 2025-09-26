@@ -36,9 +36,9 @@ if (isset($_SESSION['StudentID'])) {
   <div class="limiter">
     <div class="container-login100" style="background: url('assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
            <?php check_message(); ?>
-      <div class="wrap-login100">
-        <div class="login100-pic js-tilt" data-tilt  style="background: transparent;">
-          <img src="images/login.png" style="width: 100%;object-fit: contain;height: 100%" alt="IMG">
+      <div class="wrap-login100" style="flex-direction: column; align-items: center; padding: 60px 40px 33px 40px;">
+        <div class="login100-pic js-tilt" data-tilt  style="background: transparent; width: 100%; text-align: center; margin-bottom: 20px;">
+          <img src="images/text-ued-1.png" style="max-width: 70%; height: auto; object-fit: contain;" alt="Logo">
         </div>
          
         <form class="login100-form validate-form" action="" method="POST"> 

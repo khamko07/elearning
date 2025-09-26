@@ -20,7 +20,7 @@ if (isset($_SESSION['StudentID'])) {
 <link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet" media="screen">  
   <style type="text/css">
     #title-header {
-  background-color: rgb(0, 67, 200); 
+  background-color: rgba(0, 67, 200, 0.75); 
   border-bottom: 1px solid #ddd; 
   height: 130px;  
   padding: 10px 0px;
@@ -28,17 +28,34 @@ if (isset($_SESSION['StudentID'])) {
   color: #fff;
   font-size: 18px;
 }
- 
+  body {
+    background: url('assets/ued.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .register-container {
+    background: rgba(255,255,255,0.92);
+    border-radius: 12px;
+    padding: 20px 20px 10px 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
+  .logo {
+    max-height: 70px;
+    height: 70px;
+    width: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
   </style>
+</head>
+<body>
 <section id="title-header">
   <div class="title">  
-     <img class="logo" src="cap.png">Capiz State University <br>Mambusao Satellite College
-      <br>Poblacion Mambusao, Capiz
-      <p class="subtitle"> COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE</p> 
+     <img class="logo" src="images/text-ued-1.png">
   </div>
 </section> 
- <div class="container" style="min-height: 500px;">  
-      <p class="page-header" style="font-size: 30px;">Sign Up</p>
+ <div class="container" style="min-height: 500px; padding-top: 20px; padding-bottom: 20px;">  
+   <div class="register-container">
+      <p class="page-header" style="font-size: 30px; margin-top: 0;">Sign Up</p>
       <?php check_message(); ?>
     <div id="login-dp">
  <form class="form-horizontal span6" action="" method="POST" enctype="multipart/form-data" id="login-nav">
@@ -133,6 +150,7 @@ if (isset($_SESSION['StudentID'])) {
           
         </form>
        </div>
+   </div>
 </div>
 
 <?php 
@@ -153,8 +171,7 @@ if (isset($_POST['btnRegister'])) {
 }
 
 ?>
-   <footer style="height: 100px;border-top:1px solid #ddd;padding: 5px;background-color: blue; color:#fff;">
-              <p align="left">&copy; COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE</p>
-     </footer>
  </section>
+ </body>
+ </html>
  
