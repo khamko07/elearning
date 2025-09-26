@@ -190,6 +190,97 @@ Ensure PHP settings allow file uploads:
 4. Take quizzes to test your knowledge
 5. Download materials for offline study
 
+## 🤖 Tích hợp Gemini API để tạo câu hỏi tự động
+
+Hệ thống có thể tích hợp với Gemini API của Google để sinh tự động các câu hỏi trắc nghiệm dựa trên nội dung bài học hoặc chủ đề bạn cung cấp.
+
+### Yêu cầu
+- Tài khoản Google và quyền truy cập [Google AI Studio](https://ai.google.dev/)
+- API Key của Gemini (có gói miễn phí)
+
+### Cấu hình nhanh
+1. Tạo API Key trong Google AI Studio.
+2. Lưu trữ khóa an toàn. Có 2 cách khuyến nghị:
+   - Khai báo trong `include/config.php`:
+     ```php
+     <?php
+     // ... các cấu hình sẵn có ...
+     define('GEMINI_API_KEY', 'YOUR_GEMINI_API_KEY_HERE');
+     ?>
+     ```
+   - Hoặc đặt biến môi trường `GEMINI_API_KEY` trên máy chủ và đọc trong PHP (khuyến nghị cho môi trường production).
+
+### Cách hoạt động
+Ứng dụng sẽ gọi endpoint `generateContent` của Gemini để tạo danh sách câu hỏi theo prompt bạn đưa vào. Bạn có thể chỉ định số lượng câu hỏi, độ khó, định dạng JSON, và yêu cầu đáp án kèm giải thích.
+
+### Ví dụ PHP (gợi ý tích hợp vào tính năng tạo bài tập)
+Ví dụ tối giản dưới đây minh họa cách gọi Gemini để sinh 5 câu hỏi trắc nghiệm theo định dạng JSON dễ lưu vào CSDL.
+
+```php
+$apiKey = defined('GEMINI_API_KEY') ? GEMINI_API_KEY : getenv('GEMINI_API_KEY');
+$model  = 'gemini-1.5-flash';
+$url    = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . urlencode($apiKey);
+
+$lessonText = "Giải thích chu trình nước và các giai đoạn của nó."; // Thay bằng nội dung bài học
+$prompt = "" .
+  "Bạn là giáo viên chuyên gia. Hãy tạo 5 câu hỏi trắc nghiệm (MCQ) dựa trên đoạn văn dưới đây.\n" .
+  "Mỗi câu gồm: question, options (A-D), correctOption, explanation.\n" .
+  "Trả về MỘT mảng JSON thuần gồm các đối tượng: {question, options: {A,B,C,D}, correctOption, explanation}.\n\n" .
+  "VĂN BẢN:\n{$lessonText}";
+
+$payload = [
+    'contents' => [[
+        'parts' => [[ 'text' => $prompt ]]
+    ]],
+    'generationConfig' => [
+        'temperature' => 0.4,
+        'maxOutputTokens' => 1024
+    ]
+];
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+$response = curl_exec($ch);
+if ($response === false) {
+    die('Curl error: ' . curl_error($ch));
+}
+curl_close($ch);
+
+$data = json_decode($response, true);
+$text = $data['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+// Cố gắng parse JSON từ phản hồi của model
+$questions = json_decode($text, true);
+if (json_last_error() !== JSON_ERROR_NONE) {
+    if (preg_match('/\[[\s\S]*\]/', $text, $m)) {
+        $questions = json_decode($m[0], true);
+    }
+}
+
+if (!is_array($questions)) {
+    die('Không parse được JSON câu hỏi. Nội dung model: ' . htmlspecialchars($text));
+}
+
+// $questions là mảng các MCQ có thể lưu vào CSDL của bạn
+foreach ($questions as $q) {
+    // Lưu $q['question'], $q['options']['A'..'D'], $q['correctOption'], $q['explanation']
+}
+```
+
+### Mẹo prompt
+- **Rõ ràng định dạng**: yêu cầu JSON nghiêm ngặt để dễ parse.
+- **Giới hạn độ khó**: chỉ định cấp lớp hoặc mức Bloom.
+- **Kiểm soát độ dài**: giới hạn token, độ dài giải thích.
+- **Cung cấp ngữ cảnh**: đưa đoạn bài học hoặc mục tiêu.
+
+### Lưu ý
+- Bảo mật API key; không commit vào mã nguồn.
+- Kiểm tra điều khoản và chi phí của Google AI trước khi dùng production.
+- Thêm retry và xử lý lỗi mạng khi triển khai thực tế.
+
 ## 🐛 Troubleshooting
 
 ### Common Issues:

@@ -67,6 +67,10 @@ if (isset($_SESSION['StudentID'])) {
             </button>
           </div>
 
+          <div class="container-login100-form-btn" style="margin-top:10px;">
+            <a class="btn btn-default btn-block" href="admin/login.php">Admin Login</a>
+          </div>
+
       <!--     <div class="text-center p-t-12">
             <span class="txt1">
               Forgot

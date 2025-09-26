@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Gemini API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; margin: 5px; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Gemini API Integration</h1>
+    
+    <div class="test-section">
+        <h3>1. Test API Key Configuration</h3>
+        <button onclick="testConfig()">Test Config</button>
+        <div id="config-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>2. Test Simple API Call</h3>
+        <button onclick="testSimpleAPI()">Test Simple API</button>
+        <div id="simple-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>3. Test Full Question Generation</h3>
+        <input type="text" id="test-topic" placeholder="Enter topic" value="JavaScript">
+        <select id="test-difficulty">
+            <option value="dễ">Dễ</option>
+            <option value="trung bình" selected>Trung bình</option>
+            <option value="khó">Khó</option>
+        </select>
+        <button onclick="testFullGeneration()">Generate Question</button>
+        <div id="full-result"></div>
+    </div>
+
+    <script>
+        async function testConfig() {
+            const resultDiv = document.getElementById('config-result');
+            resultDiv.innerHTML = '<p>Testing configuration...</p>';
+            
+            try {
+                const response = await fetch('test_api.php');
+                const result = await response.text();
+                
+                try {
+                    const json = JSON.parse(result);
+                    if (json.success) {
+                        resultDiv.innerHTML = `<div class="success"><h4>✅ Configuration OK</h4><pre>${JSON.stringify(json, null, 2)}</pre></div>`;
+                    } else {
+                        resultDiv.innerHTML = `<div class="error"><h4>❌ Configuration Error</h4><pre>${JSON.stringify(json, null, 2)}</pre></div>`;
+                    }
+                } catch (e) {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ JSON Parse Error</h4><p>${e.message}</p><pre>${result}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Request Error</h4><p>${error.message}</p></div>`;
+            }
+        }
+        
+        async function testSimpleAPI() {
+            const resultDiv = document.getElementById('simple-result');
+            resultDiv.innerHTML = '<p>Testing simple API call...</p>';
+            
+            try {
+                const response = await fetch('gemini_api_simple.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic: 'Test', difficulty: 'easy' })
+                });
+                
+                const result = await response.text();
+                
+                try {
+                    const json = JSON.parse(result);
+                    if (json.success) {
+                        resultDiv.innerHTML = `<div class="success"><h4>✅ API Call OK</h4><pre>${JSON.stringify(json, null, 2)}</pre></div>`;
+                    } else {
+                        resultDiv.innerHTML = `<div class="error"><h4>❌ API Error</h4><pre>${JSON.stringify(json, null, 2)}</pre></div>`;
+                    }
+                } catch (e) {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ JSON Parse Error</h4><p>${e.message}</p><pre>${result}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Request Error</h4><p>${error.message}</p></div>`;
+            }
+        }
+        
+        async function testFullGeneration() {
+            const resultDiv = document.getElementById('full-result');
+            const topic = document.getElementById('test-topic').value;
+            const difficulty = document.getElementById('test-difficulty').value;
+            
+            resultDiv.innerHTML = '<p>Generating question...</p>';
+            
+            try {
+                const response = await fetch('gemini_api_simple.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic: topic, difficulty: difficulty })
+                });
+                
+                const result = await response.text();
+                
+                try {
+                    const json = JSON.parse(result);
+                    if (json.success) {
+                        const data = json.data;
+                        resultDiv.innerHTML = `
+                            <div class="success">
+                                <h4>✅ Question Generated Successfully!</h4>
+                                <p><strong>Question:</strong> ${data.question}</p>
+                                <p><strong>A:</strong> ${data.choices.A}</p>
+                                <p><strong>B:</strong> ${data.choices.B}</p>
+                                <p><strong>C:</strong> ${data.choices.C}</p>
+                                <p><strong>D:</strong> ${data.choices.D}</p>
+                                <p><strong>Answer:</strong> ${data.answer}</p>
+                            </div>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `<div class="error"><h4>❌ Generation Error</h4><pre>${JSON.stringify(json, null, 2)}</pre></div>`;
+                    }
+                } catch (e) {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ JSON Parse Error</h4><p>${e.message}</p><pre>${result}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Request Error</h4><p>${error.message}</p></div>`;
+            }
+        }
+    </script>
+</body>
+</html>
