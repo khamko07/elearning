@@ -20,8 +20,7 @@
 <link rel="stylesheet" href="<?php echo web_root; ?>css/jquery-ui.css">  
  <style type="text/css"> 
 body {
-  background: url('assets/ued.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background: #f5f7fb;
 }
  
 #content {
@@ -165,9 +164,9 @@ clear: both;
 <!--      <div > 
 
 </div>   -->
-<footer  >
-    <p align="left">&copy; Capiz State Unversity</p>
-</footer>
+<!-- <footer  >
+    <!-- <p align="left">&copy; Capiz State Unversity</p> -->
+</footer> -->
 </section>
   <script type="text/javascript" language="javascript" src="<?php echo web_root; ?>jquery/jquery.min.js"></script>
   <script src="<?php echo web_root; ?>js/bootstrap.min.js"></script> 
