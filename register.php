@@ -166,8 +166,8 @@ if (isset($_POST['btnRegister'])) {
     $student->STUDPASS      = sha1($_POST['PASS']); 
     $student->create();  
 
-    message("Your now succefully registered. You can login now!","success");
-    redirect("register.php");
+    message("You are successfully registered. Please log in.","success");
+    redirect("login.php");
 }
 
 ?>

@@ -19,6 +19,10 @@
 <link rel="stylesheet" href="<?php echo web_root; ?>assets/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <link rel="stylesheet" href="<?php echo web_root; ?>css/jquery-ui.css">  
  <style type="text/css"> 
+body {
+  background: url('assets/ued.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
  
 #content {
   min-height: 550px;
@@ -120,14 +124,15 @@ clear: both;
 }
 
 #title-header {
-  background-color: rgb(0, 67, 200); 
+  background-color: rgba(0, 67, 200, 0.75); 
   border-bottom: 1px solid #ddd; 
-  height: 130px;  
+  height: 100px;  
   padding: 10px 0px;
   text-align: center;
   color: #fff;
   font-size: 18px;
 }
+.logo { height: 70px; width: auto; vertical-align: middle; }
  
 
  </style>
@@ -136,9 +141,7 @@ clear: both;
 <body >
 <section id="title-header">
   <div class="title">  
-     <img class="logo" src="cap.png">Capiz State University <br>Mambusao Satellite College
-      <br>Poblacion Mambusao, Capiz
-      <p class="subtitle"> COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE</p> 
+     <img class="logo" src="images/text-ued-1.png">
   </div>
 </section>  
 <section id="navigation">
