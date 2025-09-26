@@ -41,9 +41,9 @@
    <?php
    admin_confirm_logged_in();
   ?>
-<body>
+<body style="background:#f5f7fb;">
  <section id="navigation">
-<nav class="navbar navbar-default  " role="navigation" style="margin-top: 0px">
+<nav class="navbar navbar-default" role="navigation" style="margin-top:0; border:none; box-shadow:0 2px 10px rgba(0,0,0,0.08);">
 
 <div class="navbar-header">
   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -51,7 +51,9 @@
     <span class="icon-bar"></span>
     <span class="icon-bar"></span>
   </button>
-  <a class="navbar-brand"  href="<?php echo web_root; ?>admin/index.php" >COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE </a>
+  <a class="navbar-brand" href="<?php echo web_root; ?>admin/index.php" style="font-weight:600;">
+    <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="Logo" style="height:36px; display:inline-block; vertical-align:middle; margin-right:8px;"> Admin Panel
+  </a>
 </div>
 
   <ul class="nav navbar-top-links navbar-right" >
@@ -65,7 +67,7 @@
                 </li>
   </ul>
 
-<div class="navbar-default sidebar" role="navigation">
+<div class="navbar-default sidebar" role="navigation" style="box-shadow: 2px 0 10px rgba(0,0,0,0.06);">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
             <!--     <li>
@@ -95,13 +97,17 @@
 </section>
 
 
-<section id="page-wrapper"> 
+<section id="page-wrapper" style="padding:15px;"> 
   <?php  check_message(); ?> 
-  <?php  require_once $content;?>  
+  <div style="background:#fff; border-radius:12px; padding:18px; box-shadow:0 8px 18px rgba(0,0,0,0.08);">
+    <?php  require_once $content;?>  
+  </div>
  </section> 
 
 <section id="page-footer"> 
-      <footer>  <p align="center">&copy; COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE </p></footer>
+      <footer style="background:#f5f7fb; border:none;">
+        <p align="center" style="color:#999;">&copy; Admin Panel</p>
+      </footer>
 </section>
 <!-- Plugins -->
 
