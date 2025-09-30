@@ -94,7 +94,7 @@ $requestData = [
 
 // Make API request
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent');
+curl_setopt($ch, CURLOPT_URL, GEMINI_API_URL);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));

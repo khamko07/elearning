@@ -127,7 +127,7 @@ This system aims to:
 
 ### Admin Access
 - **URL**: `http://localhost/elearning/admin/`
-- **Username**: janobe
+- **Username**: admin
 - **Password**: admin
 
 ### Student Access

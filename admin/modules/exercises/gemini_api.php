@@ -111,7 +111,7 @@ $requestData = [
 $ch = curl_init();
 
 curl_setopt_array($ch, [
-    CURLOPT_URL => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+    CURLOPT_URL => GEMINI_API_URL,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => json_encode($requestData),

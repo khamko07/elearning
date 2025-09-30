@@ -44,9 +44,9 @@ if (!$apiKey) {
 
 // Try multiple models in order of preference
 $models = [
+    'gemini-2.0-flash',
     'gemini-1.5-flash',
-    'gemini-1.5-pro', 
-    'gemini-pro'
+    'gemini-1.5-pro'
 ];
 
 $lastError = '';
