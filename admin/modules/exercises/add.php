@@ -64,6 +64,12 @@
                                             <i class="fa fa-spinner fa-spin"></i> Đang tạo câu hỏi với AI...
                                         </div>
                                         <div id="aiError" class="alert alert-danger" style="display: none;"></div>
+                                        
+                                        <!-- Multiple Questions Result Section -->
+                                        <div id="multipleQuestionsSection" style="display: none; margin-top: 20px;">
+                                            <h5><i class="fa fa-list"></i> Câu hỏi đã tạo:</h5>
+                                            <div id="questionsList" class="panel-group" style="margin-top: 15px;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,6 +187,53 @@
 
 <!-- API Configuration removed - now using hardcoded API key -->
 
+<style>
+#multipleQuestionsSection {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+#multipleQuestionsSection h5 {
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+.panel {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.panel:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.panel-heading {
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 6px 6px 0 0;
+    padding: 12px 15px;
+}
+
+.panel-body {
+    padding: 15px;
+    background-color: white;
+}
+
+.panel-body p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.btn-sm {
+    margin: 0 5px;
+}
+</style>
+
 <script>
 // Gemini API Integration - Simplified version
 document.getElementById('generateQuestion').addEventListener('click', function() {
@@ -207,8 +260,8 @@ async function generateQuestionWithAI(topic, difficulty, numQuestions) {
     errorDiv.style.display = 'none';
 
     try {
-        // Use fallback API that tries multiple models
-        const response = await fetch('gemini_api_fallback.php', {
+        // Use test API that tries multiple models (no session required)
+        const response = await fetch('gemini_api_test.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -239,8 +292,16 @@ async function generateQuestionWithAI(topic, difficulty, numQuestions) {
             throw new Error(result.error || 'Không thể tạo câu hỏi');
         }
         
-        // Fill the form with generated data
-        fillFormWithQuestionData(result.data);
+        // Handle response based on number of questions
+        if (result.count && result.count > 1) {
+            // Multiple questions - show selection interface
+            displayMultipleQuestions(result.data, result.count);
+        } else {
+            // Single question - fill form directly
+            const questionData = Array.isArray(result.data) ? result.data[0] : result.data;
+            fillFormWithQuestionData(questionData);
+            showSuccessMessage('Tạo câu hỏi thành công! Vui lòng kiểm tra và chỉnh sửa nếu cần.');
+        }
         
         loadingIndicator.style.display = 'none';
         
@@ -286,6 +347,107 @@ function extractQuestionData(text) {
     return questionData;
 }
 
+function displayMultipleQuestions(questions, count) {
+    const multipleSection = document.getElementById('multipleQuestionsSection');
+    const questionsList = document.getElementById('questionsList');
+    
+    // Clear previous results
+    questionsList.innerHTML = '';
+    
+    // Create question cards
+    questions.forEach((question, index) => {
+        const questionCard = document.createElement('div');
+        questionCard.className = 'panel panel-default';
+        questionCard.style.marginBottom = '15px';
+        
+        questionCard.innerHTML = `
+            <div class="panel-heading">
+                <h6 class="panel-title">
+                    <strong>Câu hỏi ${index + 1}:</strong> ${question.question}
+                </h6>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>A:</strong> ${question.choices.A}</p>
+                        <p><strong>B:</strong> ${question.choices.B}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>C:</strong> ${question.choices.C}</p>
+                        <p><strong>D:</strong> ${question.choices.D}</p>
+                        <p><strong style="color: green;">Đáp án đúng:</strong> ${question.answer}</p>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 15px;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="useThisQuestion(${index})">
+                        <i class="fa fa-check"></i> Sử dụng câu hỏi này
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" onclick="copyQuestionText(${index})">
+                        <i class="fa fa-copy"></i> Copy câu hỏi
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        questionsList.appendChild(questionCard);
+    });
+    
+    // Store questions globally for use in button handlers
+    window.generatedQuestions = questions;
+    
+    // Show the section
+    multipleSection.style.display = 'block';
+    
+    // Show success message
+    showSuccessMessage(`Tạo thành công ${count} câu hỏi! Chọn câu hỏi bạn muốn sử dụng.`);
+}
+
+function useThisQuestion(index) {
+    if (window.generatedQuestions && window.generatedQuestions[index]) {
+        fillFormWithQuestionData(window.generatedQuestions[index]);
+        
+        // Scroll to form
+        document.getElementById('Question').scrollIntoView({ behavior: 'smooth' });
+        
+        // Highlight the selected question briefly
+        const questionCards = document.querySelectorAll('.panel');
+        if (questionCards[index]) {
+            questionCards[index].style.backgroundColor = '#d4edda';
+            setTimeout(() => {
+                questionCards[index].style.backgroundColor = '';
+            }, 2000);
+        }
+        
+        showSuccessMessage('Đã điền câu hỏi vào form! Vui lòng kiểm tra và chỉnh sửa nếu cần.');
+    }
+}
+
+function copyQuestionText(index) {
+    if (window.generatedQuestions && window.generatedQuestions[index]) {
+        const question = window.generatedQuestions[index];
+        const text = `Câu hỏi: ${question.question}
+A: ${question.choices.A}
+B: ${question.choices.B}
+C: ${question.choices.C}
+D: ${question.choices.D}
+Đáp án: ${question.answer}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            showSuccessMessage('Đã copy câu hỏi vào clipboard!');
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showSuccessMessage('Đã copy câu hỏi vào clipboard!');
+        });
+    }
+}
+
 function fillFormWithQuestionData(data) {
     // Fill the form fields
     document.getElementById('Question').value = data.question || '';
@@ -294,9 +456,6 @@ function fillFormWithQuestionData(data) {
     document.getElementById('ChoiceC').value = data.choices.C || '';
     document.getElementById('ChoiceD').value = data.choices.D || '';
     document.getElementById('Answer').value = data.answer || '';
-    
-    // Show success message
-    showSuccessMessage('Tạo câu hỏi thành công! Vui lòng kiểm tra và chỉnh sửa nếu cần.');
 }
 
 function clearForm() {

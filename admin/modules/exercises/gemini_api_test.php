@@ -1,38 +1,18 @@
 <?php
-// Alternative API configuration with different models
-ob_start();
-session_start();
+// Test version of Gemini API without session validation
+header('Content-Type: application/json');
 
 try {
-    if (file_exists("../../../include/initialize.php")) {
-        require_once("../../../include/initialize.php");
-    }
     if (file_exists("gemini_config.php")) {
         require_once("gemini_config.php");
     }
 } catch (Exception $e) {
-    ob_clean();
-    header('Content-Type: application/json');
     echo json_encode(['error' => 'File loading error: ' . $e->getMessage()]);
     exit;
 }
 
-ob_clean();
-header('Content-Type: application/json');
-
-// Debug session and request
-$debug = [
-    'session_userid' => isset($_SESSION['USERID']) ? $_SESSION['USERID'] : 'not set',
-    'request_method' => $_SERVER['REQUEST_METHOD'],
-    'session_id' => session_id(),
-    'all_session' => $_SESSION
-];
-
-if (!isset($_SESSION['USERID']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode([
-        'error' => 'Invalid request', 
-        'debug' => $debug
-    ]);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['error' => 'Only POST method allowed']);
     exit;
 }
 
@@ -146,13 +126,11 @@ Make sure each question is unique and covers different aspects of {$topic}.";
 
     if ($curlError) {
         $lastError = "cURL error with $model: $curlError";
-        error_log("Gemini API cURL Error with $model: $curlError");
         continue;
     }
 
     if ($httpCode !== 200) {
         $lastError = "HTTP $httpCode with model $model. Response: " . substr($response, 0, 200);
-        error_log("Gemini API HTTP Error with $model: HTTP $httpCode. Response: " . substr($response, 0, 500));
         continue;
     }
 
@@ -175,6 +153,17 @@ Make sure each question is unique and covers different aspects of {$topic}.";
         if ($startPos !== false && $endPos !== false) {
             $jsonText = substr($generatedText, $startPos, $endPos - $startPos + 1);
             $questionData = json_decode($jsonText, true);
+        }
+        
+        // Try array format
+        if (!$questionData) {
+            $startPos = strpos($generatedText, '[');
+            $endPos = strrpos($generatedText, ']');
+            
+            if ($startPos !== false && $endPos !== false) {
+                $jsonText = substr($generatedText, $startPos, $endPos - $startPos + 1);
+                $questionData = json_decode($jsonText, true);
+            }
         }
     }
 
