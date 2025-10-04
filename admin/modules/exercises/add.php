@@ -67,7 +67,24 @@
                                         
                                         <!-- Multiple Questions Result Section -->
                                         <div id="multipleQuestionsSection" style="display: none; margin-top: 20px;">
-                                            <h5><i class="fa fa-list"></i> Câu hỏi đã tạo:</h5>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h5><i class="fa fa-list"></i> Câu hỏi đã tạo: <span id="questionCount">0</span></h5>
+                                                </div>
+                                                <div class="col-md-6 text-right">
+                                                    <div class="btn-group" style="margin-bottom: 15px;">
+                                                        <button type="button" class="btn btn-default btn-sm" id="selectAllQuestions">
+                                                            <i class="fa fa-check-square-o"></i> Select All
+                                                        </button>
+                                                        <button type="button" class="btn btn-default btn-sm" id="deselectAllQuestions">
+                                                            <i class="fa fa-square-o"></i> Deselect All
+                                                        </button>
+                                                        <button type="button" class="btn btn-success btn-sm" id="bulkInsertQuestions" disabled>
+                                                            <i class="fa fa-plus-circle"></i> Insert Selected (<span id="selectedCount">0</span>)
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div id="questionsList" class="panel-group" style="margin-top: 15px;"></div>
                                         </div>
                                     </div>
@@ -232,6 +249,55 @@
 .btn-sm {
     margin: 0 5px;
 }
+
+.question-card {
+    transition: all 0.3s ease;
+}
+
+.question-card.selected {
+    background-color: #e8f5e8 !important;
+    border-color: #28a745 !important;
+    border-width: 2px !important;
+}
+
+.question-selector {
+    transform: scale(1.3);
+    margin-right: 10px;
+}
+
+.question-selector:checked {
+    accent-color: #28a745;
+}
+
+#bulkInsertQuestions:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#bulkInsertQuestions:not(:disabled) {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.panel-heading label {
+    font-weight: normal;
+    width: 100%;
+    margin: 0;
+}
+
+.panel-heading input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+#questionCount {
+    color: #007bff;
+    font-weight: bold;
+}
 </style>
 
 <script>
@@ -350,21 +416,35 @@ function extractQuestionData(text) {
 function displayMultipleQuestions(questions, count) {
     const multipleSection = document.getElementById('multipleQuestionsSection');
     const questionsList = document.getElementById('questionsList');
+    const questionCount = document.getElementById('questionCount');
     
     // Clear previous results
     questionsList.innerHTML = '';
+    if (questionCount) {
+        questionCount.textContent = count;
+    }
     
-    // Create question cards
+    // Create question cards with checkboxes
     questions.forEach((question, index) => {
         const questionCard = document.createElement('div');
-        questionCard.className = 'panel panel-default';
+        questionCard.className = 'panel panel-default question-card';
         questionCard.style.marginBottom = '15px';
+        questionCard.setAttribute('data-index', index);
         
         questionCard.innerHTML = `
             <div class="panel-heading">
-                <h6 class="panel-title">
-                    <strong>Câu hỏi ${index + 1}:</strong> ${question.question}
-                </h6>
+                <div class="row">
+                    <div class="col-md-1">
+                        <input type="checkbox" class="question-selector" data-index="${index}" id="question_${index}">
+                    </div>
+                    <div class="col-md-11">
+                        <h6 class="panel-title">
+                            <label for="question_${index}" style="cursor: pointer; margin: 0;">
+                                <strong>Câu hỏi ${index + 1}:</strong> ${question.question}
+                            </label>
+                        </h6>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -395,8 +475,13 @@ function displayMultipleQuestions(questions, count) {
     // Store questions globally for use in button handlers
     window.generatedQuestions = questions;
     
+    // Initialize bulk selection functionality
+    initializeBulkSelection();
+    
     // Show the section
-    multipleSection.style.display = 'block';
+    if (multipleSection) {
+        multipleSection.style.display = 'block';
+    }
     
     // Show success message
     showSuccessMessage(`Tạo thành công ${count} câu hỏi! Chọn câu hỏi bạn muốn sử dụng.`);
@@ -484,5 +569,191 @@ function showSuccessMessage(message) {
     setTimeout(() => {
         document.body.removeChild(successDiv);
     }, 3000);
+}
+
+// Bulk Selection Functions
+function initializeBulkSelection() {
+    // Handle individual checkbox changes
+    document.querySelectorAll('.question-selector').forEach(checkbox => {
+        checkbox.addEventListener('change', updateBulkButtonState);
+    });
+    
+    // Handle select all
+    const selectAllBtn = document.getElementById('selectAllQuestions');
+    if (selectAllBtn) {
+        selectAllBtn.addEventListener('click', selectAllQuestions);
+    }
+    
+    // Handle deselect all
+    const deselectAllBtn = document.getElementById('deselectAllQuestions');
+    if (deselectAllBtn) {
+        deselectAllBtn.addEventListener('click', deselectAllQuestions);
+    }
+    
+    // Handle bulk insert
+    const bulkInsertBtn = document.getElementById('bulkInsertQuestions');
+    if (bulkInsertBtn) {
+        bulkInsertBtn.addEventListener('click', bulkInsertQuestions);
+    }
+    
+    // Initial state update
+    updateBulkButtonState();
+}
+
+function selectAllQuestions() {
+    document.querySelectorAll('.question-selector').forEach(checkbox => {
+        checkbox.checked = true;
+        highlightSelectedCard(checkbox);
+    });
+    updateBulkButtonState();
+    showSuccessMessage('Đã chọn tất cả câu hỏi!');
+}
+
+function deselectAllQuestions() {
+    document.querySelectorAll('.question-selector').forEach(checkbox => {
+        checkbox.checked = false;
+        unhighlightSelectedCard(checkbox);
+    });
+    updateBulkButtonState();
+    showSuccessMessage('Đã bỏ chọn tất cả câu hỏi!');
+}
+
+function updateBulkButtonState() {
+    const selectedCheckboxes = document.querySelectorAll('.question-selector:checked');
+    const selectedCount = selectedCheckboxes.length;
+    const bulkButton = document.getElementById('bulkInsertQuestions');
+    const countSpan = document.getElementById('selectedCount');
+    
+    if (countSpan) {
+        countSpan.textContent = selectedCount;
+    }
+    
+    if (bulkButton) {
+        if (selectedCount > 0) {
+            bulkButton.disabled = false;
+            bulkButton.className = 'btn btn-success btn-sm';
+        } else {
+            bulkButton.disabled = true;
+            bulkButton.className = 'btn btn-default btn-sm';
+        }
+    }
+    
+    // Update card highlighting
+    document.querySelectorAll('.question-selector').forEach(checkbox => {
+        if (checkbox.checked) {
+            highlightSelectedCard(checkbox);
+        } else {
+            unhighlightSelectedCard(checkbox);
+        }
+    });
+}
+
+function highlightSelectedCard(checkbox) {
+    const card = checkbox.closest('.question-card');
+    if (card) {
+        card.style.backgroundColor = '#e8f5e8';
+        card.style.borderColor = '#28a745';
+        card.style.borderWidth = '2px';
+    }
+}
+
+function unhighlightSelectedCard(checkbox) {
+    const card = checkbox.closest('.question-card');
+    if (card) {
+        card.style.backgroundColor = '';
+        card.style.borderColor = '';
+        card.style.borderWidth = '';
+    }
+}
+
+async function bulkInsertQuestions() {
+    const selectedCheckboxes = document.querySelectorAll('.question-selector:checked');
+    const selectedIndices = Array.from(selectedCheckboxes).map(cb => parseInt(cb.dataset.index));
+    
+    if (selectedIndices.length === 0) {
+        alert('Vui lòng chọn ít nhất một câu hỏi để thêm!');
+        return;
+    }
+    
+    const lessonId = document.getElementById('Lesson').value;
+    if (!lessonId) {
+        alert('Vui lòng chọn bài học trước khi thêm câu hỏi!');
+        return;
+    }
+    
+    const confirmMessage = `Bạn có chắc chắn muốn thêm ${selectedIndices.length} câu hỏi đã chọn vào bài học không?\n\nThao tác này không thể hoàn tác!`;
+    
+    if (!confirm(confirmMessage)) {
+        return;
+    }
+    
+    // Show loading state
+    const bulkButton = document.getElementById('bulkInsertQuestions');
+    const originalText = bulkButton.innerHTML;
+    bulkButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Đang thêm...';
+    bulkButton.disabled = true;
+    
+    try {
+        // Prepare questions data
+        const questionsToInsert = selectedIndices.map(index => window.generatedQuestions[index]);
+        
+        // Send to bulk insert endpoint
+        const response = await fetch('bulk_insert_questions_v2.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                lessonId: lessonId,
+                questions: questionsToInsert
+            })
+        });
+        
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+        
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (parseError) {
+            throw new Error('Invalid JSON response: ' + responseText.substring(0, 200));
+        }
+        
+        if (result.success) {
+            showSuccessMessage(`Đã thêm thành công ${result.inserted_count} câu hỏi!`);
+            
+            // Remove inserted questions from display
+            selectedIndices.forEach(index => {
+                const card = document.querySelector(`[data-index="${index}"]`);
+                if (card) {
+                    card.style.opacity = '0.5';
+                    card.style.pointerEvents = 'none';
+                    const checkbox = card.querySelector('.question-selector');
+                    checkbox.checked = false;
+                    checkbox.disabled = true;
+                }
+            });
+            
+            updateBulkButtonState();
+            
+            // Ask if user wants to go to question list
+            setTimeout(() => {
+                if (confirm('Câu hỏi đã được thêm thành công! Bạn có muốn xem danh sách câu hỏi không?')) {
+                    window.location.href = 'index.php';
+                }
+            }, 1500);
+            
+        } else {
+            throw new Error(result.error || 'Không thể thêm câu hỏi');
+        }
+        
+    } catch (error) {
+        console.error('Error bulk inserting questions:', error);
+        alert(`Lỗi khi thêm câu hỏi: ${error.message}`);
+    } finally {
+        // Restore button state
+        bulkButton.innerHTML = originalText;
+        updateBulkButtonState();
+    }
 }
 </script>
