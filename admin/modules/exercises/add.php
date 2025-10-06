@@ -65,6 +65,13 @@
                                         </div>
                                         <div id="aiError" class="alert alert-danger" style="display: none;"></div>
                                         
+                                        <!-- Info message for bulk operations -->
+                                        <div id="bulkInfoMessage" class="alert alert-info" style="margin-top: 15px;">
+                                            <i class="fa fa-info-circle"></i> 
+                                            <strong>Hướng dẫn Bulk Insert:</strong> 
+                                            Nhập chủ đề và click "Tạo Câu Hỏi" để AI tạo nhiều câu hỏi, sau đó bạn có thể chọn "Select All" và "Insert Selected" để thêm nhiều câu cùng lúc.
+                                        </div>
+                                        
                                         <!-- Multiple Questions Result Section -->
                                         <div id="multipleQuestionsSection" style="display: none; margin-top: 20px;">
                                             <div class="row">
@@ -95,20 +102,16 @@
                         <div class="form-group">
                         <div class="col-md-8">
                           <label class="col-md-4 control-label" for=
-                          "Lesson">Select Lesson:</label>
+                          "Topic">Chủ đề:</label>
 
                           <div class="col-md-8"> 
-                            <select class="form-control" name="Lesson" id="Lesson">
-                              <?php 
-                               $sql = "SELECT * FROM `tbllesson`";
-                               $mydb->setQuery($sql);
-                               $cur = $mydb->loadResultList();
-                               foreach ($cur as $res) {
-                                 # code...
-                                echo '<option value='.$res->LessonID.'>'.$res->LessonTitle.'</option>';
-                               }
-                              ?>
-                            </select>
+                            <input type="text" class="form-control" name="Topic" id="Topic" 
+                                   placeholder="Nhập chủ đề câu hỏi (ví dụ: JavaScript, Toán học, Khoa học...)" 
+                                   value="">
+                            <small class="help-block text-muted">
+                                <i class="fa fa-info-circle"></i> 
+                                Nhập chủ đề hoặc môn học mà câu hỏi này thuộc về
+                            </small>
                           </div>
                         </div>
                       </div> 
@@ -478,9 +481,14 @@ function displayMultipleQuestions(questions, count) {
     // Initialize bulk selection functionality
     initializeBulkSelection();
     
-    // Show the section
+    // Show the section and hide info message
     if (multipleSection) {
         multipleSection.style.display = 'block';
+    }
+    
+    const infoMessage = document.getElementById('bulkInfoMessage');
+    if (infoMessage) {
+        infoMessage.style.display = 'none';
     }
     
     // Show success message
@@ -675,13 +683,13 @@ async function bulkInsertQuestions() {
         return;
     }
     
-    const lessonId = document.getElementById('Lesson').value;
-    if (!lessonId) {
-        alert('Vui lòng chọn bài học trước khi thêm câu hỏi!');
+    const topic = document.getElementById('Topic').value;
+    if (!topic || topic.trim() === '') {
+        alert('Vui lòng nhập chủ đề trước khi thêm câu hỏi!');
         return;
     }
     
-    const confirmMessage = `Bạn có chắc chắn muốn thêm ${selectedIndices.length} câu hỏi đã chọn vào bài học không?\n\nThao tác này không thể hoàn tác!`;
+    const confirmMessage = `Bạn có chắc chắn muốn thêm ${selectedIndices.length} câu hỏi với chủ đề "${topic}" không?\n\nThao tác này không thể hoàn tác!`;
     
     if (!confirm(confirmMessage)) {
         return;
@@ -697,6 +705,10 @@ async function bulkInsertQuestions() {
         // Prepare questions data
         const questionsToInsert = selectedIndices.map(index => window.generatedQuestions[index]);
         
+        console.log('Topic:', topic);
+        console.log('Selected indices:', selectedIndices);
+        console.log('Questions to insert:', questionsToInsert);
+        
         // Send to bulk insert endpoint
         const response = await fetch('bulk_insert_questions_v2.php', {
             method: 'POST',
@@ -704,20 +716,28 @@ async function bulkInsertQuestions() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                lessonId: lessonId,
+                topic: topic,
                 questions: questionsToInsert
             })
         });
         
         const responseText = await response.text();
+        console.log('HTTP Status:', response.status);
         console.log('Raw response:', responseText);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${responseText}`);
+        }
         
         let result;
         try {
             result = JSON.parse(responseText);
         } catch (parseError) {
+            console.error('Parse error:', parseError);
             throw new Error('Invalid JSON response: ' + responseText.substring(0, 200));
         }
+        
+        console.log('Parsed result:', result);
         
         if (result.success) {
             showSuccessMessage(`Đã thêm thành công ${result.inserted_count} câu hỏi!`);

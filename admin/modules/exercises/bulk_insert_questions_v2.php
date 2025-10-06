@@ -22,17 +22,20 @@ ob_clean();
 try {
     // Get POST data
     $input = file_get_contents('php://input');
+    error_log("Raw input: " . $input);
+    
     $data = json_decode($input, true);
+    error_log("Decoded data: " . print_r($data, true));
     
     if (!$data) {
         throw new Exception('Invalid JSON data');
     }
     
-    $lessonId = isset($data['lessonId']) ? $data['lessonId'] : null;
+    $topic = isset($data['topic']) ? trim($data['topic']) : null;
     $questions = isset($data['questions']) ? $data['questions'] : null;
     
-    if (!$lessonId || !$questions || !is_array($questions)) {
-        throw new Exception('Missing required data: lessonId and questions array');
+    if (!$topic || !$questions || !is_array($questions)) {
+        throw new Exception('Missing required data: topic and questions array');
     }
     
     if (empty($questions)) {
@@ -67,7 +70,7 @@ try {
             $choiceC = $mydb->escape_value($choices['C']);
             $choiceD = $mydb->escape_value($choices['D']);
             $answer = $mydb->escape_value($question['answer']);
-            $lessonIdEscaped = $mydb->escape_value($lessonId);
+            $topicEscaped = $mydb->escape_value($topic);
             
             // Method 3: Let MySQL handle the ID with a unique approach
             // Find the highest existing ExerciseID for this year
@@ -94,9 +97,9 @@ try {
             // Debug log
             error_log("Inserting question " . ($index + 1) . " with ExerciseID: $ExerciseID");
             
-            // Insert into tblexercise using direct SQL
+            // Insert into tblexercise using direct SQL (using LessonID field to store topic)
             $sql = "INSERT INTO tblexercise (ExerciseID, LessonID, Question, ChoiceA, ChoiceB, ChoiceC, ChoiceD, Answer, ExercisesDate) 
-                    VALUES ('{$ExerciseID}', '{$lessonIdEscaped}', '{$questionText}', '{$choiceA}', '{$choiceB}', '{$choiceC}', '{$choiceD}', '{$answer}', '0000-00-00')";
+                    VALUES ('{$ExerciseID}', '{$topicEscaped}', '{$questionText}', '{$choiceA}', '{$choiceB}', '{$choiceC}', '{$choiceD}', '{$answer}', '0000-00-00')";
             $mydb->setQuery($sql);
             $mydb->executeQuery();
             
@@ -111,7 +114,7 @@ try {
             foreach ($allStudents as $student) {
                 $studId = $mydb->escape_value($student->StudentID);
                 $sql = "INSERT INTO tblstudentquestion (`ExerciseID`, `LessonID`, `StudentID`, `Question`, `CA`, `CB`, `CC`, `CD`, `QA`) 
-                        VALUES ('{$ExerciseID}', '{$lessonIdEscaped}', '{$studId}', '{$questionText}', '{$choiceA}', '{$choiceB}', '{$choiceC}', '{$choiceD}', '{$answer}')";
+                        VALUES ('{$ExerciseID}', '{$topicEscaped}', '{$studId}', '{$questionText}', '{$choiceA}', '{$choiceB}', '{$choiceC}', '{$choiceD}', '{$answer}')";
                 $mydb->setQuery($sql);
                 $mydb->executeQuery();
             }
