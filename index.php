@@ -15,6 +15,16 @@ switch ($view) {
     $title = "Exercises";
     $content = 'exercises.php';
    # code...
+   break;
+  case 'categories':
+    $title = "Exercise Categories";
+    $content = 'categories.php';
+   # code...
+   break;
+  case 'topics':
+    $title = "Exercise Topics";
+    $content = 'topics.php';
+   # code...
    break; 
   case 'download':
     $title = "Download";

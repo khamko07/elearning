@@ -10,20 +10,27 @@ switch ($view) {
 	case 'list' :
 		$content    = 'list.php';		
 		break;
-
+	case 'questions' :
+		$content    = 'questions_by_topic.php';		
+		break;
+	case 'topics' :
+		$content    = 'admin_topics.php';		
+		break;
 	case 'add' :
 		$content    = 'add.php';		
 		break;
-
 	case 'edit' :
 		$content    = 'edit.php';		
 		break;
     case 'view' :
 		$content    = 'view.php';		
 		break;
+    case 'categories' :
+		$content    = 'categories.php';		
+		break;
 
 	default :
-		$content    = 'list.php';		
+		$content    = 'admin_categories.php';		
 }
 require_once("../../navigation/navigations.php");
 ?>

@@ -34,7 +34,7 @@ switch ($action) {
 			$ExerciseID  = date('Y') . (isset($resauto->AUTO) ? $resauto->AUTO : '0001');
 
 			// Validate required fields
-			$required = ['Lesson','Question','Answer','ChoiceA','ChoiceB','ChoiceC','ChoiceD'];
+			$required = ['Category','Topic','Question','Answer','ChoiceA','ChoiceB','ChoiceC','ChoiceD'];
 			foreach ($required as $field) {
 				if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
 					message("Missing required field: {$field}", "error");
@@ -42,10 +42,26 @@ switch ($action) {
 					return;
 				}
 			}
+			
+			// Validate that Category and Topic exist and are related
+			$categoryId = (int)$_POST['Category'];
+			$topicId = (int)$_POST['Topic'];
+			
+			$sql = "SELECT COUNT(*) as count FROM tbltopics WHERE TopicID = {$topicId} AND CategoryID = {$categoryId} AND IsActive = 1";
+			$mydb->setQuery($sql);
+			$result = $mydb->loadSingleResult();
+			
+			if ($result->count == 0) {
+				message("Invalid Category/Topic combination", "error");
+				redirect("index.php?view=add");
+				return;
+			}
  
 			$exercise = New Exercise();  
 			$exercise->ExerciseID 			= $ExerciseID; 
-			$exercise->LessonID 			= $_POST['Lesson']; 
+			$exercise->LessonID 			= 0; // Default to 0 for new structure
+			$exercise->CategoryID 			= $_POST['Category']; 
+			$exercise->TopicID 				= $_POST['Topic']; 
 			$exercise->Question				= $_POST['Question']; 
 			$exercise->Answer				= $_POST['Answer'];
 			$exercise->ChoiceA 				= $_POST['ChoiceA'];
@@ -64,11 +80,11 @@ switch ($action) {
 				$cc = $mydb->escape_value($_POST['ChoiceC']);
 				$cd = $mydb->escape_value($_POST['ChoiceD']);
 				$qa = $mydb->escape_value($_POST['Answer']);
-				$lessonId = $mydb->escape_value($_POST['Lesson']);
+				$topicId = $mydb->escape_value($_POST['Topic']);
 				$studId = $mydb->escape_value($result->StudentID);
 				$exId = $mydb->escape_value($ExerciseID);
 				$sql = "INSERT INTO tblstudentquestion (`ExerciseID`, `LessonID`, `StudentID`,`Question`, `CA`, `CB`, `CC`, `CD`, `QA`) 
-				VALUES ('{$exId}','{$lessonId}','{$studId}','{$q}','{$ca}','{$cb}','{$cc}','{$cd}','{$qa}')";
+				VALUES ('{$exId}','{$topicId}','{$studId}','{$q}','{$ca}','{$cb}','{$cc}','{$cd}','{$qa}')";
 				$mydb->setQuery($sql);
 				$mydb->executeQuery();
 			}
@@ -90,9 +106,24 @@ switch ($action) {
 	if(isset($_POST['save'])){
 			$id = $_POST['ExerciseID'];
 
+			// Validate Category/Topic relationship
+			$categoryId = (int)$_POST['Category'];
+			$topicId = (int)$_POST['Topic'];
+			
+			$sql = "SELECT COUNT(*) as count FROM tbltopics WHERE TopicID = {$topicId} AND CategoryID = {$categoryId} AND IsActive = 1";
+			$mydb->setQuery($sql);
+			$result = $mydb->loadSingleResult();
+			
+			if ($result->count == 0) {
+				message("Invalid Category/Topic combination", "error");
+				redirect("index.php?view=edit&id={$id}");
+				return;
+			}
 
 			$exercise = New Exercise();   
-			$exercise->LessonID 			= $_POST['Lesson']; 
+			$exercise->LessonID 			= 0; // Keep as 0 for new structure
+			$exercise->CategoryID 			= $_POST['Category']; 
+			$exercise->TopicID 				= $_POST['Topic']; 
 			$exercise->Question				= $_POST['Question']; 
 			$exercise->Answer				= $_POST['Answer'];
 			$exercise->ChoiceA 				= $_POST['ChoiceA'];
@@ -101,10 +132,9 @@ switch ($action) {
 			$exercise->ChoiceD				= $_POST['ChoiceD']; 
 			$exercise->update($id); 
 
-			$sql = "UPDATE tblstudentquestion SET   `LessonID`='".$_POST['Lesson']."', `Question`='".$_POST['Question']."', `CA`='".$_POST['ChoiceA']."', `CB`='".$_POST['ChoiceB']."', `CC`='".$_POST['ChoiceC']."', `CD`='".$_POST['ChoiceD']."', `QA`='".$_POST['Answer']." WHERE ExerciseID='{$id}'";
+			$sql = "UPDATE tblstudentquestion SET `LessonID`='".$_POST['Topic']."', `Question`='".$_POST['Question']."', `CA`='".$_POST['ChoiceA']."', `CB`='".$_POST['ChoiceB']."', `CC`='".$_POST['ChoiceC']."', `CD`='".$_POST['ChoiceD']."', `QA`='".$_POST['Answer']."' WHERE ExerciseID='{$id}'";
 			$mydb->setQuery($sql);
 			$mydb->executeQuery();
-
 
 			message("Question has been updated!", "success");
 			redirect("index.php");

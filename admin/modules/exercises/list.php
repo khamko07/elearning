@@ -6,7 +6,7 @@
 ?>
     <div class="row">
       <div class="col-lg-12"> 
-            <h1 class="page-header">List of Question <small>|  <label class="label label-xs" style="font-size: 12px"><a href="index.php?view=add">  <i class="fa fa-plus-circle fw-fa"></i> New</a></label> |</small></h1> 
+            <h1 class="page-header">All Questions (Legacy View) <small>|  <label class="label label-xs" style="font-size: 12px"><a href="index.php?view=add">  <i class="fa fa-plus-circle fw-fa"></i> New</a></label> | <a href="index.php?view=categories" class="label label-info" style="font-size: 12px"><i class="fa fa-cog"></i> Manage Categories</a> | <a href="index.php" class="label label-primary" style="font-size: 12px"><i class="fa fa-home"></i> Back to Categories View</a> |</small></h1> 
        		 
        		</div>
         	<!-- /.col-lg-12 -->
@@ -42,7 +42,8 @@
 				  		    </div>
 				  		</th>
 				  		<th>No.</th>
-				  		<th>Chủ đề</th>
+				  		<th>Category</th>
+				  		<th>Topic</th>
 				  		<th>Question</th>
 				  		<th>A</th>
 				  		<th>B</th>
@@ -55,7 +56,11 @@
 				  </thead> 
 				  <tbody>
 				  	<?php  
-				  		$mydb->setQuery("SELECT * FROM `tblexercise` ORDER BY ExerciseID DESC");
+				  		$mydb->setQuery("SELECT e.*, c.CategoryName, t.TopicName 
+				  		                 FROM `tblexercise` e 
+				  		                 LEFT JOIN `tblcategories` c ON e.CategoryID = c.CategoryID 
+				  		                 LEFT JOIN `tbltopics` t ON e.TopicID = t.TopicID 
+				  		                 ORDER BY c.CategoryName, t.TopicName, e.ExerciseID DESC");
 				  		$cur = $mydb->loadResultList();
 
 						$cnt = 1;
@@ -63,7 +68,8 @@
 				  		echo '<tr>';
 				  		echo '<td align="center" style="background-color: #f9f9f9;"><input type="checkbox" class="question-checkbox" value="'.$result->ExerciseID.'" onchange="updateBulkActions()" style="width: 16px; height: 16px; cursor: pointer;"></td>';
 				  		echo '<td width="5%" align="center">'.$cnt.'</td>';
-				  		echo '<td>' . htmlspecialchars($result->LessonID).'</a></td>'; 
+				  		echo '<td>' . ($result->CategoryName ? $result->CategoryName : 'Uncategorized') . '</td>';
+				  		echo '<td>' . ($result->TopicName ? $result->TopicName : 'No Topic') . '</td>'; 
 				  		echo '<td>' . $result->Question.'</a></td>'; 
 				  		echo '<td>' . $result->ChoiceA.'</a></td>'; 
 				  		echo '<td>' . $result->ChoiceB.'</a></td>'; 

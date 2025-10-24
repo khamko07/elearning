@@ -3,18 +3,48 @@ $studentid = $_SESSION['StudentID'];
 $score = isset($_GET['score']) ? $_GET['score'] : 0;
 $correct = isset($_GET['correct']) ? $_GET['correct'] : 0;
 $total = isset($_GET['total']) ? $_GET['total'] : 0;
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$topicId = isset($_GET['topic']) ? (int)$_GET['topic'] : 0;
 
-if($id==''){
+if($id == '' && $topicId == 0){
     redirect("index.php");
 }
+
+// Get topic and category info if topicId is provided
+if($topicId > 0) {
+    $sql = "SELECT t.TopicName, c.CategoryName, c.CategoryID 
+            FROM tbltopics t 
+            JOIN tblcategories c ON t.CategoryID = c.CategoryID 
+            WHERE t.TopicID = {$topicId}";
+    $mydb->setQuery($sql);
+    $topicInfo = $mydb->loadSingleResult();
+}
 ?>
+
+<?php if($topicId > 0 && $topicInfo): ?>
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb">
+            <li><a href="index.php?q=categories">Exercise Categories</a></li>
+            <li><a href="index.php?q=topics&category=<?php echo $topicInfo->CategoryID; ?>"><?php echo $topicInfo->CategoryName; ?></a></li>
+            <li><a href="index.php?q=question&topic=<?php echo $topicId; ?>"><?php echo $topicInfo->TopicName; ?> Quiz</a></li>
+            <li class="active">Results</li>
+        </ol>
+    </div>
+</div>
+<?php endif; ?>
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Quiz Results</h3>
+                <h3 class="panel-title">
+                    <?php if($topicId > 0 && $topicInfo): ?>
+                        <?php echo $topicInfo->TopicName; ?> Quiz Results
+                    <?php else: ?>
+                        Quiz Results
+                    <?php endif; ?>
+                </h3>
             </div>
             <div class="panel-body">
                 <div class="alert alert-info">
@@ -43,7 +73,9 @@ if($id==''){
 <h3>Review Your Answers</h3>
 <div style="max-height:400px;overflow-y:auto;"> 
 <?php  
-  if($id == 'all') {
+  if($topicId > 0) {
+      $sql = "SELECT * FROM tblexercise WHERE TopicID = {$topicId} ORDER BY ExerciseID";
+  } else if($id == 'all') {
       $sql = "SELECT * FROM tblexercise ORDER BY ExerciseID";
   } else {
       $sql = "SELECT * FROM tblexercise WHERE LessonID = '{$id}'";
@@ -102,6 +134,19 @@ if($id==''){
 </div>
 
 <div style="text-align: center; margin-top: 20px;">
-    <a href="index.php?q=exercises" class="btn btn-primary">Back to Exercises</a>
-    <a href="index.php" class="btn btn-default">Home</a>
+    <?php if($topicId > 0 && $topicInfo): ?>
+        <a href="index.php?q=question&topic=<?php echo $topicId; ?>" class="btn btn-warning">
+            <i class="fa fa-refresh"></i> Retake Quiz
+        </a>
+        <a href="index.php?q=topics&category=<?php echo $topicInfo->CategoryID; ?>" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i> Back to <?php echo $topicInfo->CategoryName; ?> Topics
+        </a>
+    <?php else: ?>
+        <a href="index.php?q=categories" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i> Back to Exercise Categories
+        </a>
+    <?php endif; ?>
+    <a href="index.php" class="btn btn-default">
+        <i class="fa fa-home"></i> Home
+    </a>
 </div>

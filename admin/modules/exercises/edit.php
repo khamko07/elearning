@@ -15,31 +15,34 @@
                             </div>
                             <!-- /.col-lg-12 -->
                          </div>
+                         
                         <div class="form-group">
                         <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "Lesson">Lesson:</label>
-
+                          <label class="col-md-4 control-label" for="Category">Category:</label>
                           <div class="col-md-8">
                           <input type="hidden" name="ExerciseID" value="<?php echo $res->ExerciseID;?>"> 
-                            <select class="form-control" name="Lesson">
-                              <?php 
-                               $sql = "SELECT * FROM `tbllesson` WHERE LessonID=".$res->LessonID;
-                               $mydb->setQuery($sql);
-                               $cur = $mydb->loadResultList();
-                               foreach ($cur as $lesson) {
-                                 # code...
-                                echo '<option SELECTED value='.$lesson->LessonID.'>'.$lesson->LessonTitle.'</option>';
-                               }
-
-                               $sql = "SELECT * FROM `tbllesson` WHERE LessonID!=".$res->LessonID;
-                               $mydb->setQuery($sql);
-                               $cur = $mydb->loadResultList();
-                               foreach ($cur as $lesson) {
-                                 # code...
-                                echo '<option value='.$lesson->LessonID.'>'.$lesson->LessonTitle.'</option>';
-                               }
-                              ?>
+                            <select class="form-control" name="Category" id="editCategory" required onchange="loadEditTopics()">
+                                <option value="">Select Category</option>
+                                <?php
+                                $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
+                                $mydb->setQuery($sql);
+                                $categories = $mydb->loadResultList();
+                                foreach ($categories as $category) {
+                                    $selected = ($category->CategoryID == $res->CategoryID) ? 'selected' : '';
+                                    echo '<option value="'.$category->CategoryID.'" '.$selected.'>'.$category->CategoryName.'</option>';
+                                }
+                                ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <div class="col-md-8">
+                          <label class="col-md-4 control-label" for="Topic">Topic:</label>
+                          <div class="col-md-8"> 
+                            <select class="form-control" name="Topic" id="editTopic" required>
+                                <option value="">Loading topics...</option>
                             </select>
                           </div>
                         </div>
@@ -130,3 +133,42 @@
                         </div>
                       </div> 
                       </form>
+<sc
+ript>
+// Load topics for edit page
+function loadEditTopics() {
+    const categoryId = document.getElementById('editCategory').value;
+    const topicSelect = document.getElementById('editTopic');
+    
+    if (!categoryId) {
+        topicSelect.innerHTML = '<option value="">Select Category first</option>';
+        return;
+    }
+    
+    // Show loading
+    topicSelect.innerHTML = '<option value="">Loading topics...</option>';
+    
+    fetch('get_topics.php?categoryId=' + categoryId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                topicSelect.innerHTML = '<option value="">Select Topic</option>';
+                data.topics.forEach(topic => {
+                    const selected = topic.TopicID == <?php echo $res->TopicID; ?> ? 'selected' : '';
+                    topicSelect.innerHTML += `<option value="${topic.TopicID}" ${selected}>${topic.TopicName}</option>`;
+                });
+            } else {
+                topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+        });
+}
+
+// Load topics on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadEditTopics();
+});
+</script>

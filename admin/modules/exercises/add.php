@@ -25,8 +25,9 @@
                                 </p>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label for="topic">Chủ đề/Môn học:</label>
-                                        <input type="text" class="form-control" id="topic" placeholder="Ví dụ: JavaScript, Toán học, Khoa học..." value="">
+                                        <label for="aiTopic">AI Topic (auto-filled):</label>
+                                        <input type="text" class="form-control" id="aiTopic" placeholder="Chọn Category và Topic trước" readonly style="background-color: #f5f5f5;">
+                                        <small class="text-muted">Sẽ tự động điền khi bạn chọn Category và Topic</small>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="difficulty">Độ khó:</label>
@@ -101,17 +102,44 @@
 
                         <div class="form-group">
                         <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "Topic">Chủ đề:</label>
-
+                          <label class="col-md-4 control-label" for="Category">Category:</label>
                           <div class="col-md-8"> 
-                            <input type="text" class="form-control" name="Topic" id="Topic" 
-                                   placeholder="Nhập chủ đề câu hỏi (ví dụ: JavaScript, Toán học, Khoa học...)" 
-                                   value="">
+                            <select class="form-control" name="Category" id="Category" required onchange="loadTopics()">
+                                <option value="">Select Category</option>
+                                <?php
+                                $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
+                                $mydb->setQuery($sql);
+                                $categories = $mydb->loadResultList();
+                                foreach ($categories as $category) {
+                                    echo '<option value="'.$category->CategoryID.'">'.$category->CategoryName.'</option>';
+                                }
+                                ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <div class="col-md-8">
+                          <label class="col-md-4 control-label" for="Topic">Topic:</label>
+                          <div class="col-md-8"> 
+                            <select class="form-control" name="Topic" id="Topic" required>
+                                <option value="">Select Category first</option>
+                            </select>
                             <small class="help-block text-muted">
                                 <i class="fa fa-info-circle"></i> 
-                                Nhập chủ đề hoặc môn học mà câu hỏi này thuộc về
+                                Chọn category trước, sau đó chọn topic cụ thể
                             </small>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <div class="col-md-8">
+                          <div class="col-md-offset-4 col-md-8">
+                            <a href="index.php?view=categories" class="btn btn-info btn-sm">
+                                <i class="fa fa-cog"></i> Manage Categories & Topics
+                            </a>
                           </div>
                         </div>
                       </div> 
@@ -305,12 +333,16 @@
 
 <script>
 // Gemini API Integration - Simplified version
+// Add event listener for Topic select
+document.getElementById('Topic').addEventListener('change', updateAITopic);
+
 document.getElementById('generateQuestion').addEventListener('click', function() {
-    const topic = document.getElementById('topic').value.trim();
+    const topic = document.getElementById('aiTopic').value.trim();
     const difficulty = document.getElementById('difficulty').value;
     const numQuestions = parseInt(document.getElementById('numQuestions').value, 10);
+    
     if (!topic) {
-        alert('Vui lòng nhập chủ đề cho câu hỏi.');
+        alert('Vui lòng chọn Category và Topic trước khi tạo câu hỏi.');
         return;
     }
     if (isNaN(numQuestions) || numQuestions < 1 || numQuestions > 10) {
@@ -558,7 +590,61 @@ function clearForm() {
     document.getElementById('ChoiceC').value = '';
     document.getElementById('ChoiceD').value = '';
     document.getElementById('Answer').value = '';
-    document.getElementById('topic').value = '';
+    document.getElementById('Category').value = '';
+    document.getElementById('Topic').innerHTML = '<option value="">Select Category first</option>';
+    document.getElementById('aiTopic').value = '';
+}
+
+// Load topics when category is selected
+function loadTopics() {
+    const categoryId = document.getElementById('Category').value;
+    const topicSelect = document.getElementById('Topic');
+    
+    if (!categoryId) {
+        topicSelect.innerHTML = '<option value="">Select Category first</option>';
+        updateAITopic();
+        return;
+    }
+    
+    // Show loading
+    topicSelect.innerHTML = '<option value="">Loading topics...</option>';
+    
+    fetch('get_topics.php?categoryId=' + categoryId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                topicSelect.innerHTML = '<option value="">Select Topic</option>';
+                data.topics.forEach(topic => {
+                    topicSelect.innerHTML += `<option value="${topic.TopicID}">${topic.TopicName}</option>`;
+                });
+            } else {
+                topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+            }
+            updateAITopic();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+            updateAITopic();
+        });
+}
+
+// Update AI topic field when Category/Topic changes
+function updateAITopic() {
+    const categorySelect = document.getElementById('Category');
+    const topicSelect = document.getElementById('Topic');
+    const aiTopicInput = document.getElementById('aiTopic');
+    
+    const categoryText = categorySelect.options[categorySelect.selectedIndex]?.text || '';
+    const topicText = topicSelect.options[topicSelect.selectedIndex]?.text || '';
+    
+    if (categoryText && topicText && topicText !== 'Select Topic' && topicText !== 'Loading topics...' && topicText !== 'Error loading topics') {
+        aiTopicInput.value = `${categoryText} - ${topicText}`;
+    } else if (categoryText && categoryText !== 'Select Category') {
+        aiTopicInput.value = categoryText;
+    } else {
+        aiTopicInput.value = '';
+    }
 }
 
 function showSuccessMessage(message) {
