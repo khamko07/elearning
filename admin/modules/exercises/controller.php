@@ -17,7 +17,11 @@ switch ($action) {
 	
 	case 'delete' :
 	doDelete();
-	break; 
+	break;
+	
+	case 'bulkDelete' :
+	doBulkDelete();
+	break;
 
 	}
    
@@ -125,5 +129,41 @@ switch ($action) {
 			redirect('index.php');
 	 
 		
+	}
+
+	function doBulkDelete(){
+		global $mydb;
+		
+		if (!isset($_POST['selectedIds']) || !is_array($_POST['selectedIds'])) {
+			message("Không có câu hỏi nào được chọn để xóa!", "error");
+			redirect('index.php');
+			return;
+		}
+		
+		$selectedIds = $_POST['selectedIds'];
+		$deletedCount = 0;
+		
+		foreach ($selectedIds as $id) {
+			$id = $mydb->escape_value($id);
+			
+			// Delete from tblexercise
+			$exercise = New Exercise();
+			$exercise->delete($id);
+			
+			// Delete from tblstudentquestion if exists
+			$sql = "DELETE FROM tblstudentquestion WHERE ExerciseID='{$id}'";
+			$mydb->setQuery($sql);
+			$mydb->executeQuery();
+			
+			// Delete from tblscore if exists
+			$sql = "DELETE FROM tblscore WHERE ExerciseID='{$id}'";
+			$mydb->setQuery($sql);
+			$mydb->executeQuery();
+			
+			$deletedCount++;
+		}
+		
+		message("Đã xóa thành công {$deletedCount} câu hỏi!", "success");
+		redirect('index.php');
 	}
 ?>
