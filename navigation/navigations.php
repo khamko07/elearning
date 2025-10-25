@@ -146,7 +146,7 @@ clear: both;
 <section id="navigation">
   <div id="mySidenav" class="sidenav">
     <a href="<?php echo web_root; ?>index.php?q=lesson" id="lesson">Lesson <i class="fa fa-home pull-right"></i></a> 
-    <a href="<?php echo web_root; ?>index.php?q=categories" id="categories">Exercises <i class="fa fa-question-circle pull-right"></i></a>
+    <a href="<?php echo web_root; ?>index.php?q=categories" id="categories">Exercises <i class="fa fa-check-square-o pull-right" style="color: rgb(0, 67, 200);"></i></a>
     <a href="<?php echo web_root; ?>index.php?q=download" id="download">Download <i class="fa fa-download pull-right"></i></a>
     <a href="<?php echo web_root; ?>index.php?q=about" id="about">About Us <i class="fa fa-info-circle pull-right"></i></a>  
      <a href="logout.php" id="login">Logout <i class="fa fa-sign-out pull-right"></i></a> 

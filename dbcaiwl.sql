@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2025 at 11:33 PM
+-- Generation Time: Oct 25, 2025 at 12:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,31 @@ CREATE TABLE `tblautonumbers` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblcategories`
+--
+
+CREATE TABLE `tblcategories` (
+  `CategoryID` int(11) NOT NULL,
+  `CategoryName` varchar(100) NOT NULL,
+  `CategoryDescription` text DEFAULT NULL,
+  `CreatedAt` datetime DEFAULT current_timestamp(),
+  `IsActive` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblcategories`
+--
+
+INSERT INTO `tblcategories` (`CategoryID`, `CategoryName`, `CategoryDescription`, `CreatedAt`, `IsActive`) VALUES
+(1, 'Technology', 'Câu hỏi về công nghệ thông tin, lập trình, AI', '2025-10-25 04:37:26', 1),
+(2, 'Science', 'Câu hỏi về khoa học tự nhiên, vật lý, hóa học', '2025-10-25 04:37:26', 1),
+(3, 'Mathematics', 'Câu hỏi về toán học các cấp độ', '2025-10-25 04:37:26', 1),
+(4, 'Business', 'Câu hỏi về kinh doanh, quản lý, marketing', '2025-10-25 04:37:26', 1),
+(5, 'Language', 'Câu hỏi về ngôn ngữ, văn học, ngoại ngữ', '2025-10-25 04:37:26', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblcontent`
 --
 
@@ -58,6 +83,8 @@ CREATE TABLE `tblcontent` (
 CREATE TABLE `tblexercise` (
   `ExerciseID` int(11) NOT NULL,
   `LessonID` int(11) NOT NULL,
+  `CategoryID` int(11) DEFAULT NULL,
+  `TopicID` int(11) DEFAULT NULL,
   `Question` text NOT NULL,
   `ChoiceA` text NOT NULL,
   `ChoiceB` text NOT NULL,
@@ -71,11 +98,25 @@ CREATE TABLE `tblexercise` (
 -- Dumping data for table `tblexercise`
 --
 
-INSERT INTO `tblexercise` (`ExerciseID`, `LessonID`, `Question`, `ChoiceA`, `ChoiceB`, `ChoiceC`, `ChoiceD`, `Answer`, `ExercisesDate`) VALUES
-(20250001, 0, 'Which of the following is NOT typically considered one of the \'3 Vs\' (or common expanded Vs) that define Big Data?', 'Volume', 'Velocity', 'Variety', 'Visualization', 'D', '0000-00-00'),
-(20250002, 0, 'Which technology is widely recognized for its open-source framework that allows for distributed storage and processing of massive datasets across clusters of computers?', 'Microsoft Excel', 'Apache Hadoop', 'Oracle Database', 'Adobe Photoshop', 'B', '0000-00-00'),
-(20250003, 0, 'A primary benefit of leveraging Big Data analytics in business is to:', 'Reduce the overall quantity of data collected to save storage space.', 'Enable manual data entry and processing for greater human oversight.', 'Discover hidden patterns, trends, and correlations to improve decision-making.', 'Strictly limit data access to only a few high-level executives.', 'C', '0000-00-00'),
-(20250004, 0, 'In the context of Big Data, the term \'Veracity\' primarily addresses which of the following issues?', 'The sheer amount of data being generated.', 'The speed at which data needs to be processed.', 'The diverse range of data formats and sources.', 'The uncertainty, incompleteness, and unreliability of the data.', 'D', '0000-00-00');
+INSERT INTO `tblexercise` (`ExerciseID`, `LessonID`, `CategoryID`, `TopicID`, `Question`, `ChoiceA`, `ChoiceB`, `ChoiceC`, `ChoiceD`, `Answer`, `ExercisesDate`) VALUES
+(20250001, 11, NULL, NULL, 'Which of the following is the BEST example of market segmentation?', 'Offering the same product to everyone with a focus on mass advertising.', 'Dividing the total market into smaller groups with similar needs and wants.', 'Increasing the price of a product to create a perception of higher quality.', 'Creating a new product line to appeal to a broader range of customers without specific targeting.', 'B', '0000-00-00'),
+(20250002, 11, NULL, NULL, 'What is the primary goal of integrated marketing communications (IMC)?', 'To maximize the number of advertising channels used.', 'To ensure all marketing and promotional activities deliver a consistent and unified message.', 'To reduce marketing costs by streamlining the communication process.', 'To allow individual departments within a company to manage their own marketing efforts independently.', 'B', '0000-00-00'),
+(20250003, 11, NULL, NULL, 'Which of the following is a core component of the marketing mix (the 4 Ps)?', 'Personnel', 'Physical Evidence', 'Price', 'Process', 'C', '0000-00-00'),
+(20250004, 11, NULL, NULL, 'A company launches a social media campaign to promote its new line of sustainable products. Which of the following KPIs (Key Performance Indicators) would be MOST relevant to measure the campaign\'s success?', 'Website traffic and bounce rate.', 'Employee satisfaction scores.', 'Brand mentions, engagement (likes, shares, comments), and reach.', 'Number of products returned by customers.', 'C', '0000-00-00'),
+(20250005, 11, NULL, NULL, 'What is \'brand equity\' MOST directly related to?', 'The total revenue generated by the company.', 'The financial value of the brand\'s tangible assets.', 'The premium value that a company generates from a product with a recognizable name when compared to a generic equivalent.', 'The market capitalization of the company\'s stock.', 'C', '0000-00-00'),
+(20250006, 8, NULL, NULL, 'Solve the inequality: 3x + 5 < 14', 'x < 3', 'x > 3', 'x < -3', 'x > -3', 'A', '0000-00-00'),
+(20250007, 8, NULL, NULL, 'Simplify the expression: (2x + 3)(x - 1)', '2x^2 + x - 3', '2x^2 - x + 3', '2x^2 + 5x + 3', '2x^2 - 5x - 3', 'A', '0000-00-00'),
+(20250008, 8, NULL, NULL, 'What is the slope of the line represented by the equation 2y - 4x = 6?', '-2', '2', '-4', '4', 'B', '0000-00-00'),
+(20250009, 8, NULL, NULL, 'Factor the quadratic expression: x^2 - 5x + 6', '(x - 2)(x + 3)', '(x + 2)(x - 3)', '(x - 2)(x - 3)', '(x + 2)(x + 3)', 'C', '0000-00-00'),
+(20250010, 8, NULL, NULL, 'Solve the system of equations: x + y = 5; x - y = 1', 'x=3, y=2', 'x=2, y=3', 'x=4, y=1', 'x=1, y=4', 'A', '0000-00-00'),
+(20250011, 13, NULL, NULL, 'Choose the correct verb form to complete the sentence: \'Neither of the two proposals ____ considered viable by the committee.\'', 'is', 'are', 'were', 'have been', 'A', '0000-00-00'),
+(20250012, 13, NULL, NULL, 'Select the option that best completes the sentence: \'After months of hard work, the team finally managed to ______ a breakthrough in their research.\'', 'call off', 'put up with', 'come up with', 'get over', 'C', '0000-00-00'),
+(20250013, 13, NULL, NULL, 'Which sentence uses punctuation correctly?', 'Although it was late, we decided to finish the report before leaving.', 'Although it was late we decided to finish the report, before leaving.', 'Although it was late we decided to finish the report before leaving.', 'Although, it was late, we decided to finish the report before leaving.', 'A', '0000-00-00'),
+(20250014, 13, NULL, NULL, 'Identify the sentence that is grammatically correct and most concise.', 'Due to the fact that the weather was bad, the event was postponed.', 'Because the weather was bad, the event was postponed.', 'The weather was bad, and therefore, the event was postponed.', 'The event was postponed on account of the fact that the weather was bad.', 'B', '0000-00-00'),
+(20250015, 11, NULL, NULL, 'Which of the following best describes the concept of \'marketing myopia\'?', 'Focusing on current customer needs rather than anticipating future needs.', 'Focusing on the product rather than the customer experience and benefits.', 'Focusing on short-term profits rather than long-term brand building.', 'Focusing on a narrow target market rather than a broader potential market.', 'B', '0000-00-00'),
+(20250016, 11, NULL, NULL, 'A company decides to implement a \'differentiated marketing\' strategy. What is the primary characteristic of this approach?', 'Ignoring segment differences and marketing to the entire market with one offer.', 'Targeting a large share of a small market segment.', 'Developing separate marketing mixes for several target segments.', 'Focusing on cost leadership within a single, undifferentiated market.', 'C', '0000-00-00'),
+(20250017, 11, NULL, NULL, 'Which element of the marketing mix (the 4 Ps) is most closely related to activities such as advertising, public relations, and sales promotions?', 'Product', 'Price', 'Place', 'Promotion', 'D', '0000-00-00'),
+(20250018, 11, NULL, NULL, 'What is the main purpose of conducting market research before launching a new product?', 'To guarantee the product\'s success in the market.', 'To determine the optimal pricing strategy regardless of customer feedback.', 'To reduce risk by understanding the target market, competitive landscape, and potential demand.', 'To streamline the production process and minimize manufacturing costs.', 'C', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -107,15 +148,6 @@ CREATE TABLE `tblscore` (
   `Submitted` tinyint(1) NOT NULL,
   `Answer` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblscore`
---
-
-INSERT INTO `tblscore` (`ScoreID`, `LessonID`, `ExerciseID`, `StudentID`, `NoItems`, `Score`, `Submitted`, `Answer`) VALUES
-(124, 0, 20250001, 7, 1, 0, 0, NULL),
-(125, 0, 20250003, 7, 1, 0, 0, NULL),
-(126, 0, 20250004, 7, 1, 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -164,8 +196,6 @@ CREATE TABLE `tblstudentquestion` (
 --
 
 INSERT INTO `tblstudentquestion` (`SQID`, `ExerciseID`, `LessonID`, `StudentID`, `Question`, `CA`, `CB`, `CC`, `CD`, `QA`) VALUES
-(12, 20250024, 8, 7, 'Which Laravel feature provides an expressive, fluent interface for interacting with databa', 'Eloquent ORM', 'Blade Templating Engine', 'Artisan Console', 'Service Container', 'A'),
-(13, 20250025, 8, 7, 'What is the primary purpose of Laravel\'s \'Artisan\' command-line tool?', 'To compile CSS and JavaScript assets.', 'To manage database migrations and generate boilerplate code.', 'To handle user authentication and authorization.', 'To optimize server performance and caching.', 'B'),
 (14, 20250026, 8, 7, 'Which directory in a standard Laravel project typically holds view files?', 'app/', 'config/', 'resources/views/', 'routes/', 'C'),
 (15, 20250027, 8, 7, 'Which Laravel feature provides an expressive, fluent interface for interacting with databa', 'Eloquent ORM', 'Blade Templating Engine', 'Artisan Console', 'Service Container', 'A'),
 (16, 20250028, 8, 7, 'What is the primary purpose of Laravel\'s \'Artisan\' command-line tool?', 'To compile CSS and JavaScript assets.', 'To manage database migrations and generate boilerplate code.', 'To handle user authentication and authorization.', 'To optimize server performance and caching.', 'B'),
@@ -175,10 +205,59 @@ INSERT INTO `tblstudentquestion` (`SQID`, `ExerciseID`, `LessonID`, `StudentID`,
 (20, 20250032, 8, 7, 'Which of the following programming languages is commonly used for data analysis and statis', 'Java', 'C++', 'Python', 'Assembly', 'C'),
 (21, 20250033, 8, 7, 'What is the term for the process of extracting valuable insights and knowledge from large ', 'Data Mining', 'Data Cleansing', 'Data Warehousing', 'Data Encryption', 'A'),
 (22, 20250034, 8, 7, 'Which of the following is an example of a NoSQL database often used in Big Data environmen', 'MySQL', 'PostgreSQL', 'MongoDB', 'Oracle', 'C'),
-(65, 20250001, 0, 7, 'Which of the following is NOT typically considered one of the \'3 Vs\' (or common expanded V', 'Volume', 'Velocity', 'Variety', 'Visualization', 'D'),
-(66, 20250002, 0, 7, 'Which technology is widely recognized for its open-source framework that allows for distri', 'Microsoft Excel', 'Apache Hadoop', 'Oracle Database', 'Adobe Photoshop', 'B'),
-(67, 20250003, 0, 7, 'A primary benefit of leveraging Big Data analytics in business is to:', 'Reduce the overall quantity of data collected to save storage space.', 'Enable manual data entry and processing for greater human oversight.', 'Discover hidden patterns, trends, and correlations to improve decision-making.', 'Strictly limit data access to only a few high-level executives.', 'C'),
-(68, 20250004, 0, 7, 'In the context of Big Data, the term \'Veracity\' primarily addresses which of the following', 'The sheer amount of data being generated.', 'The speed at which data needs to be processed.', 'The diverse range of data formats and sources.', 'The uncertainty, incompleteness, and unreliability of the data.', 'D');
+(156, 20250001, 11, 7, 'Which of the following is the BEST example of market segmentation?', 'Offering the same product to everyone with a focus on mass advertising.', 'Dividing the total market into smaller groups with similar needs and wants.', 'Increasing the price of a product to create a perception of higher quality.', 'Creating a new product line to appeal to a broader range of customers without specific tar', 'B'),
+(157, 20250002, 11, 7, 'What is the primary goal of integrated marketing communications (IMC)?', 'To maximize the number of advertising channels used.', 'To ensure all marketing and promotional activities deliver a consistent and unified messag', 'To reduce marketing costs by streamlining the communication process.', 'To allow individual departments within a company to manage their own marketing efforts ind', 'B'),
+(158, 20250003, 11, 7, 'Which of the following is a core component of the marketing mix (the 4 Ps)?', 'Personnel', 'Physical Evidence', 'Price', 'Process', 'C'),
+(159, 20250004, 11, 7, 'A company launches a social media campaign to promote its new line of sustainable products', 'Website traffic and bounce rate.', 'Employee satisfaction scores.', 'Brand mentions, engagement (likes, shares, comments), and reach.', 'Number of products returned by customers.', 'C'),
+(160, 20250005, 11, 7, 'What is \'brand equity\' MOST directly related to?', 'The total revenue generated by the company.', 'The financial value of the brand\'s tangible assets.', 'The premium value that a company generates from a product with a recognizable name when co', 'The market capitalization of the company\'s stock.', 'C'),
+(161, 20250006, 8, 7, 'Solve the inequality: 3x + 5 < 14', 'x < 3', 'x > 3', 'x < -3', 'x > -3', 'A'),
+(162, 20250007, 8, 7, 'Simplify the expression: (2x + 3)(x - 1)', '2x^2 + x - 3', '2x^2 - x + 3', '2x^2 + 5x + 3', '2x^2 - 5x - 3', 'A'),
+(163, 20250008, 8, 7, 'What is the slope of the line represented by the equation 2y - 4x = 6?', '-2', '2', '-4', '4', 'B'),
+(164, 20250009, 8, 7, 'Factor the quadratic expression: x^2 - 5x + 6', '(x - 2)(x + 3)', '(x + 2)(x - 3)', '(x - 2)(x - 3)', '(x + 2)(x + 3)', 'C'),
+(165, 20250010, 8, 7, 'Solve the system of equations: x + y = 5; x - y = 1', 'x=3, y=2', 'x=2, y=3', 'x=4, y=1', 'x=1, y=4', 'A'),
+(166, 20250011, 13, 7, 'Choose the correct verb form to complete the sentence: \'Neither of the two proposals ____ ', 'is', 'are', 'were', 'have been', 'A'),
+(167, 20250012, 13, 7, 'Select the option that best completes the sentence: \'After months of hard work, the team f', 'call off', 'put up with', 'come up with', 'get over', 'C'),
+(168, 20250013, 13, 7, 'Which sentence uses punctuation correctly?', 'Although it was late, we decided to finish the report before leaving.', 'Although it was late we decided to finish the report, before leaving.', 'Although it was late we decided to finish the report before leaving.', 'Although, it was late, we decided to finish the report before leaving.', 'A'),
+(169, 20250014, 13, 7, 'Identify the sentence that is grammatically correct and most concise.', 'Due to the fact that the weather was bad, the event was postponed.', 'Because the weather was bad, the event was postponed.', 'The weather was bad, and therefore, the event was postponed.', 'The event was postponed on account of the fact that the weather was bad.', 'B'),
+(170, 20250015, 11, 7, 'Which of the following best describes the concept of \'marketing myopia\'?', 'Focusing on current customer needs rather than anticipating future needs.', 'Focusing on the product rather than the customer experience and benefits.', 'Focusing on short-term profits rather than long-term brand building.', 'Focusing on a narrow target market rather than a broader potential market.', 'B'),
+(171, 20250016, 11, 7, 'A company decides to implement a \'differentiated marketing\' strategy. What is the primary ', 'Ignoring segment differences and marketing to the entire market with one offer.', 'Targeting a large share of a small market segment.', 'Developing separate marketing mixes for several target segments.', 'Focusing on cost leadership within a single, undifferentiated market.', 'C'),
+(172, 20250017, 11, 7, 'Which element of the marketing mix (the 4 Ps) is most closely related to activities such a', 'Product', 'Price', 'Place', 'Promotion', 'D'),
+(173, 20250018, 11, 7, 'What is the main purpose of conducting market research before launching a new product?', 'To guarantee the product\'s success in the market.', 'To determine the optimal pricing strategy regardless of customer feedback.', 'To reduce risk by understanding the target market, competitive landscape, and potential de', 'To streamline the production process and minimize manufacturing costs.', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltopics`
+--
+
+CREATE TABLE `tbltopics` (
+  `TopicID` int(11) NOT NULL,
+  `CategoryID` int(11) NOT NULL,
+  `TopicName` varchar(100) NOT NULL,
+  `TopicDescription` text DEFAULT NULL,
+  `CreatedAt` datetime DEFAULT current_timestamp(),
+  `IsActive` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbltopics`
+--
+
+INSERT INTO `tbltopics` (`TopicID`, `CategoryID`, `TopicName`, `TopicDescription`, `CreatedAt`, `IsActive`) VALUES
+(1, 1, 'Artificial Intelligence', 'Câu hỏi về AI, Machine Learning, Deep Learning', '2025-10-25 04:37:26', 1),
+(2, 1, 'Web Development', 'Câu hỏi về HTML, CSS, JavaScript, PHP', '2025-10-25 04:37:26', 1),
+(3, 1, 'Database', 'Câu hỏi về SQL, MySQL, MongoDB', '2025-10-25 04:37:26', 1),
+(4, 1, 'Programming Languages', 'Câu hỏi về Java, Python, C++, etc.', '2025-10-25 04:37:26', 1),
+(5, 2, 'Physics', 'Câu hỏi về vật lý', '2025-10-25 04:37:26', 1),
+(6, 2, 'Chemistry', 'Câu hỏi về hóa học', '2025-10-25 04:37:26', 1),
+(7, 2, 'Biology', 'Câu hỏi về sinh học', '2025-10-25 04:37:26', 1),
+(8, 3, 'Algebra', 'Câu hỏi về đại số', '2025-10-25 04:37:26', 1),
+(9, 3, 'Geometry', 'Câu hỏi về hình học', '2025-10-25 04:37:26', 1),
+(10, 3, 'Calculus', 'Câu hỏi về giải tích', '2025-10-25 04:37:26', 1),
+(11, 4, 'Marketing', 'Câu hỏi về marketing', '2025-10-25 04:37:26', 1),
+(12, 4, 'Management', 'Câu hỏi về quản lý', '2025-10-25 04:37:26', 1),
+(13, 5, 'English', 'Câu hỏi tiếng Anh', '2025-10-25 04:37:26', 1),
+(14, 5, 'Vietnamese Literature', 'Câu hỏi văn học Việt Nam', '2025-10-25 04:37:26', 1);
 
 -- --------------------------------------------------------
 
@@ -212,6 +291,12 @@ ALTER TABLE `tblautonumbers`
   ADD PRIMARY KEY (`AUTOID`);
 
 --
+-- Indexes for table `tblcategories`
+--
+ALTER TABLE `tblcategories`
+  ADD PRIMARY KEY (`CategoryID`);
+
+--
 -- Indexes for table `tblcontent`
 --
 ALTER TABLE `tblcontent`
@@ -221,7 +306,9 @@ ALTER TABLE `tblcontent`
 -- Indexes for table `tblexercise`
 --
 ALTER TABLE `tblexercise`
-  ADD PRIMARY KEY (`ExerciseID`);
+  ADD PRIMARY KEY (`ExerciseID`),
+  ADD KEY `CategoryID` (`CategoryID`),
+  ADD KEY `TopicID` (`TopicID`);
 
 --
 -- Indexes for table `tbllesson`
@@ -248,6 +335,13 @@ ALTER TABLE `tblstudentquestion`
   ADD PRIMARY KEY (`SQID`);
 
 --
+-- Indexes for table `tbltopics`
+--
+ALTER TABLE `tbltopics`
+  ADD PRIMARY KEY (`TopicID`),
+  ADD KEY `CategoryID` (`CategoryID`);
+
+--
 -- Indexes for table `tblusers`
 --
 ALTER TABLE `tblusers`
@@ -264,6 +358,12 @@ ALTER TABLE `tblautonumbers`
   MODIFY `AUTOID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `tblcategories`
+--
+ALTER TABLE `tblcategories`
+  MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `tblcontent`
 --
 ALTER TABLE `tblcontent`
@@ -273,7 +373,7 @@ ALTER TABLE `tblcontent`
 -- AUTO_INCREMENT for table `tblexercise`
 --
 ALTER TABLE `tblexercise`
-  MODIFY `ExerciseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20250035;
+  MODIFY `ExerciseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20259541;
 
 --
 -- AUTO_INCREMENT for table `tbllesson`
@@ -285,7 +385,7 @@ ALTER TABLE `tbllesson`
 -- AUTO_INCREMENT for table `tblscore`
 --
 ALTER TABLE `tblscore`
-  MODIFY `ScoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `ScoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT for table `tblstudent`
@@ -297,13 +397,36 @@ ALTER TABLE `tblstudent`
 -- AUTO_INCREMENT for table `tblstudentquestion`
 --
 ALTER TABLE `tblstudentquestion`
-  MODIFY `SQID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `SQID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+
+--
+-- AUTO_INCREMENT for table `tbltopics`
+--
+ALTER TABLE `tbltopics`
+  MODIFY `TopicID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
   MODIFY `USERID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tblexercise`
+--
+ALTER TABLE `tblexercise`
+  ADD CONSTRAINT `tblexercise_ibfk_1` FOREIGN KEY (`CategoryID`) REFERENCES `tblcategories` (`CategoryID`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tblexercise_ibfk_2` FOREIGN KEY (`TopicID`) REFERENCES `tbltopics` (`TopicID`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `tbltopics`
+--
+ALTER TABLE `tbltopics`
+  ADD CONSTRAINT `tbltopics_ibfk_1` FOREIGN KEY (`CategoryID`) REFERENCES `tblcategories` (`CategoryID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

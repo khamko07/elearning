@@ -72,27 +72,12 @@ try {
             $answer = $mydb->escape_value($question['answer']);
             $topicEscaped = $mydb->escape_value($topic);
             
-            // Method 3: Let MySQL handle the ID with a unique approach
-            // Find the highest existing ExerciseID for this year
-            $currentYear = date('Y');
-            $sql = "SELECT MAX(CAST(SUBSTRING(ExerciseID, 5) AS UNSIGNED)) as max_num 
-                    FROM tblexercise 
-                    WHERE ExerciseID LIKE '{$currentYear}%'";
-            $mydb->setQuery($sql);
-            $result = $mydb->loadSingleResult();
+            // Use helper function for unique ExerciseID generation
+            require_once('exercise_id_helper.php');
+            $ExerciseID = generateUniqueExerciseID($mydb);
             
-            $nextNum = ($result && $result->max_num) ? intval($result->max_num) + 1 : 1;
-            $ExerciseID = $currentYear . str_pad($nextNum, 4, '0', STR_PAD_LEFT);
-            
-            // Double-check uniqueness (in case of concurrent inserts)
-            $checkSql = "SELECT COUNT(*) as count FROM tblexercise WHERE ExerciseID = '{$ExerciseID}'";
-            $mydb->setQuery($checkSql);
-            $checkResult = $mydb->loadSingleResult();
-            
-            // If still exists, add timestamp suffix
-            if ($checkResult->count > 0) {
-                $ExerciseID = $currentYear . str_pad($nextNum + time() % 1000, 4, '0', STR_PAD_LEFT);
-            }
+            // Add small delay between questions to ensure uniqueness
+            usleep(2000); // 2ms delay
             
             // Debug log
             error_log("Inserting question " . ($index + 1) . " with ExerciseID: $ExerciseID");

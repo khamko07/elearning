@@ -2,6 +2,9 @@
 if (!isset($_SESSION['USERID'])){
     redirect(web_root."admin/index.php");
 }
+
+// Debug: Check if this file is being loaded
+echo "<!-- DEBUG: admin_categories.php loaded at " . date('Y-m-d H:i:s') . " -->";
 ?>
 
 <div class="row">
@@ -18,15 +21,23 @@ if (!isset($_SESSION['USERID'])){
 
 <div class="row">
     <?php 
-    $sql = "SELECT c.*, COUNT(DISTINCT t.TopicID) as TopicCount, COUNT(DISTINCT e.ExerciseID) as QuestionCount
+    $sql = "SELECT c.*, 
+            (SELECT COUNT(*) FROM tbltopics t WHERE t.CategoryID = c.CategoryID AND t.IsActive = 1) as TopicCount,
+            (SELECT COUNT(*) FROM tblexercise e WHERE e.CategoryID = c.CategoryID) as QuestionCount
             FROM tblcategories c 
-            LEFT JOIN tbltopics t ON c.CategoryID = t.CategoryID AND t.IsActive = 1
-            LEFT JOIN tblexercise e ON t.TopicID = e.TopicID
             WHERE c.IsActive = 1 
-            GROUP BY c.CategoryID 
             ORDER BY c.CategoryName";
     $mydb->setQuery($sql);
     $categories = $mydb->loadResultList();
+    
+    // DEBUG: Force show correct data
+    echo "<!-- DEBUG: Query executed at " . date('Y-m-d H:i:s') . " -->";
+    foreach($categories as $cat) {
+        echo "<!-- DEBUG: {$cat->CategoryName} = {$cat->QuestionCount} questions -->";
+    }
+    
+    // FORCE REFRESH: Add timestamp to prevent cache
+    echo "<script>console.log('Admin page loaded at: " . date('Y-m-d H:i:s') . "');</script>";
     
     foreach ($categories as $category) {
     ?>

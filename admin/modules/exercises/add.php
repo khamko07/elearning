@@ -791,18 +791,29 @@ async function bulkInsertQuestions() {
         // Prepare questions data
         const questionsToInsert = selectedIndices.map(index => window.generatedQuestions[index]);
         
-        console.log('Topic:', topic);
-        console.log('Selected indices:', selectedIndices);
+        // Get selected Category and Topic from form
+        const categoryId = document.getElementById('Category').value;
+        const topicId = document.getElementById('Topic').value;
+        
+        if (!categoryId || !topicId) {
+            alert('Please select Category and Topic before inserting questions!');
+            return;
+        }
+        
+        console.log('Category ID:', categoryId);
+        console.log('Topic ID:', topicId);
         console.log('Questions to insert:', questionsToInsert);
         
-        // Send to bulk insert endpoint
-        const response = await fetch('bulk_insert_questions_v2.php', {
+        // Send to simple bulk insert endpoint
+        const response = await fetch('simple_bulk_insert.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 topic: topic,
+                categoryId: parseInt(categoryId),
+                topicId: parseInt(topicId),
                 questions: questionsToInsert
             })
         });
