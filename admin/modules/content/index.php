@@ -7,6 +7,12 @@ switch ($view) {
   case 'add':
     $content = 'add.php';
     break;
+  case 'preview':
+    $content = 'preview.php';
+    break;
+  case 'edit':
+    $content = 'edit.php';
+    break;
   default:
     $content = 'list.php';
 }
