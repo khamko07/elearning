@@ -129,7 +129,6 @@
 
 - [x] 5. Refactor Lesson Management Interface
 
-
   - Redesign lesson list với card layout
   - Implement search và filtering functionality
   - Tạo lesson detail view với improved typography
@@ -170,7 +169,7 @@
   - Create lesson history timeline
   - _Requirements: 4.1_
 
-- [ ] 6. Modernize Quiz System
+- [-] 6. Modernize Quiz System
 
   - Redesign quiz interface với progress indicators
   - Implement modern question layouts
@@ -184,14 +183,15 @@
   - Thêm progress indicators cho each category
   - _Requirements: 5.1_
 
-- [ ] 6.2 Redesign question.php (quiz taking)
+- [x] 6.2 Redesign question.php (quiz taking)
 
   - Implement modern question card design
   - Tạo progress bar và timer display
   - Thêm smooth transitions between questions
+
   - _Requirements: 5.2, 5.3_
 
-- [ ] 6.3 Redesign quizresult.php
+- [x] 6.3 Redesign quizresult.php
 
   - Implement charts cho quiz results
   - Tạo detailed feedback section
@@ -212,14 +212,15 @@
   - Tạo rich text editor cho content creation
   - _Requirements: 6.2, 6.3, 6.4_
 
-- [ ] 7.1 Redesign admin lesson management
+- [x] 7.1 Redesign admin lesson management
 
   - Implement modern table design với sorting
   - Thêm bulk actions và filtering
   - Create drag-and-drop file upload
   - _Requirements: 6.2, 6.6_
 
-- [ ] 7.2 Redesign admin exercise management
+- [x] 7.2 Redesign admin exercise management
+
 
   - Implement rich text editor cho questions
   - Tạo preview functionality
