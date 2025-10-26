@@ -145,7 +145,15 @@
     </div>
     
     <div class="row" style="margin-bottom: 10px;">
-      <div class="col-md-6">
+      <div class="col-md-4">
+        <label for="Language" style="font-weight: 600;">Content Language:</label>
+        <select class="form-control input-sm" id="Language" name="Language">
+          <option value="en">🇬🇧 English</option>
+          <option value="vi">🇻🇳 Tiếng Việt</option>
+          <option value="th">🇹🇭 ภาษาไทย (Thai)</option>
+        </select>
+      </div>
+      <div class="col-md-4">
         <label for="Difficulty" style="font-weight: 600;">Difficulty Level:</label>
         <select class="form-control input-sm" id="Difficulty" name="Difficulty">
           <option value="easy">📗 Easy - Beginner Friendly</option>
@@ -153,7 +161,7 @@
           <option value="hard">📕 Hard - Advanced</option>
         </select>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <label style="font-weight: 600;">Quick Templates:</label>
         <select class="form-control input-sm" id="QuickTemplate">
           <option value="">-- Select a template --</option>
@@ -243,12 +251,37 @@ Code block example
         <h4><i class="fa fa-rocket"></i> How to Use</h4>
         <ol>
           <li><strong>Enter a Topic</strong>: Type what you want to teach (e.g., "Laravel Controllers", "Big Data")</li>
+          <li><strong>Select Language</strong>: Choose English, Tiếng Việt, or ภาษาไทย</li>
           <li><strong>Choose Difficulty</strong>: Select Easy, Medium, or Hard</li>
           <li><strong>Use Quick Templates</strong> (optional): Select from pre-defined topics</li>
           <li><strong>Click Generate</strong>: Wait 10-30 seconds for AI to create content</li>
           <li><strong>Review & Edit</strong>: Check the generated content and make any changes</li>
           <li><strong>Save</strong>: Click "Save Content" when ready</li>
         </ol>
+
+        <hr>
+
+        <h4><i class="fa fa-globe"></i> Multi-Language Support</h4>
+        <div class="row">
+          <div class="col-md-4">
+            <div style="background: #e3f2fd; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+              <h5 style="margin-top: 0;">🇬🇧 English</h5>
+              <p style="margin: 0; font-size: 0.9em;">Professional educational content</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background: #fff3e0; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+              <h5 style="margin-top: 0;">🇻🇳 Tiếng Việt</h5>
+              <p style="margin: 0; font-size: 0.9em;">Nội dung giáo dục bằng tiếng Việt</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="background: #fce4ec; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: center;">
+              <h5 style="margin-top: 0;">🇹🇭 ภาษาไทย</h5>
+              <p style="margin: 0; font-size: 0.9em;">เนื้อหาการศึกษาภาษาไทย</p>
+            </div>
+          </div>
+        </div>
 
         <hr>
 
@@ -406,6 +439,7 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
   const topic = document.getElementById('Topic').value.trim();
   const difficulty = document.getElementById('Difficulty').value;
   const title = document.getElementById('Title').value.trim();
+  const language = document.getElementById('Language').value;
   
   if (!topic) { 
     alert('Please enter a topic (e.g., Laravel Controllers, Big Data, Algebra)'); 
@@ -418,9 +452,14 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
   btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> AI is generating content...';
   btn.disabled = true;
   
-  // Show progress message
+  // Show progress message with language info
   const textarea = document.getElementById('Body');
-  textarea.value = '⏳ Generating comprehensive learning content...\n\nThis may take 10-30 seconds depending on the topic complexity.\n\nPlease wait...';
+  const languageNames = {
+    'en': 'English',
+    'vi': 'Tiếng Việt',
+    'th': 'ภาษาไทย (Thai)'
+  };
+  textarea.value = `⏳ Generating comprehensive learning content in ${languageNames[language]}...\n\nThis may take 10-30 seconds depending on the topic complexity.\n\nPlease wait...`;
   
   try {
     const response = await fetch('gemini_content_generator.php', { 
@@ -429,7 +468,8 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
       body: JSON.stringify({ 
         topic: topic,
         difficulty: difficulty,
-        title: title
+        title: title,
+        language: language
       }) 
     });
     
@@ -456,7 +496,8 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
       
       // Show success message
       const wordCount = data.metadata && data.metadata.word_count ? data.metadata.word_count : 'N/A';
-      alert(`✅ Content generated successfully!\n\nTopic: ${topic}\nDifficulty: ${difficulty}\nWord count: ${wordCount}\n\nPlease review and edit as needed before saving.`);
+      const languageName = data.metadata && data.metadata.language_name ? data.metadata.language_name : languageNames[language];
+      alert(`✅ Content generated successfully!\n\nTopic: ${topic}\nLanguage: ${languageName}\nDifficulty: ${difficulty}\nWord count: ${wordCount}\n\nPlease review and edit as needed before saving.`);
       
       // Switch to Write tab to show content
       document.querySelector('.editor-tab[data-tab="write"]').click();

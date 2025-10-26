@@ -49,6 +49,7 @@ if (!$input) {
 $topic = isset($input['topic']) ? trim($input['topic']) : '';
 $difficulty = isset($input['difficulty']) ? trim($input['difficulty']) : 'medium';
 $title = isset($input['title']) ? trim($input['title']) : '';
+$language = isset($input['language']) ? trim($input['language']) : 'en';
 
 if (empty($topic)) {
     echo json_encode(['error' => 'Topic cannot be empty']);
@@ -62,6 +63,55 @@ if (!$apiKey) {
     exit;
 }
 
+// Language settings
+$languageSettings = [
+    'en' => [
+        'name' => 'English',
+        'instruction' => 'Write the entire content in English.',
+        'sections' => [
+            'intro' => 'Introduction',
+            'key' => 'Key Concepts',
+            'main' => 'Main Content',
+            'examples' => 'Practical Examples',
+            'best' => 'Best Practices',
+            'mistakes' => 'Common Mistakes to Avoid',
+            'summary' => 'Summary',
+            'further' => 'Further Reading'
+        ]
+    ],
+    'vi' => [
+        'name' => 'Tiếng Việt',
+        'instruction' => 'Viết toàn bộ nội dung bằng Tiếng Việt. Sử dụng ngôn ngữ tự nhiên, dễ hiểu cho người Việt.',
+        'sections' => [
+            'intro' => 'Giới Thiệu',
+            'key' => 'Khái Niệm Chính',
+            'main' => 'Nội Dung Chính',
+            'examples' => 'Ví Dụ Thực Tế',
+            'best' => 'Thực Hành Tốt Nhất',
+            'mistakes' => 'Lỗi Thường Gặp Cần Tránh',
+            'summary' => 'Tóm Tắt',
+            'further' => 'Đọc Thêm'
+        ]
+    ],
+    'th' => [
+        'name' => 'ภาษาไทย',
+        'instruction' => 'เขียนเนื้อหาทั้งหมดเป็นภาษาไทย ใช้ภาษาที่เข้าใจง่ายและเป็นธรรมชาติสำหรับคนไทย',
+        'sections' => [
+            'intro' => 'บทนำ',
+            'key' => 'แนวคิดหลัก',
+            'main' => 'เนื้อหาหลัก',
+            'examples' => 'ตัวอย่างเชิงปฏิบัติ',
+            'best' => 'แนวทางปฏิบัติที่ดี',
+            'mistakes' => 'ข้อผิดพลาดที่ควรหลีกเลี่ยง',
+            'summary' => 'สรุป',
+            'further' => 'อ่านเพิ่มเติม'
+        ]
+    ]
+];
+
+$lang = isset($languageSettings[$language]) ? $languageSettings[$language] : $languageSettings['en'];
+$sections = $lang['sections'];
+
 // Create comprehensive content generation prompt
 $difficultyMap = [
     'easy' => 'beginner-friendly with simple explanations',
@@ -73,23 +123,25 @@ $difficultyDesc = isset($difficultyMap[$difficulty]) ? $difficultyMap[$difficult
 
 $prompt = "You are an expert educator. Create a comprehensive, well-structured learning content about: **{$topic}**
 
+IMPORTANT: {$lang['instruction']}
+
 Difficulty Level: {$difficulty} ({$difficultyDesc})
 
 Format the content in clean Markdown with this structure:
 
 # {$topic}
 
-## Introduction
+## {$sections['intro']}
 Write a brief, engaging introduction (2-3 paragraphs) explaining what {$topic} is and why it's important.
 
-## Key Concepts
+## {$sections['key']}
 Explain the fundamental concepts using:
 - Clear bullet points for main ideas
 - **Bold text** for important terms
 - *Italic* for emphasis
 - Code examples with `backticks` if relevant
 
-## Main Content
+## {$sections['main']}
 Break down the topic into 3-4 major sections with:
 ### Section 1: [Relevant Heading]
 Detailed explanation with examples
@@ -100,36 +152,38 @@ Detailed explanation with examples
 ### Section 3: [Relevant Heading]
 Detailed explanation with examples
 
-## Practical Examples
+## {$sections['examples']}
 Provide real-world examples or code snippets (if applicable):
 ```
 // Example code or demonstration
 ```
 
-## Best Practices
+## {$sections['best']}
 List 5-7 best practices or tips:
 - Practice point 1
 - Practice point 2
 - etc.
 
-## Common Mistakes to Avoid
+## {$sections['mistakes']}
 Highlight 3-5 common pitfalls:
 - Mistake 1 and how to avoid it
 - Mistake 2 and how to avoid it
 
-## Summary
+## {$sections['summary']}
 Summarize the key takeaways in 2-3 paragraphs.
 
-## Further Reading
+## {$sections['further']}
 Suggest 3-4 topics for deeper learning.
 
-IMPORTANT:
+CRITICAL REQUIREMENTS:
 - Write 600-1000 words total
-- Use clear, educational language
+- {$lang['instruction']}
+- Use clear, educational language appropriate for {$lang['name']} speakers
 - Include practical examples
 - Format in clean Markdown only
 - No HTML, just Markdown
-- Make it engaging and informative";
+- Make it engaging and informative
+- All section headings, content, and examples must be in {$lang['name']}";
 
 // API request data
 $requestData = [
@@ -203,6 +257,8 @@ echo json_encode([
     'metadata' => [
         'topic' => $topic,
         'difficulty' => $difficulty,
+        'language' => $language,
+        'language_name' => $lang['name'],
         'word_count' => str_word_count($generatedContent),
         'generated_at' => date('Y-m-d H:i:s')
     ]
