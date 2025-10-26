@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Compatibility Test - E-Learning System</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="../css/bootstrap5.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="../fonts/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Our Design System -->
+    <link href="../assets/css/main.css" rel="stylesheet">
+    
+    <style>
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            background: var(--surface);
+        }
+        
+        .test-result {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        
+        .test-pass {
+            background: var(--secondary-green-light);
+            color: var(--secondary-green-dark);
+        }
+        
+        .test-fail {
+            background: var(--secondary-red-light);
+            color: var(--secondary-red-dark);
+        }
+        
+        .browser-info {
+            background: var(--background-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Browser Compatibility Test Suite</h1>
+        
+        <!-- Browser Information -->
+        <div class="browser-info">
+            <h3>Browser Information</h3>
+            <div id="browserInfo"></div>
+        </div>  
+      
+        <!-- CSS Feature Tests -->
+        <div class="test-section">
+            <h3>CSS Feature Support</h3>
+            <div id="cssTests"></div>
+        </div>
+        
+        <!-- JavaScript Feature Tests -->
+        <div class="test-section">
+            <h3>JavaScript Feature Support</h3>
+            <div id="jsTests"></div>
+        </div>
+        
+        <!-- Layout Tests -->
+        <div class="test-section">
+            <h3>Layout and Visual Tests</h3>
+            <div id="layoutTests">
+                <!-- CSS Grid Test -->
+                <div class="test-item">
+                    <span>CSS Grid Support:</span>
+                    <div class="grid-test" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="background: var(--primary-blue-100); padding: 1rem;">Grid Item 1</div>
+                        <div style="background: var(--secondary-green-light); padding: 1rem;">Grid Item 2</div>
+                    </div>
+                </div>
+                
+                <!-- Flexbox Test -->
+                <div class="test-item mt-3">
+                    <span>Flexbox Support:</span>
+                    <div class="flex-test" style="display: flex; gap: 1rem; align-items: center;">
+                        <div style="background: var(--primary-blue-100); padding: 1rem; flex: 1;">Flex Item 1</div>
+                        <div style="background: var(--secondary-green-light); padding: 1rem; flex: 2;">Flex Item 2</div>
+                    </div>
+                </div>
+                
+                <!-- CSS Variables Test -->
+                <div class="test-item mt-3">
+                    <span>CSS Variables Support:</span>
+                    <div style="--test-color: #2563eb; background: var(--test-color); color: white; padding: 1rem;">
+                        CSS Variables Test
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Component Tests -->
+        <div class="test-section">
+            <h3>Interactive Components</h3>
+            
+            <!-- Button Tests -->
+            <div class="mb-3">
+                <h5>Buttons</h5>
+                <button class="btn btn-primary me-2">Primary Button</button>
+                <button class="btn btn-secondary me-2">Secondary Button</button>
+                <button class="btn btn-ghost">Ghost Button</button>
+            </div>
+            
+            <!-- Form Tests -->
+            <div class="mb-3">
+                <h5>Form Elements</h5>
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Text Input</label>
+                        <input type="text" class="form-input" placeholder="Test input">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Select</label>
+                        <select class="form-select">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Modal Test -->
+            <div class="mb-3">
+                <h5>Modal</h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testModal">
+                    Open Test Modal
+                </button>
+            </div>
+        </div>
+        
+        <!-- Performance Tests -->
+        <div class="test-section">
+            <h3>Performance Metrics</h3>
+            <div id="performanceTests"></div>
+        </div>
+        
+        <!-- Test Results Summary -->
+        <div class="test-section">
+            <h3>Test Results Summary</h3>
+            <div id="testSummary"></div>
+        </div>
+    </div>
+    
+    <!-- Test Modal -->
+    <div class="modal fade" id="testModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Test Modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This is a test modal to verify modal functionality across browsers.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+<!-- Scripts -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap5.min.js"></script>
+    <script src="../assets/js/theme-manager.js"></script>
+    <script src="../assets/js/keyboard-navigation.js"></script>
+    <script src="../assets/js/lazy-loading.js"></script>
+    
+    <script>
+        class BrowserCompatibilityTester {
+            constructor() {
+                this.testResults = {
+                    css: {},
+                    js: {},
+                    layout: {},
+                    performance: {}
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.detectBrowser();
+                this.runCSSTests();
+                this.runJavaScriptTests();
+                this.runLayoutTests();
+                this.runPerformanceTests();
+                this.generateSummary();
+            }
+            
+            detectBrowser() {
+                const ua = navigator.userAgent;
+                const browserInfo = {
+                    name: 'Unknown',
+                    version: 'Unknown',
+                    engine: 'Unknown'
+                };
+                
+                // Detect browser
+                if (ua.includes('Chrome') && !ua.includes('Edg')) {
+                    browserInfo.name = 'Chrome';
+                    browserInfo.version = ua.match(/Chrome\/([0-9.]+)/)?.[1] || 'Unknown';
+                    browserInfo.engine = 'Blink';
+                } else if (ua.includes('Firefox')) {
+                    browserInfo.name = 'Firefox';
+                    browserInfo.version = ua.match(/Firefox\/([0-9.]+)/)?.[1] || 'Unknown';
+                    browserInfo.engine = 'Gecko';
+                } else if (ua.includes('Safari') && !ua.includes('Chrome')) {
+                    browserInfo.name = 'Safari';
+                    browserInfo.version = ua.match(/Version\/([0-9.]+)/)?.[1] || 'Unknown';
+                    browserInfo.engine = 'WebKit';
+                } else if (ua.includes('Edg')) {
+                    browserInfo.name = 'Edge';
+                    browserInfo.version = ua.match(/Edg\/([0-9.]+)/)?.[1] || 'Unknown';
+                    browserInfo.engine = 'Blink';
+                }
+                
+                const browserInfoEl = document.getElementById('browserInfo');
+                browserInfoEl.innerHTML = `
+                    <p><strong>Browser:</strong> ${browserInfo.name} ${browserInfo.version}</p>
+                    <p><strong>Engine:</strong> ${browserInfo.engine}</p>
+                    <p><strong>User Agent:</strong> ${ua}</p>
+                    <p><strong>Platform:</strong> ${navigator.platform}</p>
+                    <p><strong>Language:</strong> ${navigator.language}</p>
+                `;
+            }
+            
+            runCSSTests() {
+                const tests = {
+                    'CSS Grid': () => CSS.supports('display', 'grid'),
+                    'CSS Flexbox': () => CSS.supports('display', 'flex'),
+                    'CSS Variables': () => CSS.supports('--test', 'value'),
+                    'CSS Transforms': () => CSS.supports('transform', 'translateX(10px)'),
+                    'CSS Transitions': () => CSS.supports('transition', 'all 0.3s'),
+                    'CSS Animations': () => CSS.supports('animation', 'test 1s'),
+                    'CSS Backdrop Filter': () => CSS.supports('backdrop-filter', 'blur(10px)'),
+                    'CSS Container Queries': () => CSS.supports('container-type', 'inline-size'),
+                    'CSS Subgrid': () => CSS.supports('grid-template-rows', 'subgrid'),
+                    'CSS Logical Properties': () => CSS.supports('margin-inline-start', '10px')
+                };
+                
+                const cssTestsEl = document.getElementById('cssTests');
+                let html = '';
+                
+                for (const [testName, testFn] of Object.entries(tests)) {
+                    try {
+                        const result = testFn();
+                        this.testResults.css[testName] = result;
+                        html += `<div>${testName}: <span class="test-result ${result ? 'test-pass' : 'test-fail'}">${result ? 'PASS' : 'FAIL'}</span></div>`;
+                    } catch (error) {
+                        this.testResults.css[testName] = false;
+                        html += `<div>${testName}: <span class="test-result test-fail">ERROR</span></div>`;
+                    }
+                }
+                
+                cssTestsEl.innerHTML = html;
+            }
+            
+            runJavaScriptTests() {
+                const tests = {
+                    'ES6 Classes': () => typeof class {} === 'function',
+                    'Arrow Functions': () => {
+                        try {
+                            eval('(() => {})');
+                            return true;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    'Template Literals': () => {
+                        try {
+                            eval('`test`');
+                            return true;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    'Destructuring': () => {
+                        try {
+                            eval('const {a} = {a: 1}');
+                            return true;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    'Promises': () => typeof Promise !== 'undefined',
+                    'Async/Await': () => {
+                        try {
+                            eval('async function test() { await Promise.resolve(); }');
+                            return true;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    'Fetch API': () => typeof fetch !== 'undefined',
+                    'Intersection Observer': () => typeof IntersectionObserver !== 'undefined',
+                    'Web Workers': () => typeof Worker !== 'undefined',
+                    'Local Storage': () => typeof localStorage !== 'undefined',
+                    'Session Storage': () => typeof sessionStorage !== 'undefined',
+                    'Geolocation': () => 'geolocation' in navigator,
+                    'Service Workers': () => 'serviceWorker' in navigator
+                };
+                
+                const jsTestsEl = document.getElementById('jsTests');
+                let html = '';
+                
+                for (const [testName, testFn] of Object.entries(tests)) {
+                    try {
+                        const result = testFn();
+                        this.testResults.js[testName] = result;
+                        html += `<div>${testName}: <span class="test-result ${result ? 'test-pass' : 'test-fail'}">${result ? 'PASS' : 'FAIL'}</span></div>`;
+                    } catch (error) {
+                        this.testResults.js[testName] = false;
+                        html += `<div>${testName}: <span class="test-result test-fail">ERROR</span></div>`;
+                    }
+                }
+                
+                jsTestsEl.innerHTML = html;
+            }
+            
+            runLayoutTests() {
+                // Test if CSS Grid is working
+                const gridTest = document.querySelector('.grid-test');
+                const gridSupported = window.getComputedStyle(gridTest).display === 'grid';
+                
+                // Test if Flexbox is working
+                const flexTest = document.querySelector('.flex-test');
+                const flexSupported = window.getComputedStyle(flexTest).display === 'flex';
+                
+                this.testResults.layout = {
+                    'CSS Grid Layout': gridSupported,
+                    'Flexbox Layout': flexSupported
+                };
+            }
+            
+            runPerformanceTests() {
+                const performanceTestsEl = document.getElementById('performanceTests');
+                
+                if ('performance' in window) {
+                    const navigation = performance.getEntriesByType('navigation')[0];
+                    const loadTime = navigation.loadEventEnd - navigation.fetchStart;
+                    const domContentLoaded = navigation.domContentLoadedEventEnd - navigation.fetchStart;
+                    
+                    this.testResults.performance = {
+                        'Page Load Time': loadTime,
+                        'DOM Content Loaded': domContentLoaded,
+                        'Performance API': true
+                    };
+                    
+                    performanceTestsEl.innerHTML = `
+                        <div>Performance API: <span class="test-result test-pass">SUPPORTED</span></div>
+                        <div>Page Load Time: <strong>${Math.round(loadTime)}ms</strong></div>
+                        <div>DOM Content Loaded: <strong>${Math.round(domContentLoaded)}ms</strong></div>
+                    `;
+                } else {
+                    this.testResults.performance = {
+                        'Performance API': false
+                    };
+                    
+                    performanceTestsEl.innerHTML = `
+                        <div>Performance API: <span class="test-result test-fail">NOT SUPPORTED</span></div>
+                    `;
+                }
+            }
+            
+            generateSummary() {
+                const summaryEl = document.getElementById('testSummary');
+                
+                let totalTests = 0;
+                let passedTests = 0;
+                
+                // Count all tests
+                Object.values(this.testResults).forEach(category => {
+                    Object.values(category).forEach(result => {
+                        if (typeof result === 'boolean') {
+                            totalTests++;
+                            if (result) passedTests++;
+                        }
+                    });
+                });
+                
+                const passRate = Math.round((passedTests / totalTests) * 100);
+                
+                let compatibilityLevel = 'Poor';
+                if (passRate >= 90) compatibilityLevel = 'Excellent';
+                else if (passRate >= 80) compatibilityLevel = 'Good';
+                else if (passRate >= 70) compatibilityLevel = 'Fair';
+                
+                summaryEl.innerHTML = `
+                    <div class="alert alert-info">
+                        <h5>Compatibility Summary</h5>
+                        <p><strong>Tests Passed:</strong> ${passedTests} / ${totalTests} (${passRate}%)</p>
+                        <p><strong>Compatibility Level:</strong> ${compatibilityLevel}</p>
+                        <p><strong>Recommendation:</strong> ${this.getRecommendation(passRate)}</p>
+                    </div>
+                `;
+                
+                // Log results for debugging
+                console.log('Browser Compatibility Test Results:', this.testResults);
+            }
+            
+            getRecommendation(passRate) {
+                if (passRate >= 90) {
+                    return 'This browser has excellent compatibility with the E-Learning system.';
+                } else if (passRate >= 80) {
+                    return 'This browser has good compatibility. Some advanced features may not be available.';
+                } else if (passRate >= 70) {
+                    return 'This browser has fair compatibility. Consider updating to a newer version.';
+                } else {
+                    return 'This browser has limited compatibility. Please update to a modern browser for the best experience.';
+                }
+            }
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            new BrowserCompatibilityTester();
+        });
+    </script>
+</body>
+</html>

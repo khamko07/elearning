@@ -1,0 +1,209 @@
+/* ===== CSS COMPATIBILITY TESTS ===== */
+/* This file tests various CSS features for browser compatibility */
+
+/* CSS Grid Test */
+.css-grid-test {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Flexbox Test */
+.css-flex-test {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* CSS Variables Test */
+.css-variables-test {
+  --test-color: #2563eb;
+  --test-size: 1rem;
+  color: var(--test-color);
+  font-size: var(--test-size);
+}
+
+/* CSS Transforms Test */
+.css-transform-test {
+  transform: translateX(10px) rotate(5deg) scale(1.1);
+}
+
+/* CSS Transitions Test */
+.css-transition-test {
+  transition: all 0.3s ease-in-out;
+}
+
+.css-transition-test:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* CSS Animations Test */
+@keyframes css-animation-test {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.css-animation-test {
+  animation: css-animation-test 0.5s ease-out;
+}
+
+/* CSS Backdrop Filter Test */
+.css-backdrop-filter-test {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* CSS Clip Path Test */
+.css-clip-path-test {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+}
+
+/* CSS Scroll Snap Test */
+.css-scroll-snap-test {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+.css-scroll-snap-test > * {
+  scroll-snap-align: start;
+}
+
+/* CSS Container Queries Test */
+@container (min-width: 300px) {
+  .css-container-query-test {
+    font-size: 1.2rem;
+  }
+}
+
+/* CSS Logical Properties Test */
+.css-logical-properties-test {
+  margin-inline-start: 1rem;
+  margin-inline-end: 1rem;
+  padding-block-start: 0.5rem;
+  padding-block-end: 0.5rem;
+}
+
+/* CSS Aspect Ratio Test */
+.css-aspect-ratio-test {
+  aspect-ratio: 16 / 9;
+  background: #f0f0f0;
+}
+
+/* CSS Gap Test (for Flexbox) */
+.css-gap-test {
+  display: flex;
+  gap: 1rem;
+}
+
+/* CSS Object Fit Test */
+.css-object-fit-test {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* CSS Filter Test */
+.css-filter-test {
+  filter: brightness(1.1) contrast(1.1) saturate(1.2);
+}
+
+/* CSS Mask Test */
+.css-mask-test {
+  mask: linear-gradient(45deg, transparent 30%, black 70%);
+  -webkit-mask: linear-gradient(45deg, transparent 30%, black 70%);
+}
+
+/* CSS Scroll Behavior Test */
+.css-scroll-behavior-test {
+  scroll-behavior: smooth;
+}
+
+/* CSS Focus Visible Test */
+.css-focus-visible-test:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* CSS Prefers Reduced Motion Test */
+@media (prefers-reduced-motion: reduce) {
+  .css-reduced-motion-test {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* CSS Prefers Color Scheme Test */
+@media (prefers-color-scheme: dark) {
+  .css-color-scheme-test {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+/* CSS Prefers Contrast Test */
+@media (prefers-contrast: high) {
+  .css-high-contrast-test {
+    border: 2px solid #000000;
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+/* CSS Supports Test */
+@supports (display: grid) {
+  .css-supports-test {
+    display: grid;
+  }
+}
+
+@supports not (display: grid) {
+  .css-supports-test {
+    display: flex;
+  }
+}
+
+/* CSS Custom Properties with Fallback */
+.css-fallback-test {
+  color: #2563eb; /* Fallback */
+  color: var(--primary-blue, #2563eb);
+}
+
+/* CSS Calc Test */
+.css-calc-test {
+  width: calc(100% - 2rem);
+  height: calc(100vh - 100px);
+}
+
+/* CSS Min/Max Functions Test */
+.css-min-max-test {
+  width: min(100%, 500px);
+  height: max(200px, 20vh);
+}
+
+/* CSS Clamp Test */
+.css-clamp-test {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* Browser-specific prefixes for older browsers */
+.css-prefixes-test {
+  -webkit-transform: translateX(10px);
+  -moz-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  transform: translateX(10px);
+  
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
