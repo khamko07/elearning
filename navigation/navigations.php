@@ -13,7 +13,7 @@
 <link href="<?php echo web_root; ?>css/dataTables.bootstrap.css" rel="stylesheet" media="screen">  
 <!-- <link href="<?php echo web_root; ?>css/kcctc.css" rel="stylesheet" media="screen">  -->
 <link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet" media="screen">  
-<link rel="stylesheet" type="text/css" href="<?php echo web_root; ?>loginregister.css">  
+  
 <link rel="stylesheet" href="<?php echo web_root; ?>assets/iCheck/flat/blue.css">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="<?php echo web_root; ?>assets/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
@@ -82,43 +82,57 @@ body {
 clear: both;
 }
 
+.sidenav {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px;
+}
+
 #mySidenav a {
     position: absolute;
     left: -130px;
-    transition: 0.3s;
-    padding: 20px;
+    transition: all 0.3s ease;
+    padding: 15px 20px;
     width: 190px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 18px;
     color: white;
     border-radius: 0 5px 5px 0;
+    white-space: nowrap;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 
 #mySidenav a:hover {
     left: 0;
+    text-decoration: none;
+    color: white;
 }
 
-#lesson {
+#mySidenav a:focus {
+    left: -130px;
+    text-decoration: none;
+}
+
+#learning {
     top: 180px;
-    background-color: rgb(0, 67, 200)
+    background-color: rgb(0, 67, 200);
 }
 
-#exercise {
-    top:260px;
+#categories {
+    top: 260px;
     background-color: rgb(0, 81, 242);
 }
 
-#download {
-    top: 340px;
-    background-color: rgb(33, 107, 255);
-}
-
 #about {
-    top: 420px;
+    top: 340px;
     background-color: rgb(79, 138, 255);
 }
+
 #login {
-    top: 500px;
+    top: 420px;
     background-color: rgb(137, 176, 255);
 }
 
@@ -145,9 +159,8 @@ clear: both;
 </section>  
 <section id="navigation">
   <div id="mySidenav" class="sidenav">
-    <a href="<?php echo web_root; ?>index.php?q=lesson" id="lesson">Lesson <i class="fa fa-home pull-right"></i></a> 
-    <a href="<?php echo web_root; ?>index.php?q=categories" id="categories">Exercises <i class="fa fa-check-square-o pull-right" style="color: rgb(0, 67, 200);"></i></a>
-    <a href="<?php echo web_root; ?>index.php?q=download" id="download">Download <i class="fa fa-download pull-right"></i></a>
+    <a href="<?php echo web_root; ?>index.php?q=content" id="learning">Learning<i class="fa fa-book pull-right"></i></a>
+    <a href="<?php echo web_root; ?>index.php?q=categories" id="categories">Exercises <i class="fa fa-check-square-o pull-right"></i></a>
     <a href="<?php echo web_root; ?>index.php?q=about" id="about">About Us <i class="fa fa-info-circle pull-right"></i></a>  
      <a href="logout.php" id="login">Logout <i class="fa fa-sign-out pull-right"></i></a> 
   </div>
@@ -289,6 +302,18 @@ $('#date_picker').datetimepicker({
         textBox.value = trim(textBox.value);
       }
  
+
+  // Sidebar behavior - auto hide after click
+  $('#mySidenav a').on('click', function() {
+    $(this).blur(); // Remove focus to trigger CSS hide
+  });
+
+  // Hide sidebar when clicking outside
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('#mySidenav').length) {
+      $('#mySidenav a').blur();
+    }
+  });
 
   $(document).on("change",".radios",function(){
 
