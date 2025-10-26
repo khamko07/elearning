@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Dashboard System</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="css/bootstrap5.min.css" rel="stylesheet">
+    
+    <!-- Our Design System -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    
+    <style>
+        /* Demo specific styles */
+        .demo-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .demo-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: var(--space-2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Navigation -->
+    <div class="demo-nav">
+        <button class="btn btn-sm btn-secondary" onclick="showStudentDashboard()">Student</button>
+        <button class="btn btn-sm btn-secondary" onclick="showAdminDashboard()">Admin</button>
+        <button class="btn btn-sm btn-ghost" data-theme-toggle title="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="studentDashboard" class="dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="welcome-section">
+                <h1 class="dashboard-title">Chào mừng trở lại, Nguyễn Văn A!</h1>
+                <p class="dashboard-subtitle">Hãy tiếp tục hành trình học tập của bạn</p>
+            </div>
+            <div class="dashboard-time">
+                <div class="current-time">
+                    <i class="fas fa-clock"></i>
+                    <span id="currentTime"></span>
+                </div>
+                <div class="current-date">
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Statistics -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon lessons">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">8/12</h3>
+                    <p class="stat-label">Bài học hoàn thành</p>
+                    <div class="stat-progress">
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 67%;"></div>
+                        </div>
+                        <small>67%</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon score">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">85%</h3>
+                    <p class="stat-label">Điểm trung bình</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up text-success"></i>
+                        <small>+5% so với tuần trước</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon time">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">24h</h3>
+                    <p class="stat-label">Thời gian học</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-target"></i>
+                        <small>Mục tiêu: 30h/tuần</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon quizzes">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">15</h3>
+                    <p class="stat-label">Bài tập đã làm</p>
+                    <div class="stat-badge">
+                        <span class="badge badge-success">Mới</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="dashboard-actions">
+            <h2 class="section-title">Bắt đầu học tập</h2>
+            <div class="action-grid">
+                <a href="#" class="action-card primary">
+                    <div class="action-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="action-content">
+                        <h3 class="action-title">Nội dung học tập</h3>
+                        <p class="action-description">Xem video bài giảng và tài liệu học tập</p>
+                        <div class="action-meta">
+                            <span class="action-count">12 bài học mới</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="action-card secondary">
+                    <div class="action-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="action-content">
+                        <h3 class="action-title">Bài tập</h3>
+                        <p class="action-description">Làm bài tập và kiểm tra kiến thức</p>
+                        <div class="action-meta">
+                            <span class="action-count">5 bài tập mới</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="action-card tertiary">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="action-content">
+                        <h3 class="action-title">Kết quả học tập</h3>
+                        <p class="action-description">Xem điểm số và tiến độ học tập</p>
+                        <div class="action-meta">
+                            <span class="action-count">Cập nhật mới</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="action-card info">
+                    <div class="action-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="action-content">
+                        <h3 class="action-title">Thông tin</h3>
+                        <p class="action-description">Tìm hiểu về hệ thống và hướng dẫn</p>
+                        <div class="action-meta">
+                            <span class="action-count">Hướng dẫn</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <!-- Dashboard Header -->
+        <div class="admin-dashboard-header">
+            <div class="admin-welcome">
+                <h1 class="admin-title">Chào mừng, Admin!</h1>
+                <p class="admin-subtitle">Quản trị hệ thống E-Learning</p>
+            </div>
+            <div class="admin-actions">
+                <button class="btn btn-outline">
+                    <i class="fas fa-sync-alt"></i>
+                    Làm mới
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Thêm mới
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="admin-stats-grid">
+            <div class="admin-stat-card students">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">156</h3>
+                    <p class="stat-label">Học viên</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up text-success"></i>
+                        <small>+12 tuần này</small>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <div class="mini-chart" data-chart="students"></div>
+                </div>
+            </div>
+
+            <div class="admin-stat-card lessons">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">24</h3>
+                    <p class="stat-label">Bài học</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up text-success"></i>
+                        <small>+3 tuần này</small>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <div class="mini-chart" data-chart="lessons"></div>
+                </div>
+            </div>
+
+            <div class="admin-stat-card exercises">
+                <div class="stat-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">18</h3>
+                    <p class="stat-label">Bài tập</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-arrow-up text-success"></i>
+                        <small>+2 tuần này</small>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <div class="mini-chart" data-chart="exercises"></div>
+                </div>
+            </div>
+
+            <div class="admin-stat-card users">
+                <div class="stat-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-number">8</h3>
+                    <p class="stat-label">Quản trị viên</p>
+                    <div class="stat-trend">
+                        <i class="fas fa-minus text-muted"></i>
+                        <small>Không đổi</small>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <div class="mini-chart" data-chart="users"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="admin-content-grid">
+            <!-- Quick Actions -->
+            <div class="admin-widget quick-actions-widget">
+                <h2 class="widget-title">Thao tác nhanh</h2>
+                <div class="quick-actions-grid">
+                    <a href="#" class="quick-action-card lessons">
+                        <div class="action-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Quản lý bài học</h3>
+                            <p>Thêm, sửa, xóa bài học</p>
+                            <span class="action-count">24 bài học</span>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="#" class="quick-action-card exercises">
+                        <div class="action-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Quản lý bài tập</h3>
+                            <p>Tạo và quản lý bài tập</p>
+                            <span class="action-count">18 bài tập</span>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="#" class="quick-action-card students">
+                        <div class="action-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Quản lý học viên</h3>
+                            <p>Xem và quản lý học viên</p>
+                            <span class="action-count">156 học viên</span>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="#" class="quick-action-card reports">
+                        <div class="action-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Báo cáo</h3>
+                            <p>Xem báo cáo và thống kê</p>
+                            <span class="action-count">Cập nhật</span>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="admin-widget system-status-widget">
+                <h2 class="widget-title">Trạng thái hệ thống</h2>
+                <div class="status-list">
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Máy chủ</h4>
+                            <small>Hoạt động bình thường</small>
+                        </div>
+                        <div class="status-value">99.9%</div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Cơ sở dữ liệu</h4>
+                            <small>Kết nối ổn định</small>
+                        </div>
+                        <div class="status-value">100%</div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-indicator warning"></div>
+                        <div class="status-content">
+                            <h4>Dung lượng</h4>
+                            <small>Sử dụng 78% dung lượng</small>
+                        </div>
+                        <div class="status-value">78%</div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-indicator online"></div>
+                        <div class="status-content">
+                            <h4>Backup</h4>
+                            <small>Backup cuối: Hôm qua</small>
+                        </div>
+                        <div class="status-value">OK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/bootstrap5.min.js"></script>
+    <script src="assets/js/theme-manager.js"></script>
+    
+    <script>
+        function showStudentDashboard() {
+            document.getElementById('studentDashboard').style.display = 'block';
+            document.getElementById('adminDashboard').style.display = 'none';
+        }
+        
+        function showAdminDashboard() {
+            document.getElementById('studentDashboard').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            
+            // Initialize mini charts
+            setTimeout(() => {
+                const charts = document.querySelectorAll('.mini-chart');
+                charts.forEach(chart => {
+                    const type = chart.dataset.chart;
+                    createMiniChart(chart, type);
+                });
+            }, 100);
+        }
+        
+        function createMiniChart(element, type) {
+            const data = {
+                students: [20, 25, 30, 28, 35, 40, 38],
+                lessons: [5, 8, 12, 15, 18, 22, 24],
+                exercises: [3, 6, 9, 12, 15, 16, 18],
+                users: [5, 6, 7, 7, 8, 8, 8]
+            };
+            
+            const values = data[type] || [];
+            const max = Math.max(...values);
+            
+            element.innerHTML = values.map((value, index) => {
+                const height = (value / max) * 100;
+                return `<div class="chart-bar" style="height: ${height}%; animation-delay: ${index * 0.1}s;"></div>`;
+            }).join('');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update current time and date
+            function updateDateTime() {
+                const now = new Date();
+                const timeElement = document.getElementById('currentTime');
+                const dateElement = document.getElementById('currentDate');
+                
+                if (timeElement) {
+                    timeElement.textContent = now.toLocaleTimeString('vi-VN', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                
+                if (dateElement) {
+                    dateElement.textContent = now.toLocaleDateString('vi-VN', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+            }
+            
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+            
+            // Add hover effects to action cards
+            const actionCards = document.querySelectorAll('.action-card, .quick-action-card');
+            actionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
