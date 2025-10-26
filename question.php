@@ -68,45 +68,49 @@ if($topicId > 0) {
 <h1>Quiz</h1>
 <h5>Choose the correct answer.</h5>
 <?php endif; ?>
-<div style="height:400px;overflow-y:auto;"> 
-<?php   
-  if($topicId > 0) {
-  	$sql = "SELECT * FROM tblexercise WHERE TopicID = {$topicId} ORDER BY ExerciseID";
-  } else if($id == 'all') {
-  	$sql = "SELECT * FROM tblexercise ORDER BY ExerciseID";
-  } else {
-  	$sql = "SELECT * FROM tblexercise WHERE LessonID = '{$id}'";
-  }
-  $mydb->setQuery($sql);
-  $cur = $mydb->loadResultList();
-
-  $questionNum = 1;
-  foreach ($cur as $res) {
-?> 
-<div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-	<h4>Question <?php echo $questionNum; ?>:</h4>
-	<p><strong><?php echo $res->Question ; ?></strong></p>
-	<div class="row">
-		<div class="col-md-6">
-			<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="A"> A. <?php echo $res->ChoiceA; ?></label>
-		</div>
-		<div class="col-md-6">
-			<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="B"> B. <?php echo $res->ChoiceB; ?></label>
-		</div>
-		<div class="col-md-6">
-			<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="C"> C. <?php echo $res->ChoiceC; ?></label>
-		</div>
-		<div class="col-md-6">
-			<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="D"> D. <?php echo $res->ChoiceD; ?></label>
-		</div>
-	</div>
-</div>
-<?php 
-	$questionNum++;
-} ?>
-</div>
-<form action="processscore.php" method="POST" style="margin-top: 20px;text-align: right;">
+<form action="processscore.php" method="POST">
 	<input type="hidden" name="LessonID" value="<?php echo $id ?>">
 	<input type="hidden" name="TopicID" value="<?php echo $topicId ?>">
-	<button class="btn btn-md btn-primary" type="submit" name="btnSubmit">Submit Quiz <i class="fa fa-arrow-right"></i></button>
+	
+	<div style="height:400px;overflow-y:auto;"> 
+	<?php   
+	  if($topicId > 0) {
+	  	$sql = "SELECT * FROM tblexercise WHERE TopicID = {$topicId} ORDER BY ExerciseID";
+	  } else if($id == 'all') {
+	  	$sql = "SELECT * FROM tblexercise ORDER BY ExerciseID";
+	  } else {
+	  	$sql = "SELECT * FROM tblexercise WHERE LessonID = '{$id}'";
+	  }
+	  $mydb->setQuery($sql);
+	  $cur = $mydb->loadResultList();
+
+	  $questionNum = 1;
+	  foreach ($cur as $res) {
+	?> 
+	<div style="margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+		<h4>Question <?php echo $questionNum; ?>:</h4>
+		<p><strong><?php echo $res->Question ; ?></strong></p>
+		<div class="row">
+			<div class="col-md-6">
+				<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="A"> A. <?php echo $res->ChoiceA; ?></label>
+			</div>
+			<div class="col-md-6">
+				<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="B"> B. <?php echo $res->ChoiceB; ?></label>
+			</div>
+			<div class="col-md-6">
+				<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="C"> C. <?php echo $res->ChoiceC; ?></label>
+			</div>
+			<div class="col-md-6">
+				<label><input class="radios" type="radio" data-id="<?php echo $res->ExerciseID;?>" name="choices_<?php echo $res->ExerciseID;?>" value="D"> D. <?php echo $res->ChoiceD; ?></label>
+			</div>
+		</div>
+	</div>
+	<?php 
+		$questionNum++;
+	} ?>
+	</div>
+	
+	<div style="margin-top: 20px;text-align: right;">
+		<button class="btn btn-md btn-primary" type="submit" name="btnSubmit">Submit Quiz <i class="fa fa-arrow-right"></i></button>
+	</div>
 </form>
