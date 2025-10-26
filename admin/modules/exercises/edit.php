@@ -133,8 +133,8 @@
                         </div>
                       </div> 
                       </form>
-<sc
-ript>
+
+<script>
 // Load topics for edit page
 function loadEditTopics() {
     const categoryId = document.getElementById('editCategory').value;
@@ -154,8 +154,8 @@ function loadEditTopics() {
             if (data.success) {
                 topicSelect.innerHTML = '<option value="">Select Topic</option>';
                 data.topics.forEach(topic => {
-                    const selected = topic.TopicID == <?php echo $res->TopicID; ?> ? 'selected' : '';
-                    topicSelect.innerHTML += `<option value="${topic.TopicID}" ${selected}>${topic.TopicName}</option>`;
+                    const selected = topic.TopicID == <?php echo isset($res->TopicID) ? $res->TopicID : 0; ?> ? 'selected' : '';
+                    topicSelect.innerHTML += '<option value="' + topic.TopicID + '" ' + selected + '>' + topic.TopicName + '</option>';
                 });
             } else {
                 topicSelect.innerHTML = '<option value="">Error loading topics</option>';
@@ -169,6 +169,9 @@ function loadEditTopics() {
 
 // Load topics on page load
 document.addEventListener('DOMContentLoaded', function() {
-    loadEditTopics();
+    // Add small delay to ensure DOM is fully loaded
+    setTimeout(function() {
+        loadEditTopics();
+    }, 100);
 });
 </script>
