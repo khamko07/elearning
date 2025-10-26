@@ -75,9 +75,6 @@
                 </li> -->
 
                 <li>
-                     <a href="<?php echo web_root; ?>admin/modules/lesson/index.php"><i class="fa fa-user fa-fw"></i> Lesson </a> 
-                </li>
-                <li>
                      <a href="<?php echo web_root; ?>admin/modules/content/index.php"><i class="fa fa-file-text-o fa-fw"></i> Content </a> 
                 </li>
                  <li>
