@@ -221,13 +221,12 @@
 
 - [x] 7.2 Redesign admin exercise management
 
-
   - Implement rich text editor cho questions
   - Tạo preview functionality
   - Thêm question bank organization
   - _Requirements: 6.3_
 
-- [ ] 7.3 Redesign admin student management
+- [x] 7.3 Redesign admin student management
 
   - Implement modern data table với pagination
   - Thêm student progress visualization
@@ -283,16 +282,17 @@
   - Ensure proper color contrast
   - _Requirements: 7.2, 7.3, 7.4_
 
-- [ ] 9.1 Add semantic HTML và ARIA labels
+- [x] 9.1 Add semantic HTML và ARIA labels
 
   - Update all forms với proper labels
   - Implement landmark roles
   - Thêm screen reader friendly content
   - _Requirements: 7.4_
 
-- [ ] 9.2 Implement keyboard navigation
+- [x] 9.2 Implement keyboard navigation
 
   - Ensure all interactive elements accessible via keyboard
+
   - Implement focus management
   - Thêm skip links và focus indicators
   - _Requirements: 7.3_
@@ -311,14 +311,17 @@
   - Add loading states và skeleton screens
   - _Requirements: 7.1, 7.5_
 
-- [ ] 10.1 Implement lazy loading
+- [x] 10.1 Implement lazy loading
+
 
   - Add intersection observer cho images
   - Implement progressive loading cho lesson content
   - Optimize video loading strategies
   - _Requirements: 7.1_
 
-- [ ] 10.2 Optimize asset delivery
+- [x] 10.2 Optimize asset delivery
+
+
 
   - Minify và compress CSS/JS files
   - Implement critical CSS inlining

@@ -22,30 +22,42 @@ $recentActivities = [
 $adminName = $_SESSION['NAME'];
 ?>
 
-<div class="admin-dashboard">
+<!-- Skip to main content link -->
+<a href="#admin-main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
+
+<main id="admin-main-content" class="admin-dashboard" role="main">
     <!-- Dashboard Header -->
-    <div class="admin-dashboard-header">
+    <header class="admin-dashboard-header">
         <div class="admin-welcome">
             <h1 class="admin-title">Chào mừng, <?php echo htmlspecialchars($adminName); ?>!</h1>
             <p class="admin-subtitle">Quản trị hệ thống E-Learning</p>
         </div>
-        <div class="admin-actions">
-            <button class="btn btn-outline" onclick="refreshDashboard()">
-                <i class="fas fa-sync-alt"></i>
+        <div class="admin-actions" role="toolbar" aria-label="Thao tác nhanh">
+            <button 
+                class="btn btn-outline" 
+                onclick="refreshDashboard()"
+                aria-label="Làm mới dữ liệu dashboard">
+                <i class="fas fa-sync-alt" aria-hidden="true"></i>
                 Làm mới
             </button>
-            <button class="btn btn-primary" onclick="showQuickActions()">
-                <i class="fas fa-plus"></i>
+            <button 
+                class="btn btn-primary" 
+                onclick="showQuickActions()"
+                aria-label="Hiển thị menu thêm mới"
+                aria-haspopup="true">
+                <i class="fas fa-plus" aria-hidden="true"></i>
                 Thêm mới
             </button>
         </div>
-    </div>
+    </header>
 
     <!-- Statistics Cards -->
-    <div class="admin-stats-grid">
-        <div class="admin-stat-card students">
+    <section class="admin-stats-grid" aria-labelledby="admin-stats-heading">
+        <h2 id="admin-stats-heading" class="sr-only">Thống kê hệ thống</h2>
+        
+        <article class="admin-stat-card students" role="img" aria-labelledby="students-stat">
             <div class="stat-icon">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-users" aria-hidden="true"></i>
             </div>
             <div class="stat-content">
                 <h3 class="stat-number"><?php echo $totalStudents; ?></h3>
