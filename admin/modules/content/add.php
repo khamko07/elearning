@@ -75,16 +75,51 @@
   color: #656d76;
 }
 .ai-generate-section {
-  background: #f6f8fa;
-  border: 1px solid #d1d9e0;
-  border-radius: 6px;
-  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
   margin-bottom: 20px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.ai-generate-section h4 {
+  color: white;
+}
+.ai-generate-section label {
+  color: white;
+  font-weight: 500;
+}
+.ai-generate-section .form-control {
+  background: rgba(255,255,255,0.95);
+  border: none;
+}
+.ai-generate-section .btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+.ai-generate-section .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 </style>
 
 <form class="form-horizontal span6" action="controller.php?action=add" method="POST">
-  <div class="row"><div class="col-lg-12"><h1 class="page-header">Add AI Content</h1></div></div>
+  <div class="row">
+    <div class="col-lg-10">
+      <h1 class="page-header">Add New Learning Content</h1>
+    </div>
+    <div class="col-lg-2 text-right">
+      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#helpModal" style="margin-top: 20px;">
+        <i class="fa fa-question-circle"></i> Help Guide
+      </button>
+    </div>
+  </div>
   
   <div class="form-group">
     <div class="col-md-11">
@@ -94,25 +129,58 @@
   </div>
 
   <div class="ai-generate-section">
-    <div class="row">
-      <div class="col-md-6">
-        <label for="Topic">Topic:</label>
-        <input class="form-control input-sm" id="Topic" name="Topic" type="text" placeholder="e.g. Big Data, Algebra">
+    <h4 style="margin-top: 0; color: #24292f;">
+      <i class="fa fa-magic"></i> AI Content Generator
+    </h4>
+    <p style="color: #656d76; margin-bottom: 15px;">
+      Enter a topic and let AI generate comprehensive learning content for you.
+    </p>
+    
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="col-md-12">
+        <label for="Topic" style="font-weight: 600;">Topic / Subject:</label>
+        <input class="form-control input-sm" id="Topic" name="Topic" type="text" 
+               placeholder="e.g., Laravel Controllers, Big Data Analytics, Linear Algebra, React Hooks">
       </div>
-      <div class="col-md-3">
-        <label for="Difficulty">Difficulty:</label>
+    </div>
+    
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="col-md-6">
+        <label for="Difficulty" style="font-weight: 600;">Difficulty Level:</label>
         <select class="form-control input-sm" id="Difficulty" name="Difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium" selected>Medium</option>
-          <option value="hard">Hard</option>
+          <option value="easy">📗 Easy - Beginner Friendly</option>
+          <option value="medium" selected>📘 Medium - Intermediate</option>
+          <option value="hard">📕 Hard - Advanced</option>
         </select>
       </div>
-      <div class="col-md-3">
-        <label>&nbsp;</label>
-        <button type="button" class="btn btn-success btn-block" id="btnGenerate">
-          <i class="fa fa-magic"></i> Generate with AI
+      <div class="col-md-6">
+        <label style="font-weight: 600;">Quick Templates:</label>
+        <select class="form-control input-sm" id="QuickTemplate">
+          <option value="">-- Select a template --</option>
+          <option value="Programming:PHP Basics">Programming: PHP Basics</option>
+          <option value="Programming:Laravel Controllers">Programming: Laravel Controllers</option>
+          <option value="Programming:React Hooks">Programming: React Hooks</option>
+          <option value="Database:SQL Joins">Database: SQL Joins</option>
+          <option value="Database:Database Normalization">Database: Database Normalization</option>
+          <option value="Math:Linear Algebra">Math: Linear Algebra</option>
+          <option value="Math:Calculus">Math: Calculus</option>
+          <option value="Science:Big Data Analytics">Science: Big Data Analytics</option>
+          <option value="Science:Machine Learning">Science: Machine Learning</option>
+          <option value="Business:Project Management">Business: Project Management</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-success btn-lg btn-block" id="btnGenerate" style="margin-top: 10px;">
+          <i class="fa fa-magic"></i> Generate Content with AI
         </button>
       </div>
+    </div>
+    
+    <div style="margin-top: 10px; padding: 8px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; font-size: 12px;">
+      <strong>💡 Tip:</strong> Generation takes 10-30 seconds. The AI will create a comprehensive lesson with examples, best practices, and more!
     </div>
   </div>
 
@@ -159,6 +227,103 @@ Code block example
   </div>
 </form>
 
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <button type="button" class="close" data-dismiss="modal" style="color: white; opacity: 1;">
+          <span>&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <i class="fa fa-question-circle"></i> AI Content Generator - Quick Guide
+        </h4>
+      </div>
+      <div class="modal-body">
+        <h4><i class="fa fa-rocket"></i> How to Use</h4>
+        <ol>
+          <li><strong>Enter a Topic</strong>: Type what you want to teach (e.g., "Laravel Controllers", "Big Data")</li>
+          <li><strong>Choose Difficulty</strong>: Select Easy, Medium, or Hard</li>
+          <li><strong>Use Quick Templates</strong> (optional): Select from pre-defined topics</li>
+          <li><strong>Click Generate</strong>: Wait 10-30 seconds for AI to create content</li>
+          <li><strong>Review & Edit</strong>: Check the generated content and make any changes</li>
+          <li><strong>Save</strong>: Click "Save Content" when ready</li>
+        </ol>
+
+        <hr>
+
+        <h4><i class="fa fa-lightbulb-o"></i> Tips for Best Results</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <div style="background: #d4edda; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+              <strong>✅ Good Topics:</strong>
+              <ul style="margin: 5px 0 0 20px;">
+                <li>"Laravel Routing Basics"</li>
+                <li>"SQL JOIN Operations"</li>
+                <li>"React Hooks Explained"</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+              <strong>❌ Avoid:</strong>
+              <ul style="margin: 5px 0 0 20px;">
+                <li>"Programming" (too vague)</li>
+                <li>"Everything about PHP"</li>
+                <li>Empty topics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <h4><i class="fa fa-file-text"></i> Content Structure</h4>
+        <p>The AI will generate comprehensive content with:</p>
+        <ul>
+          <li>📝 <strong>Introduction</strong> - Overview of the topic</li>
+          <li>🔑 <strong>Key Concepts</strong> - Main ideas explained</li>
+          <li>📚 <strong>Detailed Sections</strong> - In-depth information</li>
+          <li>💡 <strong>Practical Examples</strong> - Real-world applications</li>
+          <li>✨ <strong>Best Practices</strong> - Tips and recommendations</li>
+          <li>⚠️ <strong>Common Mistakes</strong> - What to avoid</li>
+          <li>📖 <strong>Summary</strong> - Key takeaways</li>
+        </ul>
+
+        <hr>
+
+        <h4><i class="fa fa-code"></i> Markdown Formatting</h4>
+        <p>Content is generated in Markdown format. You can use:</p>
+        <div style="background: #f6f8fa; padding: 10px; border-radius: 5px; font-family: monospace;">
+          # Heading 1<br>
+          ## Heading 2<br>
+          **Bold text**<br>
+          *Italic text*<br>
+          - Bullet point<br>
+          `inline code`<br>
+          ```code block```
+        </div>
+
+        <hr>
+
+        <h4><i class="fa fa-exclamation-triangle"></i> Troubleshooting</h4>
+        <ul>
+          <li><strong>Takes too long?</strong> Complex topics need more time (up to 30s)</li>
+          <li><strong>Error message?</strong> Try simplifying your topic or try again</li>
+          <li><strong>Content not perfect?</strong> You can edit it or generate again</li>
+        </ul>
+
+        <div style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 15px;">
+          <strong>💡 Pro Tip:</strong> Generate multiple times to get different variations, then pick the best one!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // Simple Markdown to HTML converter
 function markdownToHtml(markdown) {
@@ -194,6 +359,23 @@ function markdownToHtml(markdown) {
   return html;
 }
 
+// Quick Template Selection
+document.getElementById('QuickTemplate').addEventListener('change', function() {
+  const selectedValue = this.value;
+  if (selectedValue) {
+    const parts = selectedValue.split(':');
+    if (parts.length === 2) {
+      const topic = parts[1];
+      document.getElementById('Topic').value = topic;
+      
+      // Auto-fill title if empty
+      if (!document.getElementById('Title').value) {
+        document.getElementById('Title').value = topic;
+      }
+    }
+  }
+});
+
 // Tab switching
 document.querySelectorAll('.editor-tab').forEach(tab => {
   tab.addEventListener('click', function() {
@@ -223,79 +405,73 @@ document.querySelectorAll('.editor-tab').forEach(tab => {
 document.getElementById('btnGenerate').addEventListener('click', async function() {
   const topic = document.getElementById('Topic').value.trim();
   const difficulty = document.getElementById('Difficulty').value;
+  const title = document.getElementById('Title').value.trim();
   
   if (!topic) { 
-    alert('Please enter a topic'); 
+    alert('Please enter a topic (e.g., Laravel Controllers, Big Data, Algebra)'); 
     return; 
   }
   
   // Show loading state
   const btn = this;
   const originalText = btn.innerHTML;
-  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Generating...';
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> AI is generating content...';
   btn.disabled = true;
   
+  // Show progress message
+  const textarea = document.getElementById('Body');
+  textarea.value = '⏳ Generating comprehensive learning content...\n\nThis may take 10-30 seconds depending on the topic complexity.\n\nPlease wait...';
+  
   try {
-    const prompt = `Write a comprehensive lesson about "${topic}" in Markdown format. 
-    Difficulty level: ${difficulty}
-    
-    Structure the content with:
-    # Main Title
-    ## Sections with clear headings
-    ### Subsections if needed
-    
-    Include:
-    - Bullet points for key concepts
-    - **Bold** for important terms
-    - Code examples in \`backticks\` if relevant
-    - Clear explanations (400-800 words)
-    
-    Output in clean Markdown format only.`;
-    
-    const resp = await fetch('../exercises/gemini_api_simple.php', { 
+    const response = await fetch('gemini_content_generator.php', { 
       method: 'POST', 
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify({ 
-        topic: prompt, 
-        difficulty 
+        topic: topic,
+        difficulty: difficulty,
+        title: title
       }) 
     });
     
-    const text = await resp.text();
+    const text = await response.text();
     let data;
     
     try { 
       data = JSON.parse(text); 
     } catch(e) { 
-      data = null; 
+      console.error('JSON Parse Error:', e);
+      console.log('Raw response:', text);
+      throw new Error('Invalid response format from server');
     }
     
-    // Extract content from response
-    let content = '';
-    if (data && data.success && data.data) {
-      if (data.data.question) {
-        content = data.data.question;
-        if (data.data.choices) {
-          content += '\n\n## Key Points\n';
-          Object.entries(data.data.choices).forEach(([key, value]) => {
-            content += `- ${value}\n`;
-          });
-        }
+    // Check for success
+    if (data && data.success && data.content) {
+      // Set the generated content
+      textarea.value = data.content;
+      
+      // Auto-fill title if empty
+      if (!document.getElementById('Title').value) {
+        document.getElementById('Title').value = topic;
       }
+      
+      // Show success message
+      const wordCount = data.metadata && data.metadata.word_count ? data.metadata.word_count : 'N/A';
+      alert(`✅ Content generated successfully!\n\nTopic: ${topic}\nDifficulty: ${difficulty}\nWord count: ${wordCount}\n\nPlease review and edit as needed before saving.`);
+      
+      // Switch to Write tab to show content
+      document.querySelector('.editor-tab[data-tab="write"]').click();
+      
+    } else if (data && data.error) {
+      // Show error from API
+      throw new Error(data.error);
     } else {
-      content = text;
-    }
-    
-    // Set the generated content
-    document.getElementById('Body').value = content;
-    
-    // Auto-fill title if empty
-    if (!document.getElementById('Title').value) {
-      document.getElementById('Title').value = topic;
+      throw new Error('Unexpected response format');
     }
     
   } catch (e) { 
-    alert('AI generation error: ' + e.message); 
+    console.error('Generation error:', e);
+    textarea.value = '';
+    alert('❌ AI generation error: ' + e.message + '\n\nPlease try again or contact administrator if the problem persists.'); 
   } finally {
     // Restore button state
     btn.innerHTML = originalText;
