@@ -1,6 +1,20 @@
 <?php if(!isset($_SESSION['USERID'])){ redirect(web_root."admin/index.php"); } ?>
 
 <style>
+/* Lao Language Font */
+@font-face {
+  font-family: 'Phetsarath OT';
+  src: url('../../../fonts/Phetsarath OT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Lao font for Lao content */
+.lao-content,
+.lao-content * {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
 /* Preview Container */
 .content-preview-container {
   max-width: 900px;
@@ -243,6 +257,12 @@
 <?php
 global $mydb;
 
+// Function to detect Lao language by checking for Lao Unicode characters
+function containsLaoText($text) {
+  // Lao Unicode range: U+0E80 to U+0EFF
+  return preg_match('/[\x{0E80}-\x{0EFF}]/u', $text) === 1;
+}
+
 // Get content ID
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -330,9 +350,13 @@ function parseMarkdown($text) {
   
   return $html;
 }
+
+// Detect if content contains Lao text
+$isLaoContent = containsLaoText($content->Title . ' ' . $content->Body);
+$laoClass = $isLaoContent ? ' lao-content' : '';
 ?>
 
-<div class="content-preview-container">
+<div class="content-preview-container<?php echo $laoClass; ?>">
   <!-- Header -->
   <div class="preview-header">
     <h1><?php echo htmlspecialchars($content->Title); ?></h1>

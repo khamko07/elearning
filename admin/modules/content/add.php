@@ -1,6 +1,27 @@
 <?php if(!isset($_SESSION['USERID'])){ redirect(web_root."admin/index.php"); } ?>
 
 <style>
+/* Lao Language Font */
+@font-face {
+  font-family: 'Phetsarath OT';
+  src: url('../../../fonts/Phetsarath OT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Lao font when Lao language is selected */
+.lao-content {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
+.lao-content .editor-textarea,
+.lao-content .preview-content,
+.lao-content h1, .lao-content h2, .lao-content h3, 
+.lao-content h4, .lao-content h5, .lao-content h6,
+.lao-content p, .lao-content li, .lao-content td, .lao-content th {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
 .github-editor {
   border: 1px solid #d1d9e0;
   border-radius: 6px;
@@ -151,6 +172,7 @@
           <option value="en">🇬🇧 English</option>
           <option value="vi">🇻🇳 Tiếng Việt</option>
           <option value="th">🇹🇭 ภาษาไทย (Thai)</option>
+          <option value="lo">🇱🇦 ພາສາລາວ (Lao)</option>
         </select>
       </div>
       <div class="col-md-4">
@@ -434,6 +456,20 @@ document.querySelectorAll('.editor-tab').forEach(tab => {
   });
 });
 
+// Language selector - Apply Lao font when selected
+document.getElementById('Language').addEventListener('change', function() {
+  const selectedLang = this.value;
+  const editorContainer = document.querySelector('.github-editor');
+  
+  if (selectedLang === 'lo') {
+    // Add Lao font class
+    editorContainer.classList.add('lao-content');
+  } else {
+    // Remove Lao font class for other languages
+    editorContainer.classList.remove('lao-content');
+  }
+});
+
 // AI Content Generation
 document.getElementById('btnGenerate').addEventListener('click', async function() {
   const topic = document.getElementById('Topic').value.trim();
@@ -457,7 +493,8 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
   const languageNames = {
     'en': 'English',
     'vi': 'Tiếng Việt',
-    'th': 'ภาษาไทย (Thai)'
+    'th': 'ภาษาไทย (Thai)',
+    'lo': 'ພາສາລາວ (Lao)'
   };
   textarea.value = `⏳ Generating comprehensive learning content in ${languageNames[language]}...\n\nThis may take 10-30 seconds depending on the topic complexity.\n\nPlease wait...`;
   

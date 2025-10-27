@@ -14,12 +14,16 @@ if ($contentId > 0) {
     if (!$content) {
         redirect('index.php?q=content');
     }
+    
+    // Detect Lao content
+    $isLaoContent = preg_match('/[\x{0E80}-\x{0EFF}]/u', $content->Title . ' ' . $content->Body);
+    $laoClass = $isLaoContent ? ' lao-content' : '';
     ?>
     <a href="index.php?q=content" class="back-btn">
         <i class="fa fa-arrow-left"></i> Back to Learning Content
     </a>
     
-    <div class="content-viewer">
+    <div class="content-viewer<?php echo $laoClass; ?>">
         <h1><?php echo htmlspecialchars($content->Title); ?></h1>
         <?php if ($content->Topic): ?>
             <p class="topic-badge"><span class="label label-primary"><?php echo htmlspecialchars($content->Topic); ?></span></p>
@@ -35,6 +39,20 @@ if ($contentId > 0) {
     </div>
     
     <style>
+    /* Lao Language Font */
+    @font-face {
+        font-family: 'Phetsarath OT';
+        src: url('fonts/Phetsarath OT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    /* Apply Lao font for Lao content */
+    .lao-content,
+    .lao-content * {
+        font-family: 'Phetsarath OT', Arial, sans-serif !important;
+    }
+    
     /* Override the blue background for content page */
     body {
         background: #f5f7fb !important;
@@ -270,8 +288,11 @@ if ($contentId > 0) {
         </div>
     <?php else: ?>
         <div class="content-grid">
-            <?php foreach ($contents as $content): ?>
-                <div class="content-card">
+            <?php foreach ($contents as $content): 
+                // Detect Lao content for each card
+                $cardLaoClass = preg_match('/[\x{0E80}-\x{0EFF}]/u', $content->Title . ' ' . $content->Body) ? ' lao-content' : '';
+            ?>
+                <div class="content-card<?php echo $cardLaoClass; ?>">
                     <div class="content-header">
                         <h3><a href="index.php?q=content&id=<?php echo $content->ContentID; ?>"><?php echo htmlspecialchars($content->Title); ?></a></h3>
                         <?php if ($content->Topic): ?>
@@ -298,6 +319,20 @@ if ($contentId > 0) {
     <?php endif; ?>
     
     <style>
+    /* Lao Language Font */
+    @font-face {
+        font-family: 'Phetsarath OT';
+        src: url('fonts/Phetsarath OT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    /* Apply Lao font for Lao content */
+    .lao-content,
+    .lao-content * {
+        font-family: 'Phetsarath OT', Arial, sans-serif !important;
+    }
+    
     /* Override the blue background for content page */
     body {
         background: #f5f7fb !important;

@@ -1,6 +1,19 @@
 <?php if(!isset($_SESSION['USERID'])){ redirect(web_root."admin/index.php"); } ?>
 
 <style>
+/* Lao Language Font */
+@font-face {
+  font-family: 'Phetsarath OT';
+  src: url('../../../fonts/Phetsarath OT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Lao font for Lao text */
+.lao-text {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
 .action-buttons .btn {
   margin-right: 5px;
   margin-bottom: 5px;
@@ -28,10 +41,14 @@
     $mydb->setQuery("SELECT * FROM tblcontent ORDER BY CreatedAt DESC");
     $rows = $mydb->loadResultList();
     $i=1; foreach($rows as $r){
+      // Detect Lao text
+      $hasLao = preg_match('/[\x{0E80}-\x{0EFF}]/u', $r->Title . ' ' . $r->Topic);
+      $laoClass = $hasLao ? ' class="lao-text"' : '';
+      
       echo '<tr>';
       echo '<td>'.$i++.'</td>';
-      echo '<td><span class="content-title">'.htmlentities($r->Title).'</span></td>';
-      echo '<td><span class="content-topic">'.htmlentities($r->Topic).'</span></td>';
+      echo '<td><span class="content-title"'.$laoClass.'>'.htmlentities($r->Title).'</span></td>';
+      echo '<td><span class="content-topic"'.$laoClass.'>'.htmlentities($r->Topic).'</span></td>';
       echo '<td>'.date('M j, Y g:i A', strtotime($r->CreatedAt)).'</td>';
       echo '<td class="action-buttons">';
       echo '<a href="index.php?view=preview&id='.$r->ContentID.'" class="btn btn-info btn-sm" title="View Content">';

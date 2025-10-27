@@ -24,6 +24,27 @@ if (!$content) {
 ?>
 
 <style>
+/* Lao Language Font */
+@font-face {
+  font-family: 'Phetsarath OT';
+  src: url('../../../fonts/Phetsarath OT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Lao font when Lao language is detected */
+.lao-content {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
+.lao-content .editor-textarea,
+.lao-content .preview-content,
+.lao-content h1, .lao-content h2, .lao-content h3, 
+.lao-content h4, .lao-content h5, .lao-content h6,
+.lao-content p, .lao-content li, .lao-content td, .lao-content th {
+  font-family: 'Phetsarath OT', Arial, sans-serif !important;
+}
+
 .github-editor {
   border: 1px solid #d1d9e0;
   border-radius: 6px;
@@ -168,6 +189,36 @@ if (!$content) {
 </form>
 
 <script>
+// Function to detect Lao text (Lao Unicode range: U+0E80 to U+0EFF)
+function containsLaoText(text) {
+  return /[\u0E80-\u0EFF]/.test(text);
+}
+
+// Check on page load if content contains Lao text
+window.addEventListener('DOMContentLoaded', function() {
+  const titleInput = document.getElementById('Title');
+  const bodyTextarea = document.getElementById('Body');
+  const editorContainer = document.querySelector('.github-editor');
+  
+  function checkAndApplyLaoFont() {
+    const title = titleInput ? titleInput.value : '';
+    const body = bodyTextarea ? bodyTextarea.value : '';
+    
+    if (containsLaoText(title + body)) {
+      editorContainer.classList.add('lao-content');
+    } else {
+      editorContainer.classList.remove('lao-content');
+    }
+  }
+  
+  // Check on load
+  checkAndApplyLaoFont();
+  
+  // Check on input
+  if (titleInput) titleInput.addEventListener('input', checkAndApplyLaoFont);
+  if (bodyTextarea) bodyTextarea.addEventListener('input', checkAndApplyLaoFont);
+});
+
 // Simple Markdown to HTML converter
 function markdownToHtml(markdown) {
   let html = markdown
