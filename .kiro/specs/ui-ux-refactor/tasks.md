@@ -30,6 +30,7 @@
 
 - [x] 2. Refactor Authentication Pages
 
+
   - Redesign trang login với layout mới theo design
   - Cập nhật form validation styling và UX
   - Implement loading states và error handling
@@ -63,28 +64,28 @@
   - Add form submission loading states
   - _Requirements: 2.2, 2.4_
 
-- [x] 3. Implement New Navigation System
+- [ ] 3. Implement New Navigation System
 
   - Tạo responsive header navigation với logo và user menu
   - Implement mobile hamburger menu
   - Tạo breadcrumb navigation system
   - _Requirements: 3.2, 3.3, 3.5_
 
-- [x] 3.1 Create main navigation header
+- [ ] 3.1 Create main navigation header
 
   - Tạo file `navigation/header.php` với responsive design
   - Implement user avatar dropdown menu
   - Thêm search functionality trong header
   - _Requirements: 3.2, 3.3_
 
-- [x] 3.2 Implement mobile navigation
+- [ ] 3.2 Implement mobile navigation
 
   - Tạo hamburger menu với smooth animations
   - Implement overlay navigation cho mobile
   - Ensure touch-friendly navigation elements
   - _Requirements: 3.3, 9.2_
 
-- [x] 3.3 Create admin sidebar navigation
+- [ ] 3.3 Create admin sidebar navigation
 
   - Redesign admin sidebar với collapsible functionality
   - Implement active state indicators
@@ -98,22 +99,21 @@
   - Create loading states cho navigation
   - _Requirements: 1.3, 3.2_
 
-- [x] 4. Redesign Dashboard Pages
+- [ ] 4. Redesign Dashboard Pages
 
   - Tạo student dashboard với cards và statistics
   - Implement admin dashboard với widgets và charts
   - Tạo responsive grid layout cho dashboard elements
   - _Requirements: 3.1, 6.1_
 
-- [x] 4.1 Create student dashboard (home.php)
+- [ ] 4.1 Create student dashboard (home.php)
 
   - Implement dashboard-stats cards với icons
   - Tạo action cards cho main functions
-
   - Thêm welcome message và personalization
   - _Requirements: 3.1_
 
-- [x] 4.2 Create admin dashboard (admin/home.php)
+- [ ] 4.2 Create admin dashboard (admin/home.php)
 
   - Implement statistics widgets với charts
   - Tạo quick action buttons
