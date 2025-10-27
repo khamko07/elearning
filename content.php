@@ -14,291 +14,239 @@ if ($contentId > 0) {
     if (!$content) {
         redirect('index.php?q=content');
     }
-    
-    // Get next and previous content for navigation
-    $sqlNext = "SELECT ContentID, Title FROM tblcontent WHERE ContentID > {$contentId} ORDER BY ContentID ASC LIMIT 1";
-    $mydb->setQuery($sqlNext);
-    $nextContent = $mydb->loadSingleResult();
-    
-    $sqlPrev = "SELECT ContentID, Title FROM tblcontent WHERE ContentID < {$contentId} ORDER BY ContentID DESC LIMIT 1";
-    $mydb->setQuery($sqlPrev);
-    $prevContent = $mydb->loadSingleResult();
     ?>
+    <a href="index.php?q=content" class="back-btn">
+        <i class="fa fa-arrow-left"></i> Back to Learning Content
+    </a>
     
-    <div class="content-reader-container">
-        <!-- Content Header -->
-        <div class="content-reader-header">
-            <div class="header-navigation">
-                <a href="index.php?q=content" class="back-button">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Quay lại danh sách</span>
-                </a>
-                
-                <div class="reading-controls">
-                    <button class="control-btn" id="fontSizeBtn" title="Kích thước chữ">
-                        <i class="fas fa-text-height"></i>
-                    </button>
-                    <button class="control-btn" id="darkModeBtn" title="Chế độ đọc">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="control-btn" id="bookmarkBtn" title="Đánh dấu">
-                        <i class="far fa-bookmark"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="content-meta">
-                <div class="breadcrumb">
-                    <a href="index.php">Trang chủ</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <a href="index.php?q=content">Nội dung học tập</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <span><?php echo htmlspecialchars($content->Title); ?></span>
-                </div>
-                
-                <div class="reading-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="readingProgress"></div>
-                    </div>
-                    <span class="progress-text">0%</span>
-                </div>
-            </div>
+    <div class="content-viewer">
+        <h1><?php echo htmlspecialchars($content->Title); ?></h1>
+        <?php if ($content->Topic): ?>
+            <p class="topic-badge"><span class="label label-primary"><?php echo htmlspecialchars($content->Topic); ?></span></p>
+        <?php endif; ?>
+        
+        <div class="content-body">
+            <?php echo markdownToHtml($content->Body); ?>
         </div>
-
-        <!-- Content Body -->
-        <article class="content-article" id="contentArticle">
-            <header class="article-header">
-                <h1 class="article-title"><?php echo htmlspecialchars($content->Title); ?></h1>
-                
-                <?php if ($content->Topic): ?>
-                    <div class="article-meta">
-                        <span class="topic-badge">
-                            <i class="fas fa-tag"></i>
-                            <?php echo htmlspecialchars($content->Topic); ?>
-                        </span>
-                        <span class="publish-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            <?php echo date('d/m/Y', strtotime($content->CreatedAt)); ?>
-                        </span>
-                        <span class="reading-time">
-                            <i class="fas fa-clock"></i>
-                            <span id="estimatedTime">5 phút đọc</span>
-                        </span>
-                    </div>
-                <?php endif; ?>
-            </header>
-            
-            <div class="article-content" id="articleContent">
-                <?php echo markdownToHtml($content->Body); ?>
-            </div>
-            
-            <footer class="article-footer">
-                <div class="content-actions">
-                    <button class="action-btn helpful" data-action="helpful">
-                        <i class="fas fa-thumbs-up"></i>
-                        <span>Hữu ích</span>
-                        <span class="count">0</span>
-                    </button>
-                    <button class="action-btn share" data-action="share">
-                        <i class="fas fa-share-alt"></i>
-                        <span>Chia sẻ</span>
-                    </button>
-                    <button class="action-btn print" data-action="print">
-                        <i class="fas fa-print"></i>
-                        <span>In</span>
-                    </button>
-                </div>
-                
-                <div class="content-info">
-                    <small class="last-updated">
-                        Cập nhật lần cuối: <?php echo date('d/m/Y H:i', strtotime($content->CreatedAt)); ?>
-                    </small>
-                </div>
-            </footer>
-        </article>
-
-        <!-- Content Navigation -->
-        <nav class="content-navigation">
-            <div class="nav-item prev">
-                <?php if ($prevContent): ?>
-                    <a href="index.php?q=content&id=<?php echo $prevContent->ContentID; ?>" class="nav-link">
-                        <div class="nav-direction">
-                            <i class="fas fa-chevron-left"></i>
-                            <span>Bài trước</span>
-                        </div>
-                        <div class="nav-title"><?php echo htmlspecialchars($prevContent->Title); ?></div>
-                    </a>
-                <?php endif; ?>
-            </div>
-            
-            <div class="nav-item next">
-                <?php if ($nextContent): ?>
-                    <a href="index.php?q=content&id=<?php echo $nextContent->ContentID; ?>" class="nav-link">
-                        <div class="nav-direction">
-                            <span>Bài tiếp</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="nav-title"><?php echo htmlspecialchars($nextContent->Title); ?></div>
-                    </a>
-                <?php endif; ?>
-            </div>
-        </nav>
+        
+        <div class="content-footer">
+            <small class="text-muted">Created: <?php echo date('F j, Y', strtotime($content->CreatedAt)); ?></small>
+        </div>
     </div>
     
+    <style>
+    /* Override the blue background for content page */
+    body {
+        background: #f5f7fb !important;
+    }
+    
+    .content-viewer {
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .content-viewer h1 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 2.5em;
+        font-weight: 700;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .topic-badge {
+        margin-bottom: 25px;
+    }
+    
+    .topic-badge .label {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .content-body {
+        line-height: 1.8;
+        font-size: 16px;
+        color: #34495e;
+        margin-top: 30px;
+    }
+    
+    .content-body h1 { 
+        font-size: 2.2em; 
+        margin: 2em 0 1em 0; 
+        color: #2c3e50;
+        font-weight: 600;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+    }
+    
+    .content-body h2 { 
+        font-size: 1.8em; 
+        margin: 1.5em 0 0.8em 0; 
+        color: #34495e;
+        font-weight: 600;
+    }
+    
+    .content-body h3 { 
+        font-size: 1.4em; 
+        margin: 1.2em 0 0.6em 0; 
+        color: #5a6c7d;
+        font-weight: 600;
+    }
+    
+    .content-body ul, .content-body ol { 
+        margin: 1.5em 0; 
+        padding-left: 2em; 
+    }
+    
+    .content-body li { 
+        margin: 0.8em 0; 
+        line-height: 1.6;
+    }
+    
+    .content-body p { 
+        margin: 1.5em 0; 
+        text-align: justify;
+    }
+    
+    .content-body code { 
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef); 
+        padding: 4px 8px; 
+        border-radius: 4px; 
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 0.9em;
+        color: #e83e8c;
+        border: 1px solid #dee2e6;
+    }
+    
+    .content-body pre {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+        overflow-x: auto;
+        margin: 2em 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .content-body pre code {
+        background: none;
+        padding: 0;
+        border: none;
+        color: #495057;
+    }
+    
+    .content-body blockquote {
+        border-left: 4px solid #667eea;
+        padding-left: 20px;
+        margin: 2em 0;
+        color: #6c757d;
+        font-style: italic;
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .content-footer {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+        text-align: center;
+    }
+    
+    .content-footer .text-muted {
+        color: #6c757d;
+        font-size: 14px;
+    }
+    
+    /* Back button */
+    .back-btn {
+        background: linear-gradient(45deg, #6c757d, #495057);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        color: white;
+        text-decoration: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .content-viewer {
+            padding: 25px 20px;
+            margin: 0 10px;
+        }
+        
+        .content-viewer h1 {
+            font-size: 2em;
+        }
+        
+        .content-body {
+            font-size: 15px;
+        }
+        
+        .content-body h1 { font-size: 1.8em; }
+        .content-body h2 { font-size: 1.5em; }
+        .content-body h3 { font-size: 1.3em; }
+    }
+    </style>
+    
     <script>
+    // Simple Markdown to HTML converter (same as admin)
+    function markdownToHtml(markdown) {
+        let html = markdown
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            .replace(/`(.*?)`/g, '<code>$1</code>')
+            .replace(/^\* (.*$)/gim, '<li>$1</li>')
+            .replace(/^- (.*$)/gim, '<li>$1</li>')
+            .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>');
+        
+        html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+        
+        if (html && !html.startsWith('<h') && !html.startsWith('<ul') && !html.startsWith('<pre')) {
+            html = '<p>' + html + '</p>';
+        }
+        
+        return html;
+    }
+    
+    // Convert markdown content to HTML
     document.addEventListener('DOMContentLoaded', function() {
-        // Reading progress tracking
-        const progressFill = document.getElementById('readingProgress');
-        const progressText = document.querySelector('.progress-text');
-        const article = document.getElementById('contentArticle');
-        
-        function updateReadingProgress() {
-            const articleRect = article.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const articleHeight = article.offsetHeight;
-            
-            // Calculate how much of the article has been scrolled past
-            const scrolled = Math.max(0, -articleRect.top);
-            const maxScroll = articleHeight - windowHeight;
-            const progress = Math.min(100, Math.max(0, (scrolled / maxScroll) * 100));
-            
-            progressFill.style.width = progress + '%';
-            progressText.textContent = Math.round(progress) + '%';
+        const contentBody = document.querySelector('.content-body');
+        if (contentBody) {
+            const markdownText = contentBody.textContent;
+            contentBody.innerHTML = markdownToHtml(markdownText);
         }
-        
-        window.addEventListener('scroll', updateReadingProgress);
-        updateReadingProgress();
-        
-        // Estimate reading time
-        const articleContent = document.getElementById('articleContent');
-        const wordCount = articleContent.textContent.split(/\s+/).length;
-        const readingTime = Math.ceil(wordCount / 200); // 200 words per minute
-        const estimatedTimeElement = document.getElementById('estimatedTime');
-        if (estimatedTimeElement) {
-            estimatedTimeElement.textContent = readingTime + ' phút đọc';
-        }
-        
-        // Font size control
-        const fontSizeBtn = document.getElementById('fontSizeBtn');
-        let currentFontSize = 0; // 0: normal, 1: large, 2: xlarge, 3: back to small
-        const fontSizes = ['', 'font-large', 'font-xlarge', 'font-small'];
-        
-        fontSizeBtn.addEventListener('click', function() {
-            // Remove current font size class
-            article.classList.remove('font-small', 'font-large', 'font-xlarge');
-            
-            // Cycle to next font size
-            currentFontSize = (currentFontSize + 1) % fontSizes.length;
-            
-            if (fontSizes[currentFontSize]) {
-                article.classList.add(fontSizes[currentFontSize]);
-            }
-            
-            // Update button state
-            this.classList.toggle('active', currentFontSize !== 0);
-        });
-        
-        // Reading mode (dark mode for content)
-        const darkModeBtn = document.getElementById('darkModeBtn');
-        darkModeBtn.addEventListener('click', function() {
-            article.classList.toggle('reading-mode');
-            this.classList.toggle('active');
-            
-            const icon = this.querySelector('i');
-            if (article.classList.contains('reading-mode')) {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        });
-        
-        // Bookmark functionality
-        const bookmarkBtn = document.getElementById('bookmarkBtn');
-        const contentId = new URLSearchParams(window.location.search).get('id');
-        
-        // Check if already bookmarked (you can implement localStorage or server-side)
-        const isBookmarked = localStorage.getItem('bookmark_' + contentId) === 'true';
-        if (isBookmarked) {
-            bookmarkBtn.classList.add('active');
-            bookmarkBtn.querySelector('i').className = 'fas fa-bookmark';
-        }
-        
-        bookmarkBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            const isCurrentlyBookmarked = this.classList.contains('active');
-            
-            if (isCurrentlyBookmarked) {
-                this.classList.remove('active');
-                icon.className = 'far fa-bookmark';
-                localStorage.removeItem('bookmark_' + contentId);
-            } else {
-                this.classList.add('active');
-                icon.className = 'fas fa-bookmark';
-                localStorage.setItem('bookmark_' + contentId, 'true');
-            }
-        });
-        
-        // Content actions
-        const actionBtns = document.querySelectorAll('.action-btn');
-        actionBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const action = this.dataset.action;
-                
-                switch (action) {
-                    case 'helpful':
-                        this.classList.toggle('active');
-                        const count = this.querySelector('.count');
-                        let currentCount = parseInt(count.textContent);
-                        count.textContent = this.classList.contains('active') ? currentCount + 1 : Math.max(0, currentCount - 1);
-                        break;
-                        
-                    case 'share':
-                        if (navigator.share) {
-                            navigator.share({
-                                title: document.querySelector('.article-title').textContent,
-                                url: window.location.href
-                            });
-                        } else {
-                            // Fallback: copy to clipboard
-                            navigator.clipboard.writeText(window.location.href).then(() => {
-                                alert('Đã sao chép liên kết!');
-                            });
-                        }
-                        break;
-                        
-                    case 'print':
-                        window.print();
-                        break;
-                }
-            });
-        });
-        
-        // Smooth scrolling for navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Add a subtle loading effect
-                this.style.opacity = '0.7';
-                setTimeout(() => {
-                    this.style.opacity = '1';
-                }, 200);
-            });
-        });
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + D for bookmark
-            if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
-                e.preventDefault();
-                bookmarkBtn.click();
-            }
-            
-            // Ctrl/Cmd + P for print
-            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-                e.preventDefault();
-                document.querySelector('[data-action="print"]').click();
-            }
-        });
     });
     </script>
     

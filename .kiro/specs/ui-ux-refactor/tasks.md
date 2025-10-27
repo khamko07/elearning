@@ -127,36 +127,35 @@
   - Create loading states cho dashboard data
   - _Requirements: 1.3, 3.1_
 
-- [x] 5. Refactor Lesson Management Interface
-
+- [ ] 5. Refactor Lesson Management Interface
 
   - Redesign lesson list với card layout
   - Implement search và filtering functionality
   - Tạo lesson detail view với improved typography
   - _Requirements: 4.1, 4.2, 4.3_
 
-- [x] 5.1 Redesign lesson.php
+- [ ] 5.1 Redesign lesson.php
 
   - Convert table layout sang card-based design
   - Implement lesson thumbnails và type indicators
   - Thêm search và filter controls
   - _Requirements: 4.1, 4.2_
 
-- [x] 5.2 Redesign content.php
+- [ ] 5.2 Redesign content.php
 
   - Implement clean typography cho lesson content
   - Tạo responsive layout cho text content
   - Thêm navigation controls (back, next)
   - _Requirements: 4.3_
 
-- [x] 5.3 Improve video player (playvideo.php)
+- [ ] 5.3 Improve video player (playvideo.php)
 
   - Implement modern video player controls
   - Thêm fullscreen và playback speed options
   - Ensure mobile-friendly video experience
   - _Requirements: 4.4, 9.5_
 
-- [x] 5.4 Improve PDF viewer (viewpdf.php)
+- [ ] 5.4 Improve PDF viewer (viewpdf.php)
 
   - Integrate PDF viewer với modern styling
   - Implement zoom và navigation controls
