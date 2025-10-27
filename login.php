@@ -1,93 +1,93 @@
 <?php 
 require_once ("include/initialize.php");   
 if (isset($_SESSION['StudentID'])) {
+  # code...
   redirect('index.php');
 }
 ?> 
+  
 
-<!DOCTYPE html>
-<html lang="vi" data-theme="light">
+<style type="text/css">
+  body {
+    background: url('assets/ued.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+</style>
+
+ <!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Đăng nhập - Hệ thống E-Learning</title>
+  <title>Login</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->  
   <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 
-  <!-- Bootstrap 5 -->
-  <link href="<?php echo web_root; ?>css/bootstrap5.min.css" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet" media="screen">  
-  
-  <!-- Our Design System -->
-  <link href="<?php echo web_root; ?>assets/css/main.css" rel="stylesheet">
+<link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet"> 
+<link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet" media="screen">  
+ 
+<!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="<?php echo web_root; ?>css/util.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo web_root; ?>css/main.css">
+<!--===============================================================================================-->
 </head>
 <body>
-  <!-- Theme Toggle Button -->
-  <div class="fixed" style="top: 20px; right: 20px; z-index: 1000;">
-    <button data-theme-toggle class="btn btn-ghost" title="Chuyển đổi giao diện">
-      <i class="fas fa-moon"></i>
-    </button>
-  </div>
-
-  <!-- Authentication Container -->
-  <div class="auth-container">
-    <?php check_message(); ?>
-    
-    <div class="auth-card">
-      <div class="auth-header">
-        <img src="images/text-ued-1.png" alt="Logo UED" class="auth-logo">
-        <h1 class="auth-title">Đăng nhập</h1>
-        <p class="auth-subtitle">Chào mừng trở lại hệ thống E-Learning!</p>
-      </div>
-      
-      <form class="auth-form" action="" method="POST" id="loginForm"> 
-        <div class="form-group">
-          <label class="form-label required" for="user_email">Email hoặc Tên đăng nhập</label>
-          <input 
-            class="form-input" 
-            type="text" 
-            id="user_email"
-            name="user_email" 
-            placeholder="Nhập email hoặc tên đăng nhập..."
-            required
-            autocomplete="username"
-          >
-          <div class="form-error" id="email-error"></div>
+  
+  <div class="limiter">
+    <div class="container-login100" style="background: url('assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
+           <?php check_message(); ?>
+      <div class="wrap-login100" style="flex-direction: column; align-items: center; padding: 60px 40px 33px 40px;">
+        <div class="login100-pic js-tilt" data-tilt  style="background: transparent; width: 100%; text-align: center; margin-bottom: 20px;">
+          <img src="images/text-ued-1.png" style="max-width: 70%; height: auto; object-fit: contain;" alt="Logo">
         </div>
+         
+        <form class="login100-form validate-form" action="" method="POST"> 
+          <span class="login100-form-title">
+            Member Login 
+          </span>
 
-        <div class="form-group">
-          <label class="form-label required" for="user_pass">Mật khẩu</label>
-          <div class="input-group">
-            <input 
-              class="form-input" 
-              type="password" 
-              id="user_pass"
-              name="user_pass" 
-              placeholder="Nhập mật khẩu..."
-              required
-              autocomplete="current-password"
-            >
-            <button type="button" class="input-addon" id="togglePassword" title="Hiện/ẩn mật khẩu">
-              <i class="fas fa-eye"></i>
+          <div class="wrap-input100 validate-input" >
+            <input class="input100" type="text" name="user_email" placeholder="Username">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate = "Password is required">
+            <input class="input100" type="password" name="user_pass" placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit" name="btnLogin">
+              Login
             </button>
           </div>
-          <div class="form-error" id="password-error"></div>
-        </div>
-        
-        <button class="btn btn-primary btn-full" type="submit" name="btnLogin" id="loginBtn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span>Đăng nhập</span>
-          <div class="loading-spinner" id="loginSpinner" style="display: none;"></div>
-        </button>
-      </form>
-      
-      <div class="auth-footer">
-        <p>Chưa có tài khoản? <a href="register.php">Đăng ký ngay</a></p>
-        <a href="admin/login.php" class="admin-link">
-          <i class="fas fa-user-shield"></i>
-          Đăng nhập Admin
-        </a>
+
+          <div class="container-login100-form-btn" style="margin-top:10px;">
+            <a class="btn btn-default btn-block" href="admin/login.php">Admin Login</a>
+          </div>
+
+      <!--     <div class="text-center p-t-12">
+            <span class="txt1">
+              Forgot
+            </span>
+            <a class="txt2" href="#">
+              Username / Password?
+            </a>
+          </div> -->
+
+          <div class="text-center p-t-136">
+            <a class="txt2" href="register.php">
+              Create your Account
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -123,100 +123,19 @@ if(isset($_POST['btnLogin'])){
  } 
  ?> 
 
-  <!-- Scripts -->
-  <script src="<?php echo web_root; ?>js/jquery.js"></script>
-  <script src="<?php echo web_root; ?>js/bootstrap5.min.js"></script>
-  <script src="<?php echo web_root; ?>assets/js/theme-manager.js"></script>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Password visibility toggle
-      const togglePassword = document.getElementById('togglePassword');
-      const passwordInput = document.getElementById('user_pass');
-      const toggleIcon = togglePassword.querySelector('i');
-      
-      togglePassword.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        
-        if (type === 'password') {
-          toggleIcon.className = 'fas fa-eye';
-          togglePassword.setAttribute('title', 'Hiện mật khẩu');
-        } else {
-          toggleIcon.className = 'fas fa-eye-slash';
-          togglePassword.setAttribute('title', 'Ẩn mật khẩu');
-        }
-      });
-      
-      // Form validation and loading state
-      const loginForm = document.getElementById('loginForm');
-      const loginBtn = document.getElementById('loginBtn');
-      const loginSpinner = document.getElementById('loginSpinner');
-      const btnText = loginBtn.querySelector('span');
-      const btnIcon = loginBtn.querySelector('i');
-      
-      loginForm.addEventListener('submit', function(e) {
-        // Clear previous errors
-        document.getElementById('email-error').textContent = '';
-        document.getElementById('password-error').textContent = '';
-        
-        const email = document.getElementById('user_email').value.trim();
-        const password = document.getElementById('user_pass').value.trim();
-        
-        let hasError = false;
-        
-        // Client-side validation
-        if (!email) {
-          document.getElementById('email-error').textContent = 'Vui lòng nhập email hoặc tên đăng nhập';
-          document.getElementById('user_email').classList.add('error');
-          hasError = true;
-        } else {
-          document.getElementById('user_email').classList.remove('error');
-        }
-        
-        if (!password) {
-          document.getElementById('password-error').textContent = 'Vui lòng nhập mật khẩu';
-          document.getElementById('user_pass').classList.add('error');
-          hasError = true;
-        } else {
-          document.getElementById('user_pass').classList.remove('error');
-        }
-        
-        if (hasError) {
-          e.preventDefault();
-          return;
-        }
-        
-        // Show loading state
-        loginBtn.disabled = true;
-        btnIcon.style.display = 'none';
-        btnText.textContent = 'Đang đăng nhập...';
-        loginSpinner.style.display = 'inline-block';
-      });
-      
-      // Auto-focus first input
-      document.getElementById('user_email').focus();
-      
-      // Enhanced form interactions
-      const formInputs = document.querySelectorAll('.form-input');
-      formInputs.forEach(input => {
-        input.addEventListener('focus', function() {
-          this.parentElement.classList.add('focused');
-        });
-        
-        input.addEventListener('blur', function() {
-          this.parentElement.classList.remove('focused');
-          if (this.classList.contains('error') && this.value.trim()) {
-            this.classList.remove('error');
-            const errorElement = document.getElementById(this.id + '-error');
-            if (errorElement) {
-              errorElement.textContent = '';
-            }
-          }
-        });
-      });
-    });
+<script type="text/javascript" language="javascript" src="<?php echo web_root; ?>js/jquery.js"></script>
+<script src="<?php echo web_root; ?>js/bootstrap.min.js"></script> 
+<!--===============================================================================================-->
+  <script src="<?php echo web_root; ?>vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+  <script src="<?php echo web_root; ?>vendor/tilt/tilt.jquery.min.js"></script>
+  <script >
+    $('.js-tilt').tilt({
+      scale: 1.1
+    })
   </script>
+<!--===============================================================================================-->
+  <script src="js/main.js"></script>
 
 </body>
 </html>
