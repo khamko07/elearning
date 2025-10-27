@@ -68,7 +68,7 @@
 
 <div class="about-container">
     <div class="about-image">
-        <img src="assets/fim.jpg" alt="FIM University">
+        <img src="assets/jame.jpg" alt="FIM University">
     </div>
     
     <div class="about-content">
