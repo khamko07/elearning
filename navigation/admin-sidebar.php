@@ -17,44 +17,35 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 $currentPath = $_SERVER['REQUEST_URI'];
 ?>
 
-<aside class="admin-sidebar" id="adminSidebar" role="navigation" aria-label="Điều hướng quản trị">
+<aside class="admin-sidebar" id="adminSidebar">
     <!-- Sidebar Header -->
     <div class="sidebar-header">
         <div class="sidebar-brand">
-            <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="Logo Đại học Sư phạm" class="sidebar-logo">
+            <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="UED Logo" class="sidebar-logo">
             <div class="brand-info">
                 <h3 class="brand-title">Admin Panel</h3>
                 <small class="brand-subtitle">Hệ thống quản trị</small>
             </div>
         </div>
         
-        <button 
-            class="sidebar-toggle" 
-            id="sidebarToggle" 
-            aria-label="Thu gọn/mở rộng sidebar"
-            aria-expanded="true"
-            aria-controls="adminSidebar"
-            title="Thu gọn sidebar">
-            <i class="fas fa-angle-left" aria-hidden="true"></i>
+        <button class="sidebar-toggle" id="sidebarToggle" title="Thu gọn sidebar">
+            <i class="fas fa-angle-left"></i>
         </button>
     </div>
 
     <!-- Admin User Info -->
-    <div class="sidebar-user" role="complementary" aria-label="Thông tin người dùng">
+    <div class="sidebar-user">
         <div class="user-avatar-container">
-            <img src="<?php echo web_root . $userAvatar; ?>" alt="Ảnh đại diện của <?php echo htmlspecialchars($userName); ?>" class="sidebar-user-avatar">
-            <div class="user-status online" aria-label="Trạng thái: Đang hoạt động"></div>
+            <img src="<?php echo web_root . $userAvatar; ?>" alt="Admin Avatar" class="sidebar-user-avatar">
+            <div class="user-status online"></div>
         </div>
         <div class="user-details">
             <h4 class="user-name"><?php echo htmlspecialchars($userName); ?></h4>
             <small class="user-role">Quản trị viên</small>
         </div>
         <div class="user-actions">
-            <button 
-                class="user-action-btn" 
-                aria-label="Cài đặt tài khoản"
-                title="Cài đặt">
-                <i class="fas fa-cog" aria-hidden="true"></i>
+            <button class="user-action-btn" title="Cài đặt">
+                <i class="fas fa-cog"></i>
             </button>
         </div>
     </div>

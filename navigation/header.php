@@ -26,32 +26,26 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 $currentQuery = isset($_GET['q']) ? $_GET['q'] : '';
 ?>
 
-<header class="main-header" id="mainHeader" role="banner">
-    <nav class="navbar" role="navigation" aria-label="Điều hướng chính">
+<header class="main-header" id="mainHeader">
+    <nav class="navbar">
         <div class="container-fluid">
             <!-- Logo and Brand -->
             <div class="navbar-brand">
-                <a href="<?php echo web_root; ?>index.php" class="brand-link" aria-label="Về trang chủ E-Learning">
-                    <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="Logo Đại học Sư phạm" class="brand-logo">
+                <a href="<?php echo web_root; ?>index.php" class="brand-link">
+                    <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="UED Logo" class="brand-logo">
                     <span class="brand-text">E-Learning</span>
                 </a>
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="navbar-nav desktop-nav" id="desktopNav" role="menubar">
+            <div class="navbar-nav desktop-nav" id="desktopNav">
                 <?php if ($userType === 'student'): ?>
-                    <a href="<?php echo web_root; ?>index.php" 
-                       class="nav-link <?php echo ($currentPage === 'index' && !$currentQuery) ? 'active' : ''; ?>"
-                       role="menuitem"
-                       aria-current="<?php echo ($currentPage === 'index' && !$currentQuery) ? 'page' : 'false'; ?>">
-                        <i class="fas fa-home" aria-hidden="true"></i>
+                    <a href="<?php echo web_root; ?>index.php" class="nav-link <?php echo ($currentPage === 'index' && !$currentQuery) ? 'active' : ''; ?>">
+                        <i class="fas fa-home"></i>
                         <span>Trang chủ</span>
                     </a>
-                    <a href="<?php echo web_root; ?>index.php?q=content" 
-                       class="nav-link <?php echo ($currentQuery === 'content') ? 'active' : ''; ?>"
-                       role="menuitem"
-                       aria-current="<?php echo ($currentQuery === 'content') ? 'page' : 'false'; ?>">
-                        <i class="fas fa-book-open" aria-hidden="true"></i>
+                    <a href="<?php echo web_root; ?>index.php?q=content" class="nav-link <?php echo ($currentQuery === 'content') ? 'active' : ''; ?>">
+                        <i class="fas fa-book-open"></i>
                         <span>Nội dung học tập</span>
                     </a>
                     <a href="<?php echo web_root; ?>index.php?q=categories" class="nav-link <?php echo ($currentQuery === 'categories') ? 'active' : ''; ?>">

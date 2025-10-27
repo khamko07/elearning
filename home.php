@@ -24,34 +24,29 @@ $recentActivities = [
 $userName = $currentStudent ? $currentStudent->Fname . ' ' . $currentStudent->Lname : 'Học viên';
 ?>
 
-<!-- Skip to main content link -->
-<a href="#main-dashboard" class="skip-link">Bỏ qua đến nội dung chính</a>
-
-<main id="main-dashboard" class="dashboard-container" role="main">
+<div class="dashboard-container">
     <!-- Dashboard Header -->
-    <header class="dashboard-header">
+    <div class="dashboard-header">
         <div class="welcome-section">
             <h1 class="dashboard-title">Chào mừng trở lại, <?php echo htmlspecialchars($userName); ?>!</h1>
             <p class="dashboard-subtitle">Hãy tiếp tục hành trình học tập của bạn</p>
         </div>
-        <div class="dashboard-time" role="complementary" aria-label="Thời gian hiện tại">
+        <div class="dashboard-time">
             <div class="current-time">
-                <i class="fas fa-clock" aria-hidden="true"></i>
-                <span id="currentTime" aria-live="polite"></span>
+                <i class="fas fa-clock"></i>
+                <span id="currentTime"></span>
             </div>
             <div class="current-date">
                 <span id="currentDate"></span>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Dashboard Statistics -->
-    <section class="dashboard-stats" aria-labelledby="stats-heading">
-        <h2 id="stats-heading" class="sr-only">Thống kê học tập</h2>
-        
-        <div class="stat-card" role="img" aria-labelledby="lessons-stat">
+    <div class="dashboard-stats">
+        <div class="stat-card">
             <div class="stat-icon lessons">
-                <i class="fas fa-book-open" aria-hidden="true"></i>
+                <i class="fas fa-book-open"></i>
             </div>
             <div class="stat-content">
                 <h3 class="stat-number"><?php echo $completedLessons; ?>/<?php echo $totalLessons; ?></h3>
