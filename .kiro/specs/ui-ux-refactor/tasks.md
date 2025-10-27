@@ -323,7 +323,6 @@
 
 
 
-
   - Minify và compress CSS/JS files
   - Implement critical CSS inlining
   - Optimize image formats và sizes
@@ -343,10 +342,7 @@
   - Validate responsive design across devices
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-- [x] 11.1 Cross-browser testing
-
-
-
+- [ ] 11.1 Cross-browser testing
 
   - Test trên Chrome, Firefox, Safari, Edge
   - Validate CSS compatibility
