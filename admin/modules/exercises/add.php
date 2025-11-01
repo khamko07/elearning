@@ -5,6 +5,16 @@
 
                       // $autonum = New Autonumber();
                       // $res = $autonum->single_autonumber(2);
+                      
+                      // Get pre-selected category from URL (if coming from topics page)
+                      $preSelectedCategoryId = isset($_GET['category']) ? (int)$_GET['category'] : 0;
+                      $preSelectedCategory = null;
+                      
+                      if ($preSelectedCategoryId > 0) {
+                          $sql = "SELECT * FROM tblcategories WHERE CategoryID = {$preSelectedCategoryId}";
+                          $mydb->setQuery($sql);
+                          $preSelectedCategory = $mydb->loadSingleResult();
+                      }
 
                        ?> 
                      <form class="form-horizontal span6" action="controller.php?action=add" method="POST" style="margin-top: 20px;"> 
@@ -103,32 +113,50 @@
                         <div class="form-group">
                         <div class="col-md-8">
                           <label class="col-md-4 control-label" for="Category">Category:</label>
-                          <div class="col-md-8"> 
-                            <div class="input-group">
-                              <select class="form-control" name="CategorySelect" id="CategorySelect" onchange="handleCategorySelect()">
-                                  <option value="">-- Chọn từ danh sách có sẵn --</option>
-                                  <?php
-                                  $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
-                                  $mydb->setQuery($sql);
-                                  $categories = $mydb->loadResultList();
-                                  foreach ($categories as $category) {
-                                      echo '<option value="'.$category->CategoryID.'" data-name="'.$category->CategoryName.'">'.$category->CategoryName.'</option>';
-                                  }
-                                  ?>
-                                  <option value="new">✏️ Nhập Category mới...</option>
-                              </select>
-                              <span class="input-group-addon" style="cursor: pointer;" onclick="toggleCategoryInput()" title="Nhập tên mới">
-                                <i class="fa fa-edit"></i>
-                              </span>
-                            </div>
-                            <input type="text" class="form-control" name="Category" id="CategoryInput" 
-                                   placeholder="Nhập tên Category mới (ví dụ: Lịch sử, Địa lý...)" 
-                                   style="margin-top: 10px; display: none;">
-                            <input type="hidden" name="CategoryID" id="CategoryID" value="">
-                            <small class="help-block text-muted">
-                                <i class="fa fa-info-circle"></i> 
-                                Chọn từ danh sách hoặc nhập tên mới
-                            </small>
+                          <div class="col-md-8">
+                            <?php if ($preSelectedCategory): ?>
+                              <!-- Category is locked when coming from specific category page -->
+                              <div class="input-group">
+                                <input type="text" class="form-control" id="LockedCategoryName" value="<?php echo $preSelectedCategory->CategoryName; ?>" readonly style="background-color: #f0f0f0; cursor: not-allowed;" data-category-name="<?php echo htmlspecialchars($preSelectedCategory->CategoryName); ?>">
+                                <span class="input-group-addon" title="Category is locked">
+                                  <i class="fa fa-lock"></i>
+                                </span>
+                              </div>
+                              <input type="hidden" name="CategoryID" id="CategoryID" value="<?php echo $preSelectedCategory->CategoryID; ?>">
+                              <input type="hidden" name="CategorySelect" id="CategorySelect" value="<?php echo $preSelectedCategory->CategoryID; ?>">
+                              <input type="hidden" name="Category" id="CategoryInput" value="">
+                              <small class="help-block text-info">
+                                <i class="fa fa-lock"></i> 
+                                Category is locked to <strong><?php echo $preSelectedCategory->CategoryName; ?></strong>
+                              </small>
+                            <?php else: ?>
+                              <!-- Normal category selection -->
+                              <div class="input-group">
+                                <select class="form-control" name="CategorySelect" id="CategorySelect" onchange="handleCategorySelect()">
+                                    <option value="">-- Chọn từ danh sách có sẵn --</option>
+                                    <?php
+                                    $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
+                                    $mydb->setQuery($sql);
+                                    $categories = $mydb->loadResultList();
+                                    foreach ($categories as $category) {
+                                        echo '<option value="'.$category->CategoryID.'" data-name="'.$category->CategoryName.'">'.$category->CategoryName.'</option>';
+                                    }
+                                    ?>
+                                    <option value="new">✏️ Nhập Category mới...</option>
+                                </select>
+                                <span class="input-group-addon" style="cursor: pointer;" onclick="toggleCategoryInput()" title="Nhập tên mới">
+                                  <i class="fa fa-edit"></i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control" name="Category" id="CategoryInput" 
+                                     placeholder="Nhập tên Category mới (ví dụ: Lịch sử, Địa lý...)" 
+                                     style="margin-top: 10px; display: none;">
+                              <input type="hidden" name="CategoryID" id="CategoryID" value="">
+                              <small class="help-block text-muted">
+                                  <i class="fa fa-info-circle"></i> 
+                                  Chọn từ danh sách hoặc nhập tên mới
+                              </small>
+                            <?php endif; ?>
                           </div>
                         </div>
                       </div>
@@ -814,27 +842,40 @@ function updateAITopic() {
     const topicSelect = document.getElementById('TopicSelect');
     const topicInput = document.getElementById('TopicInput');
     const aiTopicField = document.getElementById('aiTopic');
+    const categoryId = document.getElementById('CategoryID');
+    
+    if (!aiTopicField) return; // Safety check
     
     let categoryText = '';
     let topicText = '';
     
     // Get category text
-    if (categoryInput.style.display !== 'none' && categoryInput.value.trim()) {
+    if (categoryInput && categoryInput.style.display !== 'none' && categoryInput.value.trim()) {
         categoryText = categoryInput.value.trim();
-    } else if (categorySelect.value && categorySelect.value !== 'new') {
+    } else if (categorySelect && categorySelect.value && categorySelect.value !== 'new' && categorySelect.selectedIndex >= 0) {
         const selectedOption = categorySelect.options[categorySelect.selectedIndex];
-        categoryText = selectedOption.dataset.name || selectedOption.text;
+        if (selectedOption) {
+            categoryText = selectedOption.dataset.name || selectedOption.text;
+        }
+    } else {
+        // When category is locked, get the text from locked field
+        const lockedCategoryField = document.getElementById('LockedCategoryName');
+        if (lockedCategoryField) {
+            categoryText = lockedCategoryField.dataset.categoryName || lockedCategoryField.value;
+        }
     }
     
     // Get topic text
-    if (topicInput.style.display !== 'none' && topicInput.value.trim()) {
+    if (topicInput && topicInput.style.display !== 'none' && topicInput.value.trim()) {
         topicText = topicInput.value.trim();
-    } else if (topicSelect.value && topicSelect.value !== 'new' && topicSelect.value !== '') {
+    } else if (topicSelect && topicSelect.value && topicSelect.value !== 'new' && topicSelect.value !== '' && topicSelect.selectedIndex >= 0) {
         const selectedOption = topicSelect.options[topicSelect.selectedIndex];
-        topicText = selectedOption.text;
-        // Skip special texts
-        if (topicText.includes('Chọn') || topicText.includes('tải') || topicText.includes('Lỗi') || topicText.includes('Nhập')) {
-            topicText = '';
+        if (selectedOption) {
+            topicText = selectedOption.text;
+            // Skip special texts
+            if (topicText.includes('Chọn') || topicText.includes('tải') || topicText.includes('Lỗi') || topicText.includes('Nhập')) {
+                topicText = '';
+            }
         }
     }
     
@@ -986,10 +1027,31 @@ async function bulkInsertQuestions() {
     // Get Category and Topic first for validation
     const categoryId = document.getElementById('CategoryID').value;
     const topicId = document.getElementById('TopicID').value;
-    const categoryName = document.getElementById('CategoryInput').value.trim() || 
-                       (document.getElementById('CategorySelect').selectedOptions[0]?.dataset?.name || '');
-    const topicName = document.getElementById('TopicInput').value.trim() || 
-                    (document.getElementById('TopicSelect').selectedOptions[0]?.text || '');
+    
+    // Get category name - check input, select, or locked field
+    let categoryName = '';
+    const categoryInput = document.getElementById('CategoryInput');
+    const categorySelect = document.getElementById('CategorySelect');
+    const lockedCategoryField = document.getElementById('LockedCategoryName');
+    
+    if (categoryInput && categoryInput.value.trim()) {
+        categoryName = categoryInput.value.trim();
+    } else if (categorySelect && categorySelect.tagName === 'SELECT' && categorySelect.selectedOptions && categorySelect.selectedOptions.length > 0) {
+        categoryName = categorySelect.selectedOptions[0]?.dataset?.name || categorySelect.selectedOptions[0]?.text || '';
+    } else if (lockedCategoryField) {
+        categoryName = lockedCategoryField.dataset.categoryName || lockedCategoryField.value;
+    }
+    
+    // Get topic name - check input or select
+    let topicName = '';
+    const topicInput = document.getElementById('TopicInput');
+    const topicSelect = document.getElementById('TopicSelect');
+    
+    if (topicInput && topicInput.value.trim()) {
+        topicName = topicInput.value.trim();
+    } else if (topicSelect && topicSelect.selectedOptions && topicSelect.selectedOptions.length > 0) {
+        topicName = topicSelect.selectedOptions[0]?.text || '';
+    }
     
     // Validate Category
     if (!categoryName && !categoryId) {
@@ -1099,4 +1161,23 @@ async function bulkInsertQuestions() {
         updateBulkButtonState();
     }
 }
+
+// Auto-load topics if category is pre-selected
+document.addEventListener('DOMContentLoaded', function() {
+    <?php if ($preSelectedCategory): ?>
+    // Category is locked, load its topics automatically
+    const categoryId = <?php echo $preSelectedCategory->CategoryID; ?>;
+    const categoryName = '<?php echo addslashes($preSelectedCategory->CategoryName); ?>';
+    console.log('Pre-selected category:', categoryId, categoryName);
+    
+    // Set initial AI topic with category name
+    const aiTopicField = document.getElementById('aiTopic');
+    if (aiTopicField) {
+        aiTopicField.value = categoryName;
+    }
+    
+    // Load topics for this category
+    loadTopics(categoryId);
+    <?php endif; ?>
+});
 </script>

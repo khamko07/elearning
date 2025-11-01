@@ -26,7 +26,7 @@ if (!$category) {
             </ol>
             
             <h1><?php echo $category->CategoryName; ?> - Topics & Questions
-                <small>| <a href="index.php?view=add" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Add New Question</a> |</small>
+                <small>| <a href="index.php?view=add&category=<?php echo $categoryId; ?>" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Add New Question</a> |</small>
             </h1>
             <?php if ($category->CategoryDescription): ?>
                 <p class="lead text-muted"><?php echo $category->CategoryDescription; ?></p>

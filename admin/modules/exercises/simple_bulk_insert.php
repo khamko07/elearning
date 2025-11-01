@@ -27,6 +27,10 @@ try {
     $topicName = isset($data['topicName']) ? trim($data['topicName']) : '';
     
     // If CategoryID is null, create new Category
+
+    //thid iis test version for Category and Topic creation
+    //Ok bro, i am from here
+    //t
     if (!$categoryId && $categoryName) {
         // Check if category already exists
         $sql = "SELECT CategoryID FROM tblcategories WHERE CategoryName = '" . $mydb->escape_value($categoryName) . "'";
