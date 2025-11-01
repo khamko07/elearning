@@ -20,13 +20,53 @@ try {
     $questions = $data['questions'];
     $topic = isset($data['topic']) ? $data['topic'] : 'General';
     
-    // Get CategoryID and TopicID from form data (not from topic string)
-    $categoryId = isset($data['categoryId']) ? (int)$data['categoryId'] : 1;
-    $topicId = isset($data['topicId']) ? (int)$data['topicId'] : 1;
+    // Get CategoryID and TopicID from form data
+    $categoryId = isset($data['categoryId']) && $data['categoryId'] ? (int)$data['categoryId'] : null;
+    $topicId = isset($data['topicId']) && $data['topicId'] ? (int)$data['topicId'] : null;
+    $categoryName = isset($data['categoryName']) ? trim($data['categoryName']) : '';
+    $topicName = isset($data['topicName']) ? trim($data['topicName']) : '';
     
-    // Validate that CategoryID and TopicID are provided
+    // If CategoryID is null, create new Category
+    if (!$categoryId && $categoryName) {
+        // Check if category already exists
+        $sql = "SELECT CategoryID FROM tblcategories WHERE CategoryName = '" . $mydb->escape_value($categoryName) . "'";
+        $mydb->setQuery($sql);
+        $existingCategory = $mydb->loadSingleResult();
+        
+        if ($existingCategory) {
+            $categoryId = $existingCategory->CategoryID;
+        } else {
+            // Create new category
+            $sql = "INSERT INTO tblcategories (CategoryName, CategoryDescription, IsActive) 
+                    VALUES ('" . $mydb->escape_value($categoryName) . "', NULL, 1)";
+            $mydb->setQuery($sql);
+            $mydb->executeQuery();
+            $categoryId = $mydb->insert_id();
+        }
+    }
+    
+    // If TopicID is null, create new Topic
+    if (!$topicId && $topicName && $categoryId) {
+        // Check if topic already exists for this category
+        $sql = "SELECT TopicID FROM tbltopics WHERE TopicName = '" . $mydb->escape_value($topicName) . "' AND CategoryID = {$categoryId}";
+        $mydb->setQuery($sql);
+        $existingTopic = $mydb->loadSingleResult();
+        
+        if ($existingTopic) {
+            $topicId = $existingTopic->TopicID;
+        } else {
+            // Create new topic
+            $sql = "INSERT INTO tbltopics (CategoryID, TopicName, TopicDescription, IsActive) 
+                    VALUES ({$categoryId}, '" . $mydb->escape_value($topicName) . "', NULL, 1)";
+            $mydb->setQuery($sql);
+            $mydb->executeQuery();
+            $topicId = $mydb->insert_id();
+        }
+    }
+    
+    // Validate that CategoryID and TopicID are now available
     if (!$categoryId || !$topicId) {
-        throw new Exception('CategoryID and TopicID are required');
+        throw new Exception('Failed to determine CategoryID and TopicID');
     }
     
     $insertedCount = 0;
