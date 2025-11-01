@@ -135,18 +135,95 @@ if($topicId > 0) {
 
 <div style="text-align: center; margin-top: 20px;">
     <?php if($topicId > 0 && $topicInfo): ?>
-        <a href="index.php?q=question&topic=<?php echo $topicId; ?>" class="btn btn-warning">
-            <i class="fa fa-refresh"></i> Retake Quiz
-        </a>
-        <a href="index.php?q=topics&category=<?php echo $topicInfo->CategoryID; ?>" class="btn btn-primary">
-            <i class="fa fa-arrow-left"></i> Back to <?php echo $topicInfo->CategoryName; ?> Topics
+        <button onclick="confirmRetake(<?php echo $topicId; ?>)" class="btn btn-warning btn-lg">
+            <i class="fa fa-refresh"></i> Làm lại Quiz
+        </button>
+        <a href="index.php?q=topics&category=<?php echo $topicInfo->CategoryID; ?>" class="btn btn-primary btn-lg">
+            <i class="fa fa-arrow-left"></i> Quay lại <?php echo $topicInfo->CategoryName; ?> Topics
         </a>
     <?php else: ?>
-        <a href="index.php?q=categories" class="btn btn-primary">
-            <i class="fa fa-arrow-left"></i> Back to Exercise Categories
+        <a href="index.php?q=categories" class="btn btn-primary btn-lg">
+            <i class="fa fa-arrow-left"></i> Quay lại Exercise Categories
         </a>
     <?php endif; ?>
-    <a href="index.php" class="btn btn-default">
-        <i class="fa fa-home"></i> Home
+    <a href="index.php" class="btn btn-default btn-lg">
+        <i class="fa fa-home"></i> Trang chủ
     </a>
 </div>
+
+<!-- Retake Confirmation Modal -->
+<div class="modal fade" id="retakeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-refresh"></i> Làm lại Quiz</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <h4><i class="fa fa-exclamation-triangle"></i> Xác nhận làm lại Quiz</h4>
+                    <p><strong>Điểm hiện tại của bạn: <?php echo $score; ?>%</strong></p>
+                    <p>Khi bạn làm lại quiz, hệ thống sẽ:</p>
+                    <ul>
+                        <li>✅ Lưu lịch sử điểm cũ của bạn</li>
+                        <li>✅ Cho phép bạn làm lại toàn bộ quiz</li>
+                        <li>✅ Cập nhật điểm mới (có thể cao hơn hoặc thấp hơn)</li>
+                        <li>📊 Hiển thị cả điểm cũ và điểm mới để bạn so sánh</li>
+                    </ul>
+                    <p class="text-info">
+                        <i class="fa fa-lightbulb-o"></i> <strong>Lưu ý:</strong> Bạn có thể làm lại không giới hạn số lần!
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <i class="fa fa-times"></i> Hủy bỏ
+                </button>
+                <button type="button" class="btn btn-warning" onclick="doRetake()">
+                    <i class="fa fa-refresh"></i> Đồng ý làm lại
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    border-radius: 8px 8px 0 0;
+}
+
+.alert ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.alert ul li {
+    margin: 8px 0;
+}
+</style>
+
+<script>
+let retakeTopicId = 0;
+
+function confirmRetake(topicId) {
+    retakeTopicId = topicId;
+    $('#retakeModal').modal('show');
+}
+
+function doRetake() {
+    if(retakeTopicId > 0) {
+        window.location.href = 'index.php?q=question&topic=' + retakeTopicId + '&retake=1';
+    }
+}
+</script>

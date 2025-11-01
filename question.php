@@ -34,9 +34,33 @@ if($topicId > 0) {
     $score  = $ans->SCORE;
 }
 
-if ($score!=null && $id != 'all') {
-	# code...   
-	redirect("index.php?q=quizresult&id={$id}&score={$score}");
+// Check if user wants to retake the quiz
+$retake = isset($_GET['retake']) && $_GET['retake'] == '1';
+
+if ($score!=null && $id != 'all' && !$retake) {
+	# Redirect to result page showing previous score with option to retake
+	
+	// Get total number of questions for this quiz
+	$totalQuestions = 0;
+	if($topicId > 0) {
+		$sql = "SELECT COUNT(*) as total FROM tblexercise WHERE TopicID = {$topicId}";
+	} else {
+		$sql = "SELECT COUNT(*) as total FROM tblexercise WHERE LessonID = '{$id}'";
+	}
+	$mydb->setQuery($sql);
+	$totalResult = $mydb->loadSingleResult();
+	$totalQuestions = $totalResult ? $totalResult->total : 0;
+	
+	// Calculate percentage
+	$correctAnswers = $score;
+	$scorePercentage = $totalQuestions > 0 ? round(($correctAnswers / $totalQuestions) * 100) : 0;
+	
+	$redirectUrl = "index.php?q=quizresult&id={$id}";
+	if($topicId > 0) {
+		$redirectUrl .= "&topic={$topicId}";
+	}
+	$redirectUrl .= "&score={$scorePercentage}&correct={$correctAnswers}&total={$totalQuestions}";
+	redirect($redirectUrl);
 }
 ?>
 
