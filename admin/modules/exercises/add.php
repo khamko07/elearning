@@ -104,17 +104,31 @@
                         <div class="col-md-8">
                           <label class="col-md-4 control-label" for="Category">Category:</label>
                           <div class="col-md-8"> 
-                            <select class="form-control" name="Category" id="Category" required onchange="loadTopics()">
-                                <option value="">Select Category</option>
-                                <?php
-                                $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
-                                $mydb->setQuery($sql);
-                                $categories = $mydb->loadResultList();
-                                foreach ($categories as $category) {
-                                    echo '<option value="'.$category->CategoryID.'">'.$category->CategoryName.'</option>';
-                                }
-                                ?>
-                            </select>
+                            <div class="input-group">
+                              <select class="form-control" name="CategorySelect" id="CategorySelect" onchange="handleCategorySelect()">
+                                  <option value="">-- Chọn từ danh sách có sẵn --</option>
+                                  <?php
+                                  $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
+                                  $mydb->setQuery($sql);
+                                  $categories = $mydb->loadResultList();
+                                  foreach ($categories as $category) {
+                                      echo '<option value="'.$category->CategoryID.'" data-name="'.$category->CategoryName.'">'.$category->CategoryName.'</option>';
+                                  }
+                                  ?>
+                                  <option value="new">✏️ Nhập Category mới...</option>
+                              </select>
+                              <span class="input-group-addon" style="cursor: pointer;" onclick="toggleCategoryInput()" title="Nhập tên mới">
+                                <i class="fa fa-edit"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" name="Category" id="CategoryInput" 
+                                   placeholder="Nhập tên Category mới (ví dụ: Lịch sử, Địa lý...)" 
+                                   style="margin-top: 10px; display: none;">
+                            <input type="hidden" name="CategoryID" id="CategoryID" value="">
+                            <small class="help-block text-muted">
+                                <i class="fa fa-info-circle"></i> 
+                                Chọn từ danh sách hoặc nhập tên mới
+                            </small>
                           </div>
                         </div>
                       </div>
@@ -123,12 +137,21 @@
                         <div class="col-md-8">
                           <label class="col-md-4 control-label" for="Topic">Topic:</label>
                           <div class="col-md-8"> 
-                            <select class="form-control" name="Topic" id="Topic" required>
-                                <option value="">Select Category first</option>
-                            </select>
+                            <div class="input-group">
+                              <select class="form-control" name="TopicSelect" id="TopicSelect" onchange="handleTopicSelect()">
+                                  <option value="">-- Chọn Category trước --</option>
+                              </select>
+                              <span class="input-group-addon" style="cursor: pointer;" onclick="toggleTopicInput()" title="Nhập tên mới">
+                                <i class="fa fa-edit"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control" name="Topic" id="TopicInput" 
+                                   placeholder="Nhập tên Topic mới (ví dụ: Chiến tranh thế giới, Khí hậu nhiệt đới...)" 
+                                   style="margin-top: 10px; display: none;">
+                            <input type="hidden" name="TopicID" id="TopicID" value="">
                             <small class="help-block text-muted">
                                 <i class="fa fa-info-circle"></i> 
-                                Chọn category trước, sau đó chọn topic cụ thể
+                                Chọn từ danh sách hoặc nhập tên mới
                             </small>
                           </div>
                         </div>
@@ -138,7 +161,7 @@
                         <div class="col-md-8">
                           <div class="col-md-offset-4 col-md-8">
                             <a href="index.php?view=categories" class="btn btn-info btn-sm">
-                                <i class="fa fa-cog"></i> Manage Categories & Topics
+                                <i class="fa fa-cog"></i> Quản lý Categories & Topics
                             </a>
                           </div>
                         </div>
@@ -236,6 +259,45 @@
 <!-- API Configuration removed - now using hardcoded API key -->
 
 <style>
+/* Category/Topic Input Styling */
+.input-group-addon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.input-group-addon:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: scale(1.05);
+}
+
+#CategoryInput,
+#TopicInput {
+    border: 2px dashed #667eea;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+#CategoryInput:focus,
+#TopicInput:focus {
+    border-color: #764ba2;
+    background: white;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+#CategorySelect,
+#TopicSelect {
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+#CategorySelect:focus,
+#TopicSelect:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+}
+
 #multipleQuestionsSection {
     background-color: #f8f9fa;
     border-radius: 8px;
@@ -333,8 +395,6 @@
 
 <script>
 // Gemini API Integration - Simplified version
-// Add event listener for Topic select
-document.getElementById('Topic').addEventListener('change', updateAITopic);
 
 document.getElementById('generateQuestion').addEventListener('click', function() {
     const topic = document.getElementById('aiTopic').value.trim();
@@ -590,62 +650,216 @@ function clearForm() {
     document.getElementById('ChoiceC').value = '';
     document.getElementById('ChoiceD').value = '';
     document.getElementById('Answer').value = '';
-    document.getElementById('Category').value = '';
-    document.getElementById('Topic').innerHTML = '<option value="">Select Category first</option>';
+    
+    // Reset category fields
+    document.getElementById('CategorySelect').value = '';
+    document.getElementById('CategoryInput').value = '';
+    document.getElementById('CategoryInput').style.display = 'none';
+    document.getElementById('CategoryID').value = '';
+    
+    // Reset topic fields
+    document.getElementById('TopicSelect').innerHTML = '<option value="">-- Chọn Category trước --</option>';
+    document.getElementById('TopicInput').value = '';
+    document.getElementById('TopicInput').style.display = 'none';
+    document.getElementById('TopicID').value = '';
+    
     document.getElementById('aiTopic').value = '';
 }
 
+// Handle Category Select
+function handleCategorySelect() {
+    const categorySelect = document.getElementById('CategorySelect');
+    const categoryInput = document.getElementById('CategoryInput');
+    const categoryIdHidden = document.getElementById('CategoryID');
+    const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+    
+    if (categorySelect.value === 'new') {
+        // Show input field for new category
+        categoryInput.style.display = 'block';
+        categoryInput.required = true;
+        categoryInput.focus();
+        categoryIdHidden.value = '';
+    } else if (categorySelect.value) {
+        // Use existing category
+        categoryInput.style.display = 'none';
+        categoryInput.required = false;
+        categoryInput.value = '';
+        categoryIdHidden.value = categorySelect.value;
+        
+        // Load topics for this category
+        loadTopics(categorySelect.value);
+    } else {
+        // No selection
+        categoryInput.style.display = 'none';
+        categoryInput.required = false;
+        categoryInput.value = '';
+        categoryIdHidden.value = '';
+        
+        // Reset topics
+        const topicSelect = document.getElementById('TopicSelect');
+        topicSelect.innerHTML = '<option value="">-- Chọn Category trước --</option>';
+        document.getElementById('TopicInput').style.display = 'none';
+    }
+    
+    updateAITopic();
+}
+
+// Handle Topic Select
+function handleTopicSelect() {
+    const topicSelect = document.getElementById('TopicSelect');
+    const topicInput = document.getElementById('TopicInput');
+    const topicIdHidden = document.getElementById('TopicID');
+    
+    if (topicSelect.value === 'new') {
+        // Show input field for new topic
+        topicInput.style.display = 'block';
+        topicInput.required = true;
+        topicInput.focus();
+        topicIdHidden.value = '';
+    } else if (topicSelect.value) {
+        // Use existing topic
+        topicInput.style.display = 'none';
+        topicInput.required = false;
+        topicInput.value = '';
+        topicIdHidden.value = topicSelect.value;
+    } else {
+        // No selection
+        topicInput.style.display = 'none';
+        topicInput.required = false;
+        topicInput.value = '';
+        topicIdHidden.value = '';
+    }
+    
+    updateAITopic();
+}
+
+// Toggle Category Input manually
+function toggleCategoryInput() {
+    const categoryInput = document.getElementById('CategoryInput');
+    const categorySelect = document.getElementById('CategorySelect');
+    
+    if (categoryInput.style.display === 'none' || !categoryInput.style.display) {
+        categoryInput.style.display = 'block';
+        categoryInput.required = true;
+        categoryInput.focus();
+        categorySelect.value = '';
+        document.getElementById('CategoryID').value = '';
+    } else {
+        categoryInput.style.display = 'none';
+        categoryInput.required = false;
+        categoryInput.value = '';
+    }
+    
+    updateAITopic();
+}
+
+// Toggle Topic Input manually
+function toggleTopicInput() {
+    const topicInput = document.getElementById('TopicInput');
+    const topicSelect = document.getElementById('TopicSelect');
+    
+    if (topicInput.style.display === 'none' || !topicInput.style.display) {
+        topicInput.style.display = 'block';
+        topicInput.required = true;
+        topicInput.focus();
+        topicSelect.value = '';
+        document.getElementById('TopicID').value = '';
+    } else {
+        topicInput.style.display = 'none';
+        topicInput.required = false;
+        topicInput.value = '';
+    }
+    
+    updateAITopic();
+}
+
 // Load topics when category is selected
-function loadTopics() {
-    const categoryId = document.getElementById('Category').value;
-    const topicSelect = document.getElementById('Topic');
+function loadTopics(categoryId) {
+    const topicSelect = document.getElementById('TopicSelect');
     
     if (!categoryId) {
-        topicSelect.innerHTML = '<option value="">Select Category first</option>';
+        topicSelect.innerHTML = '<option value="">-- Chọn Category trước --</option>';
         updateAITopic();
         return;
     }
     
     // Show loading
-    topicSelect.innerHTML = '<option value="">Loading topics...</option>';
+    topicSelect.innerHTML = '<option value="">⏳ Đang tải topics...</option>';
     
     fetch('get_topics.php?categoryId=' + categoryId)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                topicSelect.innerHTML = '<option value="">Select Topic</option>';
+                topicSelect.innerHTML = '<option value="">-- Chọn từ danh sách có sẵn --</option>';
                 data.topics.forEach(topic => {
                     topicSelect.innerHTML += `<option value="${topic.TopicID}">${topic.TopicName}</option>`;
                 });
+                topicSelect.innerHTML += '<option value="new">✏️ Nhập Topic mới...</option>';
             } else {
-                topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+                topicSelect.innerHTML = '<option value="">❌ Lỗi tải topics</option>';
             }
             updateAITopic();
         })
         .catch(error => {
             console.error('Error:', error);
-            topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+            topicSelect.innerHTML = '<option value="">❌ Lỗi kết nối</option>';
             updateAITopic();
         });
 }
 
 // Update AI topic field when Category/Topic changes
 function updateAITopic() {
-    const categorySelect = document.getElementById('Category');
-    const topicSelect = document.getElementById('Topic');
-    const aiTopicInput = document.getElementById('aiTopic');
+    const categorySelect = document.getElementById('CategorySelect');
+    const categoryInput = document.getElementById('CategoryInput');
+    const topicSelect = document.getElementById('TopicSelect');
+    const topicInput = document.getElementById('TopicInput');
+    const aiTopicField = document.getElementById('aiTopic');
     
-    const categoryText = categorySelect.options[categorySelect.selectedIndex]?.text || '';
-    const topicText = topicSelect.options[topicSelect.selectedIndex]?.text || '';
+    let categoryText = '';
+    let topicText = '';
     
-    if (categoryText && topicText && topicText !== 'Select Topic' && topicText !== 'Loading topics...' && topicText !== 'Error loading topics') {
-        aiTopicInput.value = `${categoryText} - ${topicText}`;
-    } else if (categoryText && categoryText !== 'Select Category') {
-        aiTopicInput.value = categoryText;
+    // Get category text
+    if (categoryInput.style.display !== 'none' && categoryInput.value.trim()) {
+        categoryText = categoryInput.value.trim();
+    } else if (categorySelect.value && categorySelect.value !== 'new') {
+        const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+        categoryText = selectedOption.dataset.name || selectedOption.text;
+    }
+    
+    // Get topic text
+    if (topicInput.style.display !== 'none' && topicInput.value.trim()) {
+        topicText = topicInput.value.trim();
+    } else if (topicSelect.value && topicSelect.value !== 'new' && topicSelect.value !== '') {
+        const selectedOption = topicSelect.options[topicSelect.selectedIndex];
+        topicText = selectedOption.text;
+        // Skip special texts
+        if (topicText.includes('Chọn') || topicText.includes('tải') || topicText.includes('Lỗi') || topicText.includes('Nhập')) {
+            topicText = '';
+        }
+    }
+    
+    // Combine category and topic
+    if (categoryText && topicText) {
+        aiTopicField.value = `${categoryText} - ${topicText}`;
+    } else if (categoryText) {
+        aiTopicField.value = categoryText;
     } else {
-        aiTopicInput.value = '';
+        aiTopicField.value = '';
     }
 }
+
+// Add event listeners for input fields
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryInput = document.getElementById('CategoryInput');
+    const topicInput = document.getElementById('TopicInput');
+    
+    if (categoryInput) {
+        categoryInput.addEventListener('input', updateAITopic);
+    }
+    if (topicInput) {
+        topicInput.addEventListener('input', updateAITopic);
+    }
+});
 
 function showSuccessMessage(message) {
     // Create a temporary success alert
@@ -769,13 +983,30 @@ async function bulkInsertQuestions() {
         return;
     }
     
-    const topic = document.getElementById('Topic').value;
-    if (!topic || topic.trim() === '') {
-        alert('Vui lòng nhập chủ đề trước khi thêm câu hỏi!');
+    // Get Category and Topic first for validation
+    const categoryId = document.getElementById('CategoryID').value;
+    const topicId = document.getElementById('TopicID').value;
+    const categoryName = document.getElementById('CategoryInput').value.trim() || 
+                       (document.getElementById('CategorySelect').selectedOptions[0]?.dataset?.name || '');
+    const topicName = document.getElementById('TopicInput').value.trim() || 
+                    (document.getElementById('TopicSelect').selectedOptions[0]?.text || '');
+    
+    // Validate Category
+    if (!categoryName && !categoryId) {
+        alert('Vui lòng chọn hoặc nhập Category trước khi thêm câu hỏi!');
         return;
     }
     
-    const confirmMessage = `Bạn có chắc chắn muốn thêm ${selectedIndices.length} câu hỏi với chủ đề "${topic}" không?\n\nThao tác này không thể hoàn tác!`;
+    // Validate Topic
+    if (!topicName && !topicId) {
+        alert('Vui lòng chọn hoặc nhập Topic trước khi thêm câu hỏi!');
+        return;
+    }
+    
+    // Use AI Topic field value for display
+    const topicDisplay = document.getElementById('aiTopic').value || `${categoryName} - ${topicName}`;
+    
+    const confirmMessage = `Bạn có chắc chắn muốn thêm ${selectedIndices.length} câu hỏi với chủ đề "${topicDisplay}" không?\n\nThao tác này không thể hoàn tác!`;
     
     if (!confirm(confirmMessage)) {
         return;
@@ -791,17 +1022,10 @@ async function bulkInsertQuestions() {
         // Prepare questions data
         const questionsToInsert = selectedIndices.map(index => window.generatedQuestions[index]);
         
-        // Get selected Category and Topic from form
-        const categoryId = document.getElementById('Category').value;
-        const topicId = document.getElementById('Topic').value;
-        
-        if (!categoryId || !topicId) {
-            alert('Please select Category and Topic before inserting questions!');
-            return;
-        }
-        
         console.log('Category ID:', categoryId);
+        console.log('Category Name:', categoryName);
         console.log('Topic ID:', topicId);
+        console.log('Topic Name:', topicName);
         console.log('Questions to insert:', questionsToInsert);
         
         // Send to simple bulk insert endpoint
@@ -811,9 +1035,11 @@ async function bulkInsertQuestions() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                topic: topic,
-                categoryId: parseInt(categoryId),
-                topicId: parseInt(topicId),
+                topic: topicDisplay,
+                categoryId: categoryId ? parseInt(categoryId) : null,
+                topicId: topicId ? parseInt(topicId) : null,
+                categoryName: categoryName,
+                topicName: topicName,
                 questions: questionsToInsert
             })
         });
