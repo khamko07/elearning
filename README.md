@@ -5,190 +5,246 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-## 📖 Overview
+## 📖 Tổng quan
 
-E-Learning System is a comprehensive web-based platform designed to facilitate online education by making it easier for teachers to create, manage, and deliver educational content. The system provides a seamless experience for both educators and students, featuring lesson management, quiz creation, and student assessment tools.
+Hệ thống E-Learning là một nền tảng học trực tuyến toàn diện được thiết kế để hỗ trợ giáo viên tạo, quản lý và phân phối nội dung giáo dục một cách dễ dàng. Hệ thống cung cấp trải nghiệm liền mạch cho cả giáo viên và học sinh, bao gồm quản lý bài học, tạo bài tập trắc nghiệm và công cụ đánh giá học sinh.
 
-### 🎯 Purpose
+### 🎯 Mục đích
 
-This system aims to:
-- Simplify the process of creating and managing online lessons
-- Enable teachers to upload multimedia content (videos, PDFs)
-- Provide interactive quizzes and assessments
-- Track student progress and performance
-- Create a centralized platform for educational content delivery
+Hệ thống này nhằm:
+- Đơn giản hóa quy trình tạo và quản lý bài học trực tuyến
+- Cho phép giáo viên tải lên nội dung đa phương tiện (video, PDF)
+- Cung cấp bài tập trắc nghiệm và đánh giá tương tác
+- Theo dõi tiến độ và hiệu suất học tập của học sinh
+- Tạo nền tảng tập trung cho việc phân phối nội dung giáo dục
 
-## ✨ Features
+## ✨ Tính năng
 
-### 👨‍💼 Admin/Teacher Features
+### 👨‍💼 Tính năng dành cho Quản trị viên/Giáo viên
 
-#### 📚 Lesson Management
-- **List of Lessons**: View all available lessons in an organized manner
-- **Upload Lesson**: Add new educational content (videos, PDF files)
-- **Edit Lesson**: Modify existing lesson content and details
-- **Change the File**: Replace lesson files with updated versions
-- **View Lesson**: Preview lessons before publishing
-- **Delete Lesson**: Remove outdated or unnecessary content
+#### 📚 Quản lý Bài học
+- **Danh sách Bài học**: Xem tất cả bài học có sẵn một cách có tổ chức
+- **Tải lên Bài học**: Thêm nội dung giáo dục mới (video, file PDF)
+- **Chỉnh sửa Bài học**: Sửa đổi nội dung và chi tiết bài học hiện có
+- **Thay đổi File**: Thay thế file bài học bằng phiên bản cập nhật
+- **Xem Bài học**: Xem trước bài học trước khi xuất bản
+- **Xóa Bài học**: Xóa nội dung lỗi thời hoặc không cần thiết
 
-#### 📝 Exercise & Quiz Management
-- **List of Questions**: View all quiz questions and exercises
-- **Add Question**: Create new quiz questions with multiple choice options
-- **Edit Question**: Modify existing questions and answers
-- **Delete Question**: Remove outdated or incorrect questions
+#### 📝 Quản lý Bài tập & Câu hỏi
+- **Danh sách Câu hỏi**: Xem tất cả câu hỏi trắc nghiệm và bài tập
+- **Thêm Câu hỏi**: Tạo câu hỏi trắc nghiệm mới với các lựa chọn
+- **Chỉnh sửa Câu hỏi**: Sửa đổi câu hỏi và đáp án hiện có
+- **Xóa Câu hỏi**: Xóa câu hỏi lỗi thời hoặc không chính xác
+- **Quản lý Danh mục**: Tổ chức câu hỏi theo danh mục (Technology, Science, Mathematics, Business, Language, Coding)
+- **Quản lý Chủ đề**: Phân loại câu hỏi theo chủ đề cụ thể
 
-#### 👥 Student Management
-- **List of Students**: View all registered students
-- **Student Progress Tracking**: Monitor individual student performance
+#### 👥 Quản lý Học sinh
+- **Danh sách Học sinh**: Xem tất cả học sinh đã đăng ký
+- **Theo dõi Tiến độ**: Giám sát hiệu suất học tập của từng học sinh
+- **Xem Kết quả**: Xem điểm số và kết quả bài tập của học sinh
 
-#### 🔧 User Management
-- **List of Users**: View all system users (teachers, admins)
-- **Add User**: Create new user accounts
-- **Edit User**: Modify user information and permissions
-- **Delete User**: Remove inactive or unauthorized users
+#### 🔧 Quản lý Người dùng
+- **Danh sách Người dùng**: Xem tất cả người dùng hệ thống (giáo viên, quản trị viên)
+- **Thêm Người dùng**: Tạo tài khoản người dùng mới
+- **Chỉnh sửa Người dùng**: Sửa đổi thông tin và quyền hạn người dùng
+- **Xóa Người dùng**: Xóa người dùng không hoạt động hoặc không được ủy quyền
 
-### 👨‍🎓 Student Features
+### 👨‍🎓 Tính năng dành cho Học sinh
 
-#### 🔐 Account Management
-- **Create Account**: Register for new student accounts
-- **Login/Logout**: Secure authentication system
-- **Profile Management**: Update personal information
+#### 🔐 Quản lý Tài khoản
+- **Tạo Tài khoản**: Đăng ký tài khoản học sinh mới
+- **Đăng nhập/Đăng xuất**: Hệ thống xác thực an toàn
+- **Quản lý Hồ sơ**: Cập nhật thông tin cá nhân
 
-#### 📖 Learning Features
-- **View Lessons**: Access uploaded educational content
-- **Take Quizzes**: Participate in interactive assessments
-- **Generate Score**: Automatic scoring and feedback system
-- **Download Lessons**: Save content for offline study
+#### 📖 Tính năng Học tập
+- **Xem Bài học**: Truy cập nội dung giáo dục đã tải lên
+- **Xem Nội dung**: Đọc nội dung bài học chi tiết với định dạng Markdown
+- **Làm Bài tập**: Tham gia đánh giá trắc nghiệm tương tác
+- **Xem Kết quả**: Hệ thống chấm điểm và phản hồi tự động
+- **Tải xuống Bài học**: Lưu nội dung để học offline
+- **Xem Video**: Phát video bài giảng trực tiếp trên hệ thống
+- **Xem PDF**: Đọc tài liệu PDF ngay trên trình duyệt
 
-## 🛠️ Technologies Used
+## 🛠️ Công nghệ sử dụng
 
-- **Backend**: PHP 7.4+
-- **Database**: MySQL/MySQLi
-- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap
-- **Additional Libraries**:
-  - jQuery
-  - Bootstrap DatePicker
-  - DataTables
-  - Font Awesome
-  - jQuery UI
+- **Backend**: PHP 7.4+ với MySQLi
+- **Database**: MySQL 5.7+ / MariaDB 10.2+
+- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 3/4
+- **Thư viện bổ sung**:
+  - jQuery - Thư viện JavaScript
+  - Bootstrap DatePicker - Chọn ngày tháng
+  - DataTables - Bảng dữ liệu tương tác
+  - Font Awesome - Icon fonts
+  - jQuery UI - Giao diện người dùng
+  - Bootstrap WYSIHTML5 - Trình soạn thảo văn bản
+  - iCheck - Checkbox và radio button đẹp
+  - SlimScroll - Thanh cuộn tùy chỉnh
 
-## 📋 System Requirements
+## 📋 Yêu cầu Hệ thống
 
-- **Web Server**: Apache 2.4+
-- **PHP**: Version 7.4 or higher
-- **Database**: MySQL 5.7+ or MariaDB 10.2+
-- **Browser**: Modern web browser (Chrome, Firefox, Safari, Edge)
+- **Web Server**: Apache 2.4+ (khuyến nghị sử dụng XAMPP)
+- **PHP**: Phiên bản 7.4 trở lên
+- **Database**: MySQL 5.7+ hoặc MariaDB 10.2+
+- **Trình duyệt**: Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
+- **Dung lượng**: Tối thiểu 500MB cho hệ thống và dữ liệu
 
-## 🚀 Installation Guide
+## 🚀 Hướng dẫn Cài đặt
 
-### Step 1: Download Required Software
-1. Download and install [XAMPP](https://www.apachefriends.org/download.html)
-2. Download the E-Learning System source code
+### Bước 1: Tải phần mềm cần thiết
+1. Tải và cài đặt [XAMPP](https://www.apachefriends.org/download.html) (khuyến nghị phiên bản 8.0+)
+2. Tải mã nguồn hệ thống E-Learning
 
-### Step 2: Setup Web Server
-1. Start XAMPP Control Panel
-2. Start **Apache** and **MySQL** services
-3. Ensure both services are running (green status)
+### Bước 2: Thiết lập Web Server
+1. Khởi động XAMPP Control Panel
+2. Bật dịch vụ **Apache** và **MySQL**
+3. Đảm bảo cả hai dịch vụ đang chạy (trạng thái màu xanh)
 
-### Step 3: Deploy Source Code
-1. Navigate to `C:\xampp\htdocs\`
-2. Extract the downloaded zip file
-3. Rename the folder to `elearning` (if not already named)
+### Bước 3: Triển khai Mã nguồn
+1. Điều hướng đến thư mục `C:\xampp\htdocs\`
+2. Giải nén file zip đã tải xuống
+3. Đổi tên thư mục thành `elearning` (nếu chưa được đặt tên)
 
-### Step 4: Database Setup
-1. Open your web browser
-2. Navigate to `http://localhost/phpmyadmin/`
-3. Click **"New"** to create a new database
-4. Name the database: `dbcaiwl`
-5. Click **"Create"**
+### Bước 4: Thiết lập Cơ sở dữ liệu
+1. Mở trình duyệt web
+2. Truy cập `http://localhost/phpmyadmin/`
+3. Nhấp **"New"** để tạo cơ sở dữ liệu mới
+4. Đặt tên cơ sở dữ liệu: `dbcaiwl`
+5. Nhấp **"Create"**
 
-### Step 5: Import Database
-1. Select the `dbcaiwl` database
-2. Click **"Import"** tab
-3. Click **"Choose File"**
-4. Select `dbcaiwl.sql` from the project root folder
-5. Click **"Go"** to import the database structure and data
+### Bước 5: Import Cơ sở dữ liệu
+1. Chọn cơ sở dữ liệu `dbcaiwl`
+2. Nhấp tab **"Import"**
+3. Nhấp **"Choose File"**
+4. Chọn file `database/dbcaiwl.sql` từ thư mục dự án
+5. Nhấp **"Go"** để import cấu trúc và dữ liệu
 
-### Step 6: Configuration
-1. Navigate to `include/config.php`
-2. Verify database connection settings:
+### Bước 6: Cấu hình
+1. Mở file `include/config.php`
+2. Xác minh cài đặt kết nối cơ sở dữ liệu:
    ```php
-   $host = 'localhost';
-   $username = 'root';
-   $password = '';
-   $database = 'dbcaiwl';
+   defined('server') ? null : define("server", "localhost");
+   defined('user') ? null : define("user", "root");
+   defined('pass') ? null : define("pass", "");
+   defined('database_name') ? null : define("database_name", "dbcaiwl");
    ```
 
-### Step 7: Access the System
-1. Open your web browser
-2. Navigate to `http://localhost/elearning/`
-3. The system should now be accessible
+### Bước 7: Truy cập Hệ thống
+1. Mở trình duyệt web
+2. Truy cập `http://localhost/elearning/`
+3. Hệ thống đã sẵn sàng sử dụng
 
-## 🔑 Default Login Credentials
+## 🔑 Thông tin Đăng nhập Mặc định
 
-### Admin Access
+### Truy cập Quản trị viên
 - **URL**: `http://localhost/elearning/admin/`
-- **Username**: admin
-- **Password**: admin
+- **Tên đăng nhập**: admin
+- **Mật khẩu**: admin
 
-### Student Access
-- Students need to register through the registration page
-- **Registration URL**: `http://localhost/elearning/register.php`
+### Truy cập Học sinh
+- Học sinh cần đăng ký qua trang đăng ký
+- **URL Đăng ký**: `http://localhost/elearning/register.php`
+- **URL Đăng nhập**: `http://localhost/elearning/login.php`
 
-## 📁 Project Structure
+## 📁 Cấu trúc Dự án
 
 ```
 elearning/
-├── admin/                  # Admin panel files
-│   ├── modules/           # Admin modules
-│   ├── adminMenu/         # Admin UI components
-│   └── navigation/        # Admin navigation
-├── assets/                # CSS, JS, and other assets
-├── css/                   # Stylesheets
-├── fonts/                 # Font files
-├── images/               # System images
-├── img/                  # Additional images
-├── include/              # PHP includes and configurations
-├── js/                   # JavaScript files
-├── jquery/               # jQuery library files
-├── navigation/           # Navigation components
-├── dbcaiwl.sql          # Database structure and data
-└── *.php                # Main application files
+├── admin/                      # Thư mục quản trị
+│   ├── modules/               # Các module quản trị (lessons, exercises, users, students)
+│   ├── adminMenu/             # Các thành phần giao diện quản trị
+│   ├── navigation/            # Điều hướng quản trị
+│   ├── home.php              # Trang chủ quản trị
+│   ├── login.php             # Đăng nhập quản trị
+│   └── sidebar.php           # Thanh bên quản trị
+├── assets/                    # Tài nguyên CSS, JS và các file khác
+│   ├── bootstrap-wysihtml5/  # Trình soạn thảo WYSIHTML5
+│   ├── css/                  # File CSS
+│   ├── iCheck/               # Thư viện iCheck
+│   ├── js/                   # File JavaScript
+│   └── slimScroll/           # Thư viện SlimScroll
+├── css/                       # Stylesheet bổ sung
+├── database/                  # Thư mục cơ sở dữ liệu
+│   └── dbcaiwl.sql           # File SQL cơ sở dữ liệu
+├── dist/                      # File phân phối
+├── fonts/                     # Font chữ
+├── images/                    # Hình ảnh hệ thống
+├── img/                       # Hình ảnh bổ sung
+├── include/                   # File PHP include và cấu hình
+│   └── config.php            # File cấu hình chính
+├── js/                        # File JavaScript
+├── jquery/                    # Thư viện jQuery
+├── navigation/                # Các thành phần điều hướng
+├── about.php                  # Trang giới thiệu
+├── categories.php             # Trang danh mục bài tập
+├── content.php                # Trang nội dung bài học
+├── download.php               # Trang tải xuống
+├── exercises.php              # Trang bài tập
+├── home.php                   # Trang chủ (đã đăng nhập)
+├── home_public.php            # Trang chủ công khai
+├── index.php                  # File chính
+├── lesson.php                 # Trang danh sách bài học
+├── login.php                  # Đăng nhập học sinh
+├── logout.php                 # Đăng xuất
+├── playvideo.php              # Phát video
+├── question.php               # Trang câu hỏi
+├── quizresult.php             # Trang kết quả bài tập
+├── register.php               # Đăng ký học sinh
+├── topics.php                 # Trang chủ đề
+├── validation.php             # Xác thực
+├── viewpdf.php                # Xem PDF
+└── README.md                  # File tài liệu này
 ```
 
-## 🔧 Configuration
+## 🔧 Cấu hình
 
-### Database Configuration
-Edit `include/config.php` to match your database settings:
+### Cấu hình Cơ sở dữ liệu
+Chỉnh sửa `include/config.php` để phù hợp với cài đặt cơ sở dữ liệu của bạn:
 
 ```php
 <?php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'dbcaiwl');
+defined('server') ? null : define("server", "localhost");
+defined('user') ? null : define("user", "root");
+defined('pass') ? null : define("pass", "");
+defined('database_name') ? null : define("database_name", "dbcaiwl");
 ?>
 ```
 
-### File Upload Settings
-Ensure PHP settings allow file uploads:
+### Cài đặt Upload File
+Đảm bảo cài đặt PHP cho phép upload file (chỉnh sửa `php.ini`):
 - `upload_max_filesize = 50M`
 - `post_max_size = 50M`
 - `max_execution_time = 300`
+- `memory_limit = 256M`
 
-## 🎯 Usage Instructions
+### Cấu hình Web Root
+Hệ thống tự động phát hiện web root. Nếu cần thay đổi, chỉnh sửa trong `include/config.php`:
+```php
+define('web_root', '/elearning/');
+define('server_root', 'C:/xampp/htdocs/elearning/');
+```
 
-### For Teachers/Admins:
-1. Login to the admin panel
-2. Navigate to "Lessons" to upload educational content
-3. Use "Exercises" to create quizzes and assessments
-4. Monitor student progress through the dashboard
+## 🎯 Hướng dẫn Sử dụng
 
-### For Students:
-1. Register for a new account
-2. Login with your credentials
-3. Browse available lessons
-4. Take quizzes to test your knowledge
-5. Download materials for offline study
+### Dành cho Giáo viên/Quản trị viên:
+1. Đăng nhập vào bảng điều khiển quản trị tại `http://localhost/elearning/admin/`
+2. Điều hướng đến **"Lessons"** để tải lên nội dung giáo dục (video, PDF)
+3. Sử dụng **"Exercises"** để tạo câu hỏi trắc nghiệm và đánh giá
+4. Quản lý **"Categories"** để tổ chức câu hỏi theo danh mục
+5. Quản lý **"Topics"** để phân loại câu hỏi theo chủ đề
+6. Theo dõi tiến độ học sinh qua **"Students"**
+7. Quản lý người dùng hệ thống qua **"Users"**
+
+### Dành cho Học sinh:
+1. Đăng ký tài khoản mới tại `http://localhost/elearning/register.php`
+2. Đăng nhập với thông tin đăng nhập của bạn
+3. Duyệt các bài học có sẵn trong **"Lesson"**
+4. Xem nội dung chi tiết bài học với định dạng Markdown
+5. Chọn **"Categories"** để xem danh mục bài tập
+6. Chọn **"Topics"** để xem chủ đề cụ thể
+7. Làm bài tập trắc nghiệm để kiểm tra kiến thức
+8. Xem kết quả và điểm số ngay lập tức
+9. Tải xuống tài liệu để học offline
+10. Xem video bài giảng trực tiếp trên hệ thống
 
 ## 🤖 Tích hợp Gemini API để tạo câu hỏi tự động
 
@@ -281,49 +337,101 @@ foreach ($questions as $q) {
 - Kiểm tra điều khoản và chi phí của Google AI trước khi dùng production.
 - Thêm retry và xử lý lỗi mạng khi triển khai thực tế.
 
-## 🐛 Troubleshooting
+## 🐛 Khắc phục Sự cố
 
-### Common Issues:
+### Các vấn đề thường gặp:
 
-**Database Connection Error**
-- Verify MySQL service is running in XAMPP
-- Check database credentials in `config.php`
-- Ensure database `dbcaiwl` exists
+**Lỗi Kết nối Cơ sở dữ liệu**
+- Xác minh dịch vụ MySQL đang chạy trong XAMPP
+- Kiểm tra thông tin đăng nhập cơ sở dữ liệu trong `include/config.php`
+- Đảm bảo cơ sở dữ liệu `dbcaiwl` tồn tại
+- Kiểm tra port MySQL (mặc định: 3306)
 
-**File Upload Issues**
-- Check PHP file upload settings
-- Verify folder permissions for upload directories
-- Ensure adequate disk space
+**Vấn đề Upload File**
+- Kiểm tra cài đặt upload file trong `php.ini`
+- Xác minh quyền truy cập thư mục upload
+- Đảm bảo đủ dung lượng đĩa
+- Kiểm tra kích thước file không vượt quá giới hạn
 
-**Login Problems**
-- Clear browser cache and cookies
-- Verify user credentials in database
-- Check session configuration
+**Vấn đề Đăng nhập**
+- Xóa cache và cookies trình duyệt
+- Xác minh thông tin đăng nhập trong cơ sở dữ liệu
+- Kiểm tra cấu hình session trong PHP
+- Đảm bảo thư mục session có quyền ghi
 
-## 🤝 Contributing
+**Lỗi 404 Not Found**
+- Kiểm tra đường dẫn web root trong `config.php`
+- Xác minh Apache đang chạy
+- Kiểm tra file `.htaccess` (nếu có)
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Create a Pull Request
+**Video/PDF không hiển thị**
+- Kiểm tra đường dẫn file trong cơ sở dữ liệu
+- Xác minh file tồn tại trong thư mục
+- Kiểm tra quyền truy cập file
 
-## 📝 License
+## 📊 Cấu trúc Cơ sở dữ liệu
 
-This project is open source and available under the [MIT License](LICENSE).
+Hệ thống sử dụng các bảng chính sau:
 
-## 📞 Support
+- **tblautonumbers**: Quản lý số tự động tăng
+- **tblcategories**: Danh mục câu hỏi (Technology, Science, Mathematics, Business, Language, Coding)
+- **tblcontent**: Nội dung bài học chi tiết
+- **tblexercise**: Bài tập và câu hỏi trắc nghiệm
+- **tbllesson**: Thông tin bài học (video, PDF)
+- **tblstudent**: Thông tin học sinh
+- **tbltopic**: Chủ đề bài tập
+- **tbluser**: Người dùng hệ thống (admin, giáo viên)
+- **tblscore**: Điểm số và kết quả bài tập
 
-For support and questions:
-- Create an issue in the repository
-- Check the documentation
-- Review troubleshooting section
+## 🔒 Bảo mật
 
-## 🔄 Version History
+### Khuyến nghị Bảo mật:
+- Thay đổi mật khẩu admin mặc định ngay sau khi cài đặt
+- Sử dụng mật khẩu mạnh cho tất cả tài khoản
+- Cập nhật PHP và MySQL thường xuyên
+- Sao lưu cơ sở dữ liệu định kỳ
+- Hạn chế quyền truy cập thư mục admin
+- Sử dụng HTTPS trong môi trường production
+- Xác thực và làm sạch tất cả input từ người dùng
 
-- **v1.0.0** - Initial release with core functionality
-- Features: Lesson management, quiz system, user management
+## 🤝 Đóng góp
+
+1. Fork repository
+2. Tạo nhánh tính năng (`git checkout -b feature/tinh-nang-moi`)
+3. Commit thay đổi (`git commit -am 'Thêm tính năng mới'`)
+4. Push lên nhánh (`git push origin feature/tinh-nang-moi`)
+5. Tạo Pull Request
+
+## 📝 Giấy phép
+
+Dự án này là mã nguồn mở và có sẵn theo [Giấy phép MIT](LICENSE).
+
+## 📞 Hỗ trợ
+
+Để được hỗ trợ và đặt câu hỏi:
+- Tạo issue trong repository
+- Kiểm tra tài liệu hướng dẫn
+- Xem lại phần khắc phục sự cố
+
+## 🔄 Lịch sử Phiên bản
+
+- **v1.0.0** - Phát hành ban đầu với các tính năng cốt lõi
+  - Quản lý bài học (video, PDF)
+  - Hệ thống câu hỏi trắc nghiệm
+  - Quản lý người dùng và học sinh
+  - Hệ thống danh mục và chủ đề
+  - Chấm điểm tự động
+
+## 🚀 Tính năng Tương lai
+
+- [ ] Tích hợp Gemini API để tạo câu hỏi tự động
+- [ ] Hệ thống thông báo real-time
+- [ ] Diễn đàn thảo luận
+- [ ] Hệ thống badge và thành tích
+- [ ] Xuất báo cáo PDF
+- [ ] Ứng dụng mobile
+- [ ] Hỗ trợ đa ngôn ngữ
 
 ---
 
-**Note**: This system is designed for educational purposes and may require additional security measures for production use.
+**Lưu ý**: Hệ thống này được thiết kế cho mục đích giáo dục và có thể cần các biện pháp bảo mật bổ sung khi triển khai production.
