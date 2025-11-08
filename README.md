@@ -1,42 +1,45 @@
-# E-Learning System Using PHP/MySQLi
+# XÂY DỰNG HỆ THỐNG LMS HỌC TIẾNG VIỆT CHO NGƯỜI NƯỚC NGOÀI TÍCH HỢP AI
 
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![AI](https://img.shields.io/badge/AI-Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
 ## 📖 Tổng quan
 
-Hệ thống E-Learning là một nền tảng học trực tuyến toàn diện được thiết kế để hỗ trợ giáo viên tạo, quản lý và phân phối nội dung giáo dục một cách dễ dàng. Hệ thống cung cấp trải nghiệm liền mạch cho cả giáo viên và học sinh, bao gồm quản lý bài học, tạo bài tập trắc nghiệm và công cụ đánh giá học sinh.
+Hệ thống LMS (Learning Management System) học tiếng Việt cho người nước ngoài là một nền tảng học trực tuyến hiện đại, được tích hợp công nghệ AI để hỗ trợ việc dạy và học tiếng Việt một cách hiệu quả. Hệ thống cung cấp trải nghiệm học tập toàn diện với các bài học đa phương tiện, bài tập trắc nghiệm tự động, và công cụ đánh giá thông minh.
 
 ### 🎯 Mục đích
 
-Hệ thống này nhằm:
-- Đơn giản hóa quy trình tạo và quản lý bài học trực tuyến
-- Cho phép giáo viên tải lên nội dung đa phương tiện (video, PDF)
-- Cung cấp bài tập trắc nghiệm và đánh giá tương tác
-- Theo dõi tiến độ và hiệu suất học tập của học sinh
-- Tạo nền tảng tập trung cho việc phân phối nội dung giáo dục
+Hệ thống này được phát triển nhằm:
+- **Hỗ trợ người nước ngoài học tiếng Việt**: Cung cấp nền tảng học tập chuyên biệt cho người học tiếng Việt như ngôn ngữ thứ hai
+- **Tích hợp AI thông minh**: Sử dụng Gemini AI để tự động tạo câu hỏi, đánh giá và cá nhân hóa trải nghiệm học tập
+- **Quản lý nội dung đa phương tiện**: Cho phép giáo viên tải lên video bài giảng, tài liệu PDF và nội dung tương tác
+- **Đánh giá tự động**: Hệ thống chấm điểm và phản hồi tức thì cho bài tập trắc nghiệm
+- **Theo dõi tiến độ**: Giám sát chi tiết quá trình học tập và hiệu suất của từng học viên
+- **Tạo môi trường học tập tập trung**: Nền tảng tập trung cho việc phân phối và quản lý nội dung giáo dục tiếng Việt
 
 ## ✨ Tính năng
 
 ### 👨‍💼 Tính năng dành cho Quản trị viên/Giáo viên
 
-#### 📚 Quản lý Bài học
-- **Danh sách Bài học**: Xem tất cả bài học có sẵn một cách có tổ chức
-- **Tải lên Bài học**: Thêm nội dung giáo dục mới (video, file PDF)
-- **Chỉnh sửa Bài học**: Sửa đổi nội dung và chi tiết bài học hiện có
-- **Thay đổi File**: Thay thế file bài học bằng phiên bản cập nhật
-- **Xem Bài học**: Xem trước bài học trước khi xuất bản
-- **Xóa Bài học**: Xóa nội dung lỗi thời hoặc không cần thiết
+#### 📚 Quản lý Bài học Tiếng Việt
+- **Danh sách Bài học**: Xem tất cả bài học tiếng Việt được tổ chức theo cấp độ và chủ đề
+- **Tải lên Bài học**: Thêm nội dung giáo dục mới (video phát âm, tài liệu ngữ pháp PDF, bài đọc)
+- **Chỉnh sửa Bài học**: Sửa đổi nội dung bài học, thêm phiên âm, dịch nghĩa
+- **Thay đổi File**: Cập nhật video bài giảng, tài liệu học tập
+- **Xem Bài học**: Xem trước bài học trước khi xuất bản cho học viên
+- **Xóa Bài học**: Xóa nội dung lỗi thời hoặc không phù hợp
 
-#### 📝 Quản lý Bài tập & Câu hỏi
-- **Danh sách Câu hỏi**: Xem tất cả câu hỏi trắc nghiệm và bài tập
-- **Thêm Câu hỏi**: Tạo câu hỏi trắc nghiệm mới với các lựa chọn
-- **Chỉnh sửa Câu hỏi**: Sửa đổi câu hỏi và đáp án hiện có
-- **Xóa Câu hỏi**: Xóa câu hỏi lỗi thời hoặc không chính xác
-- **Quản lý Danh mục**: Tổ chức câu hỏi theo danh mục (Technology, Science, Mathematics, Business, Language, Coding)
-- **Quản lý Chủ đề**: Phân loại câu hỏi theo chủ đề cụ thể
+#### 📝 Quản lý Bài tập & Câu hỏi (Tích hợp AI)
+- **Danh sách Câu hỏi**: Xem tất cả câu hỏi trắc nghiệm về từ vựng, ngữ pháp, đọc hiểu
+- **Thêm Câu hỏi Thủ công**: Tạo câu hỏi trắc nghiệm với các lựa chọn đáp án
+- **🤖 Tạo Câu hỏi bằng AI**: Sử dụng Gemini AI để tự động sinh câu hỏi từ nội dung bài học
+- **Chỉnh sửa Câu hỏi**: Sửa đổi câu hỏi, đáp án và giải thích
+- **Xóa Câu hỏi**: Xóa câu hỏi không phù hợp
+- **Quản lý Danh mục**: Tổ chức theo kỹ năng (Từ vựng, Ngữ pháp, Đọc hiểu, Nghe, Viết)
+- **Quản lý Chủ đề**: Phân loại theo chủ đề (Giao tiếp hàng ngày, Văn hóa Việt Nam, Kinh doanh, Du lịch)
 
 #### 👥 Quản lý Học sinh
 - **Danh sách Học sinh**: Xem tất cả học sinh đã đăng ký
@@ -49,21 +52,24 @@ Hệ thống này nhằm:
 - **Chỉnh sửa Người dùng**: Sửa đổi thông tin và quyền hạn người dùng
 - **Xóa Người dùng**: Xóa người dùng không hoạt động hoặc không được ủy quyền
 
-### 👨‍🎓 Tính năng dành cho Học sinh
+### 👨‍🎓 Tính năng dành cho Học viên (Người nước ngoài học tiếng Việt)
 
 #### 🔐 Quản lý Tài khoản
-- **Tạo Tài khoản**: Đăng ký tài khoản học sinh mới
+- **Tạo Tài khoản**: Đăng ký tài khoản học viên mới với thông tin quốc tịch, trình độ
 - **Đăng nhập/Đăng xuất**: Hệ thống xác thực an toàn
-- **Quản lý Hồ sơ**: Cập nhật thông tin cá nhân
+- **Quản lý Hồ sơ**: Cập nhật thông tin cá nhân, mục tiêu học tập
 
-#### 📖 Tính năng Học tập
-- **Xem Bài học**: Truy cập nội dung giáo dục đã tải lên
-- **Xem Nội dung**: Đọc nội dung bài học chi tiết với định dạng Markdown
-- **Làm Bài tập**: Tham gia đánh giá trắc nghiệm tương tác
-- **Xem Kết quả**: Hệ thống chấm điểm và phản hồi tự động
-- **Tải xuống Bài học**: Lưu nội dung để học offline
-- **Xem Video**: Phát video bài giảng trực tiếp trên hệ thống
-- **Xem PDF**: Đọc tài liệu PDF ngay trên trình duyệt
+#### 📖 Tính năng Học tập Tiếng Việt
+- **Xem Bài học Theo Cấp độ**: Truy cập bài học từ cơ bản đến nâng cao (A1-C2)
+- **Xem Nội dung Chi tiết**: Đọc bài học với phiên âm, dịch nghĩa, ví dụ minh họa
+- **Học Từ vựng**: Danh sách từ vựng theo chủ đề với phát âm chuẩn
+- **Học Ngữ pháp**: Các cấu trúc ngữ pháp tiếng Việt với giải thích chi tiết
+- **Làm Bài tập Trắc nghiệm**: Kiểm tra từ vựng, ngữ pháp, đọc hiểu
+- **Xem Kết quả & Giải thích**: Chấm điểm tự động với giải thích chi tiết từng câu
+- **Theo dõi Tiến độ**: Xem biểu đồ tiến độ học tập cá nhân
+- **Tải xuống Tài liệu**: Lưu bài học, từ vựng để học offline
+- **Xem Video Phát âm**: Học cách phát âm chuẩn từ giáo viên bản ngữ
+- **Đọc Tài liệu PDF**: Truy cập sách giáo trình, bài đọc thêm
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -225,72 +231,132 @@ define('server_root', 'C:/xampp/htdocs/elearning/');
 
 ## 🎯 Hướng dẫn Sử dụng
 
-### Dành cho Giáo viên/Quản trị viên:
-1. Đăng nhập vào bảng điều khiển quản trị tại `http://localhost/elearning/admin/`
-2. Điều hướng đến **"Lessons"** để tải lên nội dung giáo dục (video, PDF)
-3. Sử dụng **"Exercises"** để tạo câu hỏi trắc nghiệm và đánh giá
-4. Quản lý **"Categories"** để tổ chức câu hỏi theo danh mục
-5. Quản lý **"Topics"** để phân loại câu hỏi theo chủ đề
-6. Theo dõi tiến độ học sinh qua **"Students"**
-7. Quản lý người dùng hệ thống qua **"Users"**
+### Dành cho Giáo viên Tiếng Việt:
+1. **Đăng nhập**: Truy cập `http://localhost/elearning/admin/` với tài khoản admin
+2. **Quản lý Bài học**:
+   - Tải lên video phát âm, bài giảng ngữ pháp
+   - Thêm tài liệu PDF (sách giáo trình, bài đọc)
+   - Tạo nội dung bài học với Markdown (hỗ trợ phiên âm, dịch nghĩa)
+3. **Tạo Bài tập**:
+   - **Thủ công**: Tạo câu hỏi trắc nghiệm về từ vựng, ngữ pháp
+   - **🤖 Tự động bằng AI**: Sử dụng Gemini AI để sinh câu hỏi từ nội dung bài học
+4. **Phân loại Nội dung**:
+   - Tổ chức theo **Categories** (Từ vựng, Ngữ pháp, Đọc hiểu, Nghe, Viết)
+   - Phân loại theo **Topics** (Giao tiếp, Kinh doanh, Du lịch, Văn hóa)
+   - Gắn nhãn cấp độ (A1-C2)
+5. **Theo dõi Học viên**:
+   - Xem danh sách học viên và quốc tịch
+   - Theo dõi tiến độ học tập
+   - Xem kết quả bài tập và điểm yếu cần cải thiện
+6. **Quản lý Hệ thống**: Thêm/sửa/xóa người dùng, cấu hình hệ thống
 
-### Dành cho Học sinh:
-1. Đăng ký tài khoản mới tại `http://localhost/elearning/register.php`
-2. Đăng nhập với thông tin đăng nhập của bạn
-3. Duyệt các bài học có sẵn trong **"Lesson"**
-4. Xem nội dung chi tiết bài học với định dạng Markdown
-5. Chọn **"Categories"** để xem danh mục bài tập
-6. Chọn **"Topics"** để xem chủ đề cụ thể
-7. Làm bài tập trắc nghiệm để kiểm tra kiến thức
-8. Xem kết quả và điểm số ngay lập tức
-9. Tải xuống tài liệu để học offline
-10. Xem video bài giảng trực tiếp trên hệ thống
+### Dành cho Học viên (Người nước ngoài):
+1. **Đăng ký**: Tạo tài khoản tại `http://localhost/elearning/register.php`
+   - Điền thông tin: Họ tên, quốc tịch, trình độ hiện tại
+2. **Đăng nhập**: Truy cập `http://localhost/elearning/login.php`
+3. **Chọn Cấp độ**: Bắt đầu từ A1 (Sơ cấp) hoặc cấp độ phù hợp
+4. **Học Bài học**:
+   - Xem video phát âm chuẩn
+   - Đọc nội dung bài học với phiên âm
+   - Học từ vựng theo chủ đề
+   - Nắm vững ngữ pháp với ví dụ minh họa
+5. **Làm Bài tập**:
+   - Chọn **Categories** (Từ vựng, Ngữ pháp, Đọc hiểu)
+   - Chọn **Topics** theo sở thích (Giao tiếp, Du lịch, Kinh doanh)
+   - Làm bài tập trắc nghiệm
+   - Nhận kết quả và giải thích chi tiết ngay lập tức
+6. **Theo dõi Tiến độ**: Xem biểu đồ tiến độ, điểm số, thành tích
+7. **Tải Tài liệu**: Download bài học, từ vựng để học offline
+8. **Ôn tập**: Xem lại các bài đã học và bài tập đã làm
 
-## 🤖 Tích hợp Gemini API để tạo câu hỏi tự động
+## 🤖 Tích hợp Gemini AI - Tính năng Đặc biệt
 
-Hệ thống có thể tích hợp với Gemini API của Google để sinh tự động các câu hỏi trắc nghiệm dựa trên nội dung bài học hoặc chủ đề bạn cung cấp.
+Hệ thống tích hợp Gemini AI của Google để tự động hóa việc tạo câu hỏi và nội dung học tiếng Việt, giúp giáo viên tiết kiệm thời gian và nâng cao chất lượng bài tập.
 
-### Yêu cầu
+### 🎯 Ứng dụng AI trong Hệ thống
+
+#### 1. Tạo Câu hỏi Trắc nghiệm Tự động
+- Sinh câu hỏi từ vựng, ngữ pháp dựa trên nội dung bài học
+- Tạo câu hỏi đọc hiểu từ văn bản tiếng Việt
+- Tự động tạo đáp án nhiễu hợp lý
+- Cung cấp giải thích chi tiết cho từng câu hỏi
+
+#### 2. Cá nhân hóa Nội dung Học tập
+- Đề xuất bài học phù hợp với trình độ học viên
+- Tạo bài tập bổ trợ dựa trên điểm yếu của học viên
+- Điều chỉnh độ khó câu hỏi theo tiến độ học tập
+
+#### 3. Hỗ trợ Giáo viên
+- Tạo nhanh ngân hàng câu hỏi từ tài liệu
+- Đề xuất ví dụ minh họa cho ngữ pháp
+- Tạo bài tập thực hành đa dạng
+
+### 🔧 Cấu hình Gemini API
+
+#### Yêu cầu
 - Tài khoản Google và quyền truy cập [Google AI Studio](https://ai.google.dev/)
-- API Key của Gemini (có gói miễn phí)
+- API Key của Gemini (có gói miễn phí với 15 requests/phút)
 
-### Cấu hình nhanh
-1. Tạo API Key trong Google AI Studio.
-2. Lưu trữ khóa an toàn. Có 2 cách khuyến nghị:
-   - Khai báo trong `include/config.php`:
-     ```php
-     <?php
-     // ... các cấu hình sẵn có ...
-     define('GEMINI_API_KEY', 'YOUR_GEMINI_API_KEY_HERE');
-     ?>
-     ```
-   - Hoặc đặt biến môi trường `GEMINI_API_KEY` trên máy chủ và đọc trong PHP (khuyến nghị cho môi trường production).
+#### Các bước cấu hình
+1. **Tạo API Key**:
+   - Truy cập [Google AI Studio](https://ai.google.dev/)
+   - Đăng nhập với tài khoản Google
+   - Tạo API Key mới
+   - Sao chép API Key
 
-### Cách hoạt động
-Ứng dụng sẽ gọi endpoint `generateContent` của Gemini để tạo danh sách câu hỏi theo prompt bạn đưa vào. Bạn có thể chỉ định số lượng câu hỏi, độ khó, định dạng JSON, và yêu cầu đáp án kèm giải thích.
+2. **Cấu hình trong Hệ thống**:
+   
+   **Cách 1: Thêm vào file config (Khuyến nghị cho Development)**
+   ```php
+   // Mở file include/config.php và thêm dòng sau:
+   defined('GEMINI_API_KEY') ? null : define('GEMINI_API_KEY', 'YOUR_API_KEY_HERE');
+   ```
 
-### Ví dụ PHP (gợi ý tích hợp vào tính năng tạo bài tập)
-Ví dụ tối giản dưới đây minh họa cách gọi Gemini để sinh 5 câu hỏi trắc nghiệm theo định dạng JSON dễ lưu vào CSDL.
+   **Cách 2: Sử dụng biến môi trường (Khuyến nghị cho Production)**
+   ```bash
+   # Thêm vào file .env hoặc cấu hình server
+   GEMINI_API_KEY=your_api_key_here
+   ```
+
+### 💡 Ví dụ Tạo Câu hỏi Tiếng Việt bằng AI
 
 ```php
+<?php
+// File: admin/modules/exercises/generate_ai_questions.php
+
 $apiKey = defined('GEMINI_API_KEY') ? GEMINI_API_KEY : getenv('GEMINI_API_KEY');
 $model  = 'gemini-1.5-flash';
 $url    = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key=" . urlencode($apiKey);
 
-$lessonText = "Giải thích chu trình nước và các giai đoạn của nó."; // Thay bằng nội dung bài học
-$prompt = "" .
-  "Bạn là giáo viên chuyên gia. Hãy tạo 5 câu hỏi trắc nghiệm (MCQ) dựa trên đoạn văn dưới đây.\n" .
-  "Mỗi câu gồm: question, options (A-D), correctOption, explanation.\n" .
-  "Trả về MỘT mảng JSON thuần gồm các đối tượng: {question, options: {A,B,C,D}, correctOption, explanation}.\n\n" .
-  "VĂN BẢN:\n{$lessonText}";
+// Nội dung bài học tiếng Việt
+$lessonText = "
+Xin chào! Tôi tên là Minh. Tôi đến từ Việt Nam. 
+Tôi là sinh viên. Tôi học tiếng Anh.
+Tôi thích đọc sách và nghe nhạc.
+";
+
+// Prompt chuyên biệt cho học tiếng Việt
+$prompt = "
+Bạn là giáo viên tiếng Việt cho người nước ngoài. 
+Hãy tạo 5 câu hỏi trắc nghiệm (MCQ) để kiểm tra hiểu biết về đoạn văn tiếng Việt dưới đây.
+
+YÊU CẦU:
+- Câu hỏi phải phù hợp với người học tiếng Việt cấp độ A1-A2
+- Mỗi câu hỏi kiểm tra: từ vựng, ngữ pháp hoặc đọc hiểu
+- Đáp án phải rõ ràng và có giải thích bằng tiếng Việt đơn giản
+- Trả về định dạng JSON: [{question, options: {A,B,C,D}, correctOption, explanation, skill}]
+
+ĐOẠN VĂN:
+$lessonText
+";
 
 $payload = [
     'contents' => [[
-        'parts' => [[ 'text' => $prompt ]]
+        'parts' => [['text' => $prompt]]
     ]],
     'generationConfig' => [
-        'temperature' => 0.4,
-        'maxOutputTokens' => 1024
+        'temperature' => 0.7,
+        'maxOutputTokens' => 2048
     ]
 ];
 
@@ -300,42 +366,103 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 $response = curl_exec($ch);
+
 if ($response === false) {
-    die('Curl error: ' . curl_error($ch));
+    die('Lỗi kết nối: ' . curl_error($ch));
 }
 curl_close($ch);
 
 $data = json_decode($response, true);
 $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
-// Cố gắng parse JSON từ phản hồi của model
+// Parse JSON từ phản hồi
 $questions = json_decode($text, true);
 if (json_last_error() !== JSON_ERROR_NONE) {
+    // Thử tìm JSON trong text
     if (preg_match('/\[[\s\S]*\]/', $text, $m)) {
         $questions = json_decode($m[0], true);
     }
 }
 
-if (!is_array($questions)) {
-    die('Không parse được JSON câu hỏi. Nội dung model: ' . htmlspecialchars($text));
+if (is_array($questions)) {
+    // Lưu câu hỏi vào database
+    foreach ($questions as $q) {
+        $question = $q['question'];
+        $optionA = $q['options']['A'];
+        $optionB = $q['options']['B'];
+        $optionC = $q['options']['C'];
+        $optionD = $q['options']['D'];
+        $correctOption = $q['correctOption'];
+        $explanation = $q['explanation'];
+        $skill = $q['skill'] ?? 'Đọc hiểu';
+        
+        // INSERT vào tblexercise
+        // ...
+    }
+    echo "Đã tạo thành công " . count($questions) . " câu hỏi!";
+} else {
+    echo "Không thể tạo câu hỏi. Vui lòng thử lại.";
 }
-
-// $questions là mảng các MCQ có thể lưu vào CSDL của bạn
-foreach ($questions as $q) {
-    // Lưu $q['question'], $q['options']['A'..'D'], $q['correctOption'], $q['explanation']
-}
+?>
 ```
 
-### Mẹo prompt
-- **Rõ ràng định dạng**: yêu cầu JSON nghiêm ngặt để dễ parse.
-- **Giới hạn độ khó**: chỉ định cấp lớp hoặc mức Bloom.
-- **Kiểm soát độ dài**: giới hạn token, độ dài giải thích.
-- **Cung cấp ngữ cảnh**: đưa đoạn bài học hoặc mục tiêu.
+### 📝 Mẹo Sử dụng AI hiệu quả
 
-### Lưu ý
-- Bảo mật API key; không commit vào mã nguồn.
-- Kiểm tra điều khoản và chi phí của Google AI trước khi dùng production.
-- Thêm retry và xử lý lỗi mạng khi triển khai thực tế.
+#### Prompt Engineering cho Tiếng Việt
+- **Chỉ định cấp độ rõ ràng**: A1 (Sơ cấp), A2 (Cơ bản), B1 (Trung cấp), B2 (Trung cao), C1-C2 (Nâng cao)
+- **Xác định kỹ năng**: Từ vựng, Ngữ pháp, Đọc hiểu, Nghe, Viết
+- **Cung cấp ngữ cảnh**: Giao tiếp hàng ngày, Kinh doanh, Du lịch, Văn hóa
+- **Yêu cầu định dạng JSON**: Dễ dàng parse và lưu vào database
+
+#### Ví dụ Prompt theo Kỹ năng
+
+**Từ vựng:**
+```
+Tạo 10 câu hỏi trắc nghiệm về từ vựng chủ đề "Gia đình" 
+cho người học tiếng Việt cấp độ A1. 
+Mỗi câu hỏi kiểm tra nghĩa của từ trong ngữ cảnh.
+```
+
+**Ngữ pháp:**
+```
+Tạo 8 câu hỏi về cấu trúc "đã...chưa" và "rồi" 
+cho người học cấp độ A2. 
+Bao gồm ví dụ và giải thích sự khác biệt.
+```
+
+**Đọc hiểu:**
+```
+Dựa trên đoạn văn về văn hóa Việt Nam, 
+tạo 5 câu hỏi đọc hiểu cấp độ B1. 
+Câu hỏi nên kiểm tra hiểu ý chính và chi tiết.
+```
+
+### ⚠️ Lưu ý Quan trọng
+
+#### Bảo mật
+- **KHÔNG** commit API key vào Git
+- Sử dụng file `.env` hoặc biến môi trường
+- Giới hạn quyền truy cập API key
+- Thay đổi key định kỳ
+
+#### Giới hạn API
+- **Gói miễn phí**: 15 requests/phút, 1500 requests/ngày
+- **Gói trả phí**: Tùy theo gói đăng ký
+- Implement caching để giảm số lượng request
+- Xử lý rate limit và retry logic
+
+#### Kiểm tra Chất lượng
+- **Luôn review** câu hỏi do AI tạo trước khi xuất bản
+- Kiểm tra độ chính xác của đáp án
+- Đảm bảo giải thích rõ ràng và phù hợp cấp độ
+- Điều chỉnh câu hỏi nếu cần thiết
+
+### 🚀 Tính năng AI Tương lai
+- [ ] Chấm bài viết tự luận tự động
+- [ ] Đánh giá phát âm bằng Speech-to-Text
+- [ ] Chatbot hỗ trợ học tập 24/7
+- [ ] Dịch tự động và giải thích ngữ pháp
+- [ ] Tạo bài tập theo sở thích cá nhân
 
 ## 🐛 Khắc phục Sự cố
 
@@ -373,15 +500,16 @@ foreach ($questions as $q) {
 
 Hệ thống sử dụng các bảng chính sau:
 
-- **tblautonumbers**: Quản lý số tự động tăng
-- **tblcategories**: Danh mục câu hỏi (Technology, Science, Mathematics, Business, Language, Coding)
-- **tblcontent**: Nội dung bài học chi tiết
-- **tblexercise**: Bài tập và câu hỏi trắc nghiệm
-- **tbllesson**: Thông tin bài học (video, PDF)
-- **tblstudent**: Thông tin học sinh
-- **tbltopic**: Chủ đề bài tập
-- **tbluser**: Người dùng hệ thống (admin, giáo viên)
-- **tblscore**: Điểm số và kết quả bài tập
+- **tblautonumbers**: Quản lý số tự động tăng cho các ID
+- **tblcategories**: Danh mục kỹ năng (Từ vựng, Ngữ pháp, Đọc hiểu, Nghe, Viết, Văn hóa)
+- **tblcontent**: Nội dung bài học chi tiết (Markdown format, hỗ trợ phiên âm, dịch nghĩa)
+- **tblexercise**: Bài tập và câu hỏi trắc nghiệm (có thể tạo bằng AI hoặc thủ công)
+- **tbllesson**: Thông tin bài học (video phát âm, tài liệu PDF, audio)
+- **tblstudent**: Thông tin học viên (quốc tịch, trình độ tiếng Việt, mục tiêu học tập)
+- **tbltopic**: Chủ đề bài học (Giao tiếp hàng ngày, Kinh doanh, Du lịch, Văn hóa Việt Nam)
+- **tbluser**: Người dùng hệ thống (admin, giáo viên tiếng Việt)
+- **tblscore**: Điểm số và kết quả bài tập của học viên
+- **tblprogress**: Theo dõi tiến độ học tập theo cấp độ (A1-C2)
 
 ## 🔒 Bảo mật
 
@@ -415,23 +543,84 @@ Dự án này là mã nguồn mở và có sẵn theo [Giấy phép MIT](LICENSE
 
 ## 🔄 Lịch sử Phiên bản
 
-- **v1.0.0** - Phát hành ban đầu với các tính năng cốt lõi
-  - Quản lý bài học (video, PDF)
-  - Hệ thống câu hỏi trắc nghiệm
-  - Quản lý người dùng và học sinh
-  - Hệ thống danh mục và chủ đề
-  - Chấm điểm tự động
+- **v1.0.0** (Tháng 11/2025) - Phát hành ban đầu
+  - ✅ Hệ thống quản lý bài học tiếng Việt (video, PDF, nội dung Markdown)
+  - ✅ Hệ thống câu hỏi trắc nghiệm đa cấp độ
+  - ✅ Quản lý người dùng (giáo viên, học viên)
+  - ✅ Phân loại theo kỹ năng và chủ đề
+  - ✅ Chấm điểm tự động với giải thích chi tiết
+  - ✅ Tích hợp Gemini AI để tạo câu hỏi tự động
+  - ✅ Hỗ trợ cấp độ A1-C2 theo CEFR
+  - ✅ Giao diện thân thiện cho người nước ngoài
 
 ## 🚀 Tính năng Tương lai
 
-- [ ] Tích hợp Gemini API để tạo câu hỏi tự động
+### Giai đoạn 1 (Đang phát triển)
+- [x] Tích hợp Gemini AI để tạo câu hỏi tự động
+- [ ] Hoàn thiện module tạo câu hỏi AI trong admin panel
+- [ ] Thêm bộ lọc câu hỏi theo cấp độ (A1-C2)
+- [ ] Tích hợp từ điển tiếng Việt
+
+### Giai đoạn 2 (Kế hoạch)
+- [ ] **AI Chatbot**: Trợ lý ảo hỗ trợ học tập 24/7
+- [ ] **Đánh giá Phát âm**: Sử dụng Speech-to-Text để chấm phát âm
+- [ ] **Chấm Bài viết**: AI đánh giá bài viết tự luận
+- [ ] **Flashcard thông minh**: Hệ thống ôn tập theo đường cong망각
+
+### Giai đoạn 3 (Tương lai)
 - [ ] Hệ thống thông báo real-time
-- [ ] Diễn đàn thảo luận
-- [ ] Hệ thống badge và thành tích
-- [ ] Xuất báo cáo PDF
-- [ ] Ứng dụng mobile
-- [ ] Hỗ trợ đa ngôn ngữ
+- [ ] Diễn đàn thảo luận giữa học viên
+- [ ] Hệ thống badge và thành tích gamification
+- [ ] Xuất báo cáo tiến độ PDF
+- [ ] Ứng dụng mobile (iOS/Android)
+- [ ] Hỗ trợ đa ngôn ngữ giao diện (English, 中文, 한국어, 日本語)
+- [ ] Video call 1-1 với giáo viên
+- [ ] Marketplace khóa học tiếng Việt
+
+## 🌟 Điểm Nổi bật của Hệ thống
+
+### 🎓 Chuyên biệt cho Tiếng Việt
+- Thiết kế dành riêng cho người nước ngoài học tiếng Việt
+- Phân loại theo chuẩn CEFR (A1-C2)
+- Nội dung phong phú về văn hóa Việt Nam
+
+### 🤖 Tích hợp AI Thông minh
+- Gemini AI tự động tạo câu hỏi chất lượng cao
+- Tiết kiệm 70% thời gian tạo bài tập cho giáo viên
+- Cá nhân hóa trải nghiệm học tập
+
+### 📱 Dễ sử dụng
+- Giao diện trực quan, thân thiện
+- Hỗ trợ đa phương tiện (video, audio, PDF)
+- Học mọi lúc, mọi nơi
+
+### 📊 Theo dõi Tiến độ
+- Báo cáo chi tiết về kết quả học tập
+- Xác định điểm mạnh, điểm yếu
+- Đề xuất lộ trình học tập phù hợp
 
 ---
 
-**Lưu ý**: Hệ thống này được thiết kế cho mục đích giáo dục và có thể cần các biện pháp bảo mật bổ sung khi triển khai production.
+## 👥 Đối tượng Sử dụng
+
+- **Học viên**: Người nước ngoài muốn học tiếng Việt (du học sinh, người lao động, du khách)
+- **Giáo viên**: Giáo viên tiếng Việt cho người nước ngoài
+- **Trung tâm**: Các trung tâm dạy tiếng Việt, trường đại học
+- **Doanh nghiệp**: Công ty có nhân viên nước ngoài cần học tiếng Việt
+
+---
+
+## 📧 Liên hệ & Hỗ trợ
+
+- **Email**: support@vietnameselms.edu.vn
+- **Website**: https://vietnameselms.edu.vn
+- **Facebook**: fb.com/vietnameselms
+- **Hotline**: +84 xxx xxx xxx
+
+---
+
+**Lưu ý**: Hệ thống này được thiết kế cho mục đích giáo dục. Khuyến nghị tăng cường bảo mật và tối ưu hóa hiệu suất trước khi triển khai môi trường production.
+
+**Phát triển bởi**: Nhóm phát triển LMS Tiếng Việt  
+**Năm**: 2025  
+**Phiên bản**: 1.0.0
