@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2025 at 07:45 AM
+-- Generation Time: Nov 08, 2025 at 12:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -113,11 +113,35 @@ CREATE TABLE `tblexercise` (
 --
 
 INSERT INTO `tblexercise` (`ExerciseID`, `LessonID`, `CategoryID`, `TopicID`, `Question`, `ChoiceA`, `ChoiceB`, `ChoiceC`, `ChoiceD`, `Answer`, `ExercisesDate`) VALUES
-(20251836, 0, 6, 15, 'Which Laravel feature provides a convenient, fluent interface for defining and running database schema migrations?', 'Artisan Console', 'Eloquent ORM', 'Blade Templating Engine', 'Schema Builder', 'D', '0000-00-00'),
-(20252295, 0, 6, 15, 'In Laravel, which of the following is the correct way to access the configuration value \'app.name\'?', 'config(\'app_name\')', 'Config::get(\'app.name\')', 'env(\'APP_NAME\')', 'App::config(\'app.name\')', 'B', '0000-00-00'),
-(20252366, 0, 6, 15, 'What is the primary purpose of Laravel\'s service container?', 'To manage HTTP requests and responses.', 'To handle database connections.', 'To manage class dependencies and perform dependency injection.', 'To compile Blade templates.', 'C', '0000-00-00'),
-(20252401, 0, 6, 15, 'What is the purpose of Laravel\'s \'middleware\'?', 'To define database migrations.', 'To filter HTTP requests entering your application.', 'To create Blade templates.', 'To handle queue jobs.', 'B', '0000-00-00'),
-(20252732, 0, 6, 15, 'Which HTTP method is typically used when updating an existing resource in a RESTful API built with Laravel?', 'GET', 'POST', 'PUT or PATCH', 'DELETE', 'C', '0000-00-00');
+(20250529, 0, 6, 16, 'Which CSS property is used to create a responsive image that scales appropriately on different screen sizes?', 'width: 100%;', 'height: auto;', 'max-width: 100%; height: auto;', 'object-fit: contain;', 'C', '0000-00-00'),
+(20250575, 0, 5, 1, 'What does \'mai pen rai\' mean in Thai?', 'You\'re welcome', 'I\'m sorry', 'It\'s okay/Never mind', 'How are you?', 'C', '0000-00-00'),
+(20250669, 0, 2, 5, 'If the net work done on an object is positive, then the object\'s kinetic energy:', 'Decreases', 'Increases', 'Remains the same', 'Becomes zero', 'B', '0000-00-00'),
+(20250916, 0, 2, 6, 'What is the pH of a neutral solution at 25°C?', '0', '7', '14', '1', 'B', '0000-00-00'),
+(20251338, 0, 4, 12, 'What leadership style is characterized by a high degree of participation from team members in decision-making?', 'Autocratic', 'Laissez-faire', 'Democratic', 'Transactional', 'C', '0000-00-00'),
+(20251831, 0, 2, 6, 'What type of chemical bond is formed when atoms share electrons?', 'Ionic Bond', 'Covalent Bond', 'Metallic Bond', 'Hydrogen Bond', 'B', '0000-00-00'),
+(20251921, 0, 4, 12, 'What does the acronym SMART stand for in the context of goal setting?', 'Simple, Measurable, Achievable, Realistic, Timely', 'Strategic, Monetary, Attainable, Relevant, Trackable', 'Specific, Measurable, Attainable, Relevant, Time-bound', 'Standard, Meaningful, Agreed-upon, Realistic, Tangible', 'C', '0000-00-00'),
+(20252174, 0, 4, 12, 'Which of the following is NOT typically considered a key function of management?', 'Planning', 'Organizing', 'Innovating', 'Controlling', 'C', '0000-00-00'),
+(20252405, 0, 5, 1, 'Chào bu?i sáng (Good morning) in Thai is:', '??????????/??? (Sawasdee krap/ka)', '???????????? (Ratri Sawat)', '??????????? (Arun Sawat)', '?????? (Khop Khun)', 'C', '0000-00-00'),
+(20253052, 0, 6, 16, 'Which of the following selectors has the highest specificity?', 'element', '.class', '#id', '* (universal selector)', 'C', '0000-00-00'),
+(20253129, 0, 4, 12, 'A SWOT analysis is a strategic planning tool used to evaluate:', 'Strengths, Weaknesses, Opportunities, and Threats', 'Sales, Wages, Operations, and Taxes', 'Specific, Measurable, Achievable, Relevant, and Time-bound goals', 'Suppliers, Workflows, Outputs, and Technology', 'A', '0000-00-00'),
+(20253487, 0, 6, 16, 'What does the `box-sizing: border-box;` property do?', 'It makes the element\'s border visible.', 'It includes the padding and border in the element\'s total width and height.', 'It adds a box shadow to the element.', 'It removes the border from the element.', 'B', '0000-00-00'),
+(20253947, 0, 2, 6, 'Which of the following elements is a halogen?', 'Sodium (Na)', 'Iron (Fe)', 'Chlorine (Cl)', 'Argon (Ar)', 'C', '0000-00-00'),
+(20254376, 0, 2, 6, 'Which of the following is NOT a colligative property?', 'Boiling Point Elevation', 'Freezing Point Depression', 'Osmotic Pressure', 'Molar Mass', 'D', '0000-00-00'),
+(20254444, 0, 2, 5, 'Which of the following electromagnetic waves has the shortest wavelength?', 'Radio waves', 'Microwaves', 'Visible light', 'Gamma rays', 'D', '0000-00-00'),
+(20255162, 0, 4, 12, 'The term \'span of control\' in management refers to:', 'The level of authority a manager has within the organization.', 'The number of subordinates a manager can effectively supervise.', 'The geographic area a manager is responsible for.', 'The budget a manager controls.', 'B', '0000-00-00'),
+(20255513, 0, 4, 12, 'What is the primary goal of supply chain management?', 'To maximize production efficiency within a single manufacturing facility.', 'To minimize costs associated with marketing and sales activities.', 'To optimize the flow of goods, information, and finances across the entire supply network.', 'To negotiate the lowest possible prices with individual suppliers, regardless of quality or reliability.', 'C', '0000-00-00'),
+(20255904, 0, 2, 6, 'Which of the following best describes an endothermic reaction?', 'A reaction that releases heat to the surroundings.', 'A reaction that absorbs heat from the surroundings.', 'A reaction that produces light.', 'A reaction that forms a precipitate.', 'B', '0000-00-00'),
+(20256327, 0, 4, 12, 'Delegation is an important management skill. Effective delegation involves:', 'Assigning tasks without providing the necessary resources or authority.', 'Assigning tasks only when the manager is too busy to do them.', 'Assigning tasks with clear objectives, resources, and accountability.', 'Avoiding delegation to maintain control and ensure quality.', 'C', '0000-00-00'),
+(20257252, 0, 2, 5, 'Which of the following is a vector quantity?', 'Speed', 'Mass', 'Temperature', 'Velocity', 'D', '0000-00-00'),
+(20257362, 0, 5, 1, 'The polite particle used by males at the end of a sentence in Thai is:', '??? (ka)', '???? (krap)', '?? (na)', '??? (ja)', 'B', '0000-00-00'),
+(20257598, 0, 6, 16, 'What is the purpose of the `z-index` property in CSS?', 'To specify the element\'s position on the z-axis (depth)', 'To control the element\'s visibility', 'To set the element\'s size in pixels', 'To change the element\'s font size', 'A', '0000-00-00'),
+(20257731, 0, 2, 5, 'A ball is thrown upwards. Neglecting air resistance, what is the ball\'s acceleration at its highest point?', '0 m/s²', '9.8 m/s² downwards', '9.8 m/s² upwards', 'Depends on the initial velocity', 'B', '0000-00-00'),
+(20257836, 0, 6, 16, 'Which CSS property is used to control the spacing between individual letters within a text element?', 'line-height', 'word-spacing', 'letter-spacing', 'text-indent', 'C', '0000-00-00'),
+(20258013, 0, 4, 12, 'Which leadership style is characterized by a leader who allows subordinates to make decisions with minimal interference?', 'Autocratic Leadership', 'Democratic Leadership', 'Laissez-faire Leadership', 'Transformational Leadership', 'C', '0000-00-00'),
+(20258095, 0, 4, 12, 'Which of the following is a key characteristic of a learning organization?', 'Emphasis on individual achievements and specialized roles.', 'A rigid hierarchical structure with limited employee autonomy.', 'Continuous improvement through shared knowledge and adaptation.', 'Resistance to change and a focus on maintaining the status quo.', 'C', '0000-00-00'),
+(20258614, 0, 5, 1, 'What is the Thai word for \'water\'?', '???? (khao)', '??? (nam)', '?? (fai)', '??? (din)', 'B', '0000-00-00'),
+(20258656, 0, 5, 1, 'How do you say \'Thank you\' in Thai?', '????? (khot thot)', '????????? (mai pen rai)', '?????? (khop khun)', '?????? (sawasdee)', 'C', '0000-00-00'),
+(20258717, 0, 5, 1, 'Which of these is a polite greeting in Thai?', '????????? (sabai dee mai)', '?????????????? (gin khao rue yang)', '????? (pai nai)', '???????????? (non lap fan dee)', 'A', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -155,27 +179,62 @@ CREATE TABLE `tblscore` (
 --
 
 INSERT INTO `tblscore` (`ScoreID`, `LessonID`, `ExerciseID`, `StudentID`, `NoItems`, `Score`, `Submitted`, `Answer`) VALUES
-(149, 0, 20254935, 7, 1, 0, 0, NULL),
-(165, 0, 20251836, 7, 1, 1, 0, NULL),
-(166, 0, 20252295, 7, 1, 1, 0, NULL),
-(167, 0, 20252366, 7, 1, 1, 0, NULL),
-(168, 0, 20252401, 7, 1, 1, 0, NULL),
-(169, 0, 20252732, 7, 1, 1, 0, NULL),
-(170, 15, 20251836, 7, 1, 1, 1, NULL),
-(171, 15, 20252295, 7, 1, 1, 1, NULL),
-(172, 15, 20252366, 7, 1, 1, 1, NULL),
-(173, 15, 20252401, 7, 1, 1, 1, NULL),
-(174, 15, 20252732, 7, 1, 1, 1, NULL),
-(175, 0, 20251836, 8, 1, 0, 0, NULL),
-(176, 0, 20252295, 8, 1, 0, 0, NULL),
-(177, 0, 20252366, 8, 1, 1, 0, NULL),
-(178, 0, 20252401, 8, 1, 0, 0, NULL),
-(179, 0, 20252732, 8, 1, 0, 0, NULL),
-(180, 15, 20251836, 8, 1, 0, 1, NULL),
-(181, 15, 20252295, 8, 1, 0, 1, NULL),
-(182, 15, 20252366, 8, 1, 1, 1, NULL),
-(183, 15, 20252401, 8, 1, 0, 1, NULL),
-(184, 15, 20252732, 8, 1, 0, 1, NULL);
+(192, 0, 20258013, 7, 1, 0, 0, NULL),
+(193, 0, 20258095, 7, 1, 0, 0, NULL),
+(194, 0, 20251338, 7, 1, 0, 0, NULL),
+(195, 0, 20251921, 7, 1, 0, 0, NULL),
+(196, 0, 20252174, 7, 1, 0, 0, NULL),
+(197, 0, 20253129, 7, 1, 1, 0, NULL),
+(198, 0, 20255162, 7, 1, 0, 0, NULL),
+(199, 0, 20255513, 7, 1, 0, 0, NULL),
+(200, 0, 20256327, 7, 1, 0, 0, NULL),
+(201, 12, 20251338, 7, 1, 0, 1, NULL),
+(202, 12, 20251921, 7, 1, 0, 1, NULL),
+(203, 12, 20252174, 7, 1, 0, 1, NULL),
+(204, 12, 20253129, 7, 1, 1, 1, NULL),
+(205, 12, 20255162, 7, 1, 0, 1, NULL),
+(206, 12, 20255513, 7, 1, 0, 1, NULL),
+(207, 12, 20256327, 7, 1, 0, 1, NULL),
+(208, 12, 20258013, 7, 1, 0, 1, NULL),
+(209, 12, 20258095, 7, 1, 0, 1, NULL),
+(210, 12, 20251338, 7, 1, 0, 1, NULL),
+(211, 12, 20251921, 7, 1, 0, 1, NULL),
+(212, 12, 20252174, 7, 1, 0, 1, NULL),
+(213, 12, 20253129, 7, 1, 1, 1, NULL),
+(214, 12, 20255162, 7, 1, 0, 1, NULL),
+(215, 12, 20255513, 7, 1, 0, 1, NULL),
+(216, 12, 20256327, 7, 1, 0, 1, NULL),
+(217, 12, 20258013, 7, 1, 0, 1, NULL),
+(218, 12, 20258095, 7, 1, 0, 1, NULL),
+(219, 12, 20251338, 7, 1, 0, 1, NULL),
+(220, 12, 20251921, 7, 1, 0, 1, NULL),
+(221, 12, 20252174, 7, 1, 0, 1, NULL),
+(222, 12, 20253129, 7, 1, 1, 1, NULL),
+(223, 12, 20255162, 7, 1, 0, 1, NULL),
+(224, 12, 20255513, 7, 1, 0, 1, NULL),
+(225, 12, 20256327, 7, 1, 0, 1, NULL),
+(226, 12, 20258013, 7, 1, 0, 1, NULL),
+(227, 12, 20258095, 7, 1, 0, 1, NULL),
+(228, 0, 20250669, 7, 1, 0, 0, NULL),
+(229, 0, 20254444, 7, 1, 1, 0, NULL),
+(230, 0, 20257252, 7, 1, 1, 0, NULL),
+(231, 0, 20257731, 7, 1, 0, 0, NULL),
+(232, 5, 20250669, 7, 1, 0, 1, NULL),
+(233, 5, 20254444, 7, 1, 1, 1, NULL),
+(234, 5, 20257252, 7, 1, 1, 1, NULL),
+(235, 5, 20257731, 7, 1, 0, 1, NULL),
+(236, 5, 20250669, 7, 1, 0, 1, NULL),
+(237, 5, 20254444, 7, 1, 1, 1, NULL),
+(238, 5, 20257252, 7, 1, 1, 1, NULL),
+(239, 5, 20257731, 7, 1, 0, 1, NULL),
+(240, 0, 20250529, 9, 1, 0, 0, NULL),
+(241, 0, 20253052, 9, 1, 0, 0, NULL),
+(242, 0, 20257836, 9, 1, 0, 0, NULL),
+(243, 0, 20257598, 9, 1, 0, 0, NULL),
+(244, 16, 20250529, 9, 1, 0, 1, NULL),
+(245, 16, 20253052, 9, 1, 0, 1, NULL),
+(246, 16, 20257598, 9, 1, 0, 1, NULL),
+(247, 16, 20257836, 9, 1, 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,7 +258,8 @@ CREATE TABLE `tblstudent` (
 
 INSERT INTO `tblstudent` (`StudentID`, `Fname`, `Lname`, `Address`, `MobileNo`, `STUDUSERNAME`, `STUDPASS`) VALUES
 (7, 'User', 'Demo', '', '', 'user', '12dea96fec20593566ab75692c9949596833adc9'),
-(8, 'Khamko', 'xaiyasith', 'DonePhay, Sanamxai, Attapeu', '09876545678', 'khamko', '14c196cb7423b42e7e9a528ef038789dccb7a0c1');
+(8, 'Khamko', 'xaiyasith', 'DonePhay, Sanamxai, Attapeu', '09876545678', 'khamko', '14c196cb7423b42e7e9a528ef038789dccb7a0c1'),
+(9, 'Khampasong', 'KBT', 'DonePhay, Sanamxai, Attapeu', '09876545678', 'khampasong', 'f8954cec14a317b0948947513e0ff1d8f144789c');
 
 -- --------------------------------------------------------
 
@@ -225,19 +285,84 @@ CREATE TABLE `tblstudentquestion` (
 --
 
 INSERT INTO `tblstudentquestion` (`SQID`, `ExerciseID`, `LessonID`, `StudentID`, `Question`, `CA`, `CB`, `CC`, `CD`, `QA`) VALUES
-(15, 20250027, 8, 7, 'Which Laravel feature provides an expressive, fluent interface for interacting with databa', 'Eloquent ORM', 'Blade Templating Engine', 'Artisan Console', 'Service Container', 'A'),
-(16, 20250028, 8, 7, 'What is the primary purpose of Laravel\'s \'Artisan\' command-line tool?', 'To compile CSS and JavaScript assets.', 'To manage database migrations and generate boilerplate code.', 'To handle user authentication and authorization.', 'To optimize server performance and caching.', 'B'),
-(17, 20250029, 8, 7, 'Which directory in a standard Laravel project typically holds view files?', 'app/', 'config/', 'resources/views/', 'routes/', 'C'),
-(18, 20250030, 8, 7, 'Which of the following is NOT typically considered one of the \'Vs\' of Big Data?', 'Volume', 'Velocity', 'Veracity', 'Variety', 'E'),
-(19, 20250031, 8, 7, 'What is the primary function of Hadoop Distributed File System (HDFS) in the Hadoop ecosys', 'Data processing and analysis', 'Resource management and job scheduling', 'Distributed storage of large datasets', 'Data visualization and reporting', 'C'),
-(20, 20250032, 8, 7, 'Which of the following programming languages is commonly used for data analysis and statis', 'Java', 'C++', 'Python', 'Assembly', 'C'),
-(21, 20250033, 8, 7, 'What is the term for the process of extracting valuable insights and knowledge from large ', 'Data Mining', 'Data Cleansing', 'Data Warehousing', 'Data Encryption', 'A'),
-(22, 20250034, 8, 7, 'Which of the following is an example of a NoSQL database often used in Big Data environmen', 'MySQL', 'PostgreSQL', 'MongoDB', 'Oracle', 'C'),
-(244, 20251836, 15, 7, 'Which Laravel feature provides a convenient, fluent interface for defining and running dat', 'Artisan Console', 'Eloquent ORM', 'Blade Templating Engine', 'Schema Builder', 'D'),
-(245, 20252366, 15, 7, 'What is the primary purpose of Laravel\'s service container?', 'To manage HTTP requests and responses.', 'To handle database connections.', 'To manage class dependencies and perform dependency injection.', 'To compile Blade templates.', 'C'),
-(246, 20252295, 15, 7, 'In Laravel, which of the following is the correct way to access the configuration value \'a', 'config(\'app_name\')', 'Config::get(\'app.name\')', 'env(\'APP_NAME\')', 'App::config(\'app.name\')', 'B'),
-(247, 20252732, 15, 7, 'Which HTTP method is typically used when updating an existing resource in a RESTful API bu', 'GET', 'POST', 'PUT or PATCH', 'DELETE', 'C'),
-(248, 20252401, 15, 7, 'What is the purpose of Laravel\'s \'middleware\'?', 'To define database migrations.', 'To filter HTTP requests entering your application.', 'To create Blade templates.', 'To handle queue jobs.', 'B');
+(261, 20253290, 11, 7, 'Which of the following is the BEST definition of Marketing Myopia?', 'Focusing solely on advertising efforts to drive short-term sales.', 'Defining a business in terms of goods and services rather than in terms of the benefits cu', 'Overspending on marketing campaigns without proper return on investment analysis.', 'Ignoring competitor strategies and focusing only on internal company goals.', 'B'),
+(262, 20253290, 11, 8, 'Which of the following is the BEST definition of Marketing Myopia?', 'Focusing solely on advertising efforts to drive short-term sales.', 'Defining a business in terms of goods and services rather than in terms of the benefits cu', 'Overspending on marketing campaigns without proper return on investment analysis.', 'Ignoring competitor strategies and focusing only on internal company goals.', 'B'),
+(263, 20251840, 11, 7, 'A company uses social media listening to identify trends related to its products. This act', 'Product Development', 'Market Research', 'Public Relations', 'Sales Promotion', 'B'),
+(264, 20251840, 11, 8, 'A company uses social media listening to identify trends related to its products. This act', 'Product Development', 'Market Research', 'Public Relations', 'Sales Promotion', 'B'),
+(265, 20256094, 11, 7, 'Which of the following pricing strategies is MOST appropriate for a new product entering a', 'Premium Pricing', 'Cost-Plus Pricing', 'Penetration Pricing', 'Skimming Pricing', 'C'),
+(266, 20256094, 11, 8, 'Which of the following pricing strategies is MOST appropriate for a new product entering a', 'Premium Pricing', 'Cost-Plus Pricing', 'Penetration Pricing', 'Skimming Pricing', 'C'),
+(267, 20256990, 11, 7, 'Which promotional mix element is MOST effective for building brand awareness and creating ', 'Personal Selling', 'Sales Promotion', 'Public Relations', 'Advertising', 'D'),
+(268, 20256990, 11, 8, 'Which promotional mix element is MOST effective for building brand awareness and creating ', 'Personal Selling', 'Sales Promotion', 'Public Relations', 'Advertising', 'D'),
+(269, 20252670, 11, 7, 'Which of the following metrics is MOST important for measuring the success of a content ma', 'Website Traffic', 'Social Media Likes', 'Lead Generation & Conversion Rates', 'Search Engine Ranking', 'C'),
+(270, 20252670, 11, 8, 'Which of the following metrics is MOST important for measuring the success of a content ma', 'Website Traffic', 'Social Media Likes', 'Lead Generation & Conversion Rates', 'Search Engine Ranking', 'C'),
+(271, 20251208, 14, 7, 'Which of the following literary forms is traditionally sung and often performed with music', 'Truy?n Ki?u (The Tale of Kieu)', 'Hát Chèo (Popular Opera)', 'Nh?t Ký Trong Tù (Prison Diary)', 'Th? M?i (New Poetry)', 'B'),
+(272, 20251208, 14, 8, 'Which of the following literary forms is traditionally sung and often performed with music', 'Truy?n Ki?u (The Tale of Kieu)', 'Hát Chèo (Popular Opera)', 'Nh?t Ký Trong Tù (Prison Diary)', 'Th? M?i (New Poetry)', 'B'),
+(273, 20253000, 14, 7, 'The Nôm script, a crucial part of Vietnamese literary history, is based primarily on which', 'French', 'English', 'Chinese', 'Sanskrit', 'C'),
+(274, 20253000, 14, 8, 'The Nôm script, a crucial part of Vietnamese literary history, is based primarily on which', 'French', 'English', 'Chinese', 'Sanskrit', 'C'),
+(275, 20252902, 14, 7, 'Which significant 20th-century literary movement in Vietnam emphasized individualism, emot', 'V?n H?c Hi?n Th?c (Realist Literature)', 'Th? M?i (New Poetry Movement)', 'V?n H?c Cách M?ng (Revolutionary Literature)', 'V?n H?c Ph?c H?ng (Renaissance Literature)', 'B'),
+(276, 20252902, 14, 8, 'Which significant 20th-century literary movement in Vietnam emphasized individualism, emot', 'V?n H?c Hi?n Th?c (Realist Literature)', 'Th? M?i (New Poetry Movement)', 'V?n H?c Cách M?ng (Revolutionary Literature)', 'V?n H?c Ph?c H?ng (Renaissance Literature)', 'B'),
+(277, 20256802, 14, 7, 'What is the central theme of Nguy?n Du\'s masterpiece, Truy?n Ki?u (The Tale of Kieu)?', 'The beauty of the Vietnamese countryside', 'The corruption of the imperial court', 'The tragic fate and moral struggles of a talented woman in a feudal society.', 'The heroism of Vietnamese soldiers in battle.', 'C'),
+(278, 20256802, 14, 8, 'What is the central theme of Nguy?n Du\'s masterpiece, Truy?n Ki?u (The Tale of Kieu)?', 'The beauty of the Vietnamese countryside', 'The corruption of the imperial court', 'The tragic fate and moral struggles of a talented woman in a feudal society.', 'The heroism of Vietnamese soldiers in battle.', 'C'),
+(279, 20252735, 14, 7, 'Revolutionary Literature (V?n H?c Cách M?ng) in Vietnam often focuses on which of the foll', 'The exploration of personal identity and existential angst.', 'The depiction of the lives and struggles of the working class and the fight for national l', 'The celebration of traditional Vietnamese folklore and mythology.', 'The romantic idealization of nature and rural life.', 'B'),
+(280, 20252735, 14, 8, 'Revolutionary Literature (V?n H?c Cách M?ng) in Vietnam often focuses on which of the foll', 'The exploration of personal identity and existential angst.', 'The depiction of the lives and struggles of the working class and the fight for national l', 'The celebration of traditional Vietnamese folklore and mythology.', 'The romantic idealization of nature and rural life.', 'B'),
+(281, 20252174, 12, 7, 'Which of the following is NOT typically considered a key function of management?', 'Planning', 'Organizing', 'Innovating', 'Controlling', 'C'),
+(282, 20252174, 12, 8, 'Which of the following is NOT typically considered a key function of management?', 'Planning', 'Organizing', 'Innovating', 'Controlling', 'C'),
+(283, 20253129, 12, 7, 'A SWOT analysis is a strategic planning tool used to evaluate:', 'Strengths, Weaknesses, Opportunities, and Threats', 'Sales, Wages, Operations, and Taxes', 'Specific, Measurable, Achievable, Relevant, and Time-bound goals', 'Suppliers, Workflows, Outputs, and Technology', 'A'),
+(284, 20253129, 12, 8, 'A SWOT analysis is a strategic planning tool used to evaluate:', 'Strengths, Weaknesses, Opportunities, and Threats', 'Sales, Wages, Operations, and Taxes', 'Specific, Measurable, Achievable, Relevant, and Time-bound goals', 'Suppliers, Workflows, Outputs, and Technology', 'A'),
+(285, 20256327, 12, 7, 'Delegation is an important management skill. Effective delegation involves:', 'Assigning tasks without providing the necessary resources or authority.', 'Assigning tasks only when the manager is too busy to do them.', 'Assigning tasks with clear objectives, resources, and accountability.', 'Avoiding delegation to maintain control and ensure quality.', 'C'),
+(286, 20256327, 12, 8, 'Delegation is an important management skill. Effective delegation involves:', 'Assigning tasks without providing the necessary resources or authority.', 'Assigning tasks only when the manager is too busy to do them.', 'Assigning tasks with clear objectives, resources, and accountability.', 'Avoiding delegation to maintain control and ensure quality.', 'C'),
+(287, 20251338, 12, 7, 'What leadership style is characterized by a high degree of participation from team members', 'Autocratic', 'Laissez-faire', 'Democratic', 'Transactional', 'C'),
+(288, 20251338, 12, 8, 'What leadership style is characterized by a high degree of participation from team members', 'Autocratic', 'Laissez-faire', 'Democratic', 'Transactional', 'C'),
+(289, 20255162, 12, 7, 'The term \'span of control\' in management refers to:', 'The level of authority a manager has within the organization.', 'The number of subordinates a manager can effectively supervise.', 'The geographic area a manager is responsible for.', 'The budget a manager controls.', 'B'),
+(290, 20255162, 12, 8, 'The term \'span of control\' in management refers to:', 'The level of authority a manager has within the organization.', 'The number of subordinates a manager can effectively supervise.', 'The geographic area a manager is responsible for.', 'The budget a manager controls.', 'B'),
+(291, 20258095, 12, 7, 'Which of the following is a key characteristic of a learning organization?', 'Emphasis on individual achievements and specialized roles.', 'A rigid hierarchical structure with limited employee autonomy.', 'Continuous improvement through shared knowledge and adaptation.', 'Resistance to change and a focus on maintaining the status quo.', 'C'),
+(292, 20258095, 12, 8, 'Which of the following is a key characteristic of a learning organization?', 'Emphasis on individual achievements and specialized roles.', 'A rigid hierarchical structure with limited employee autonomy.', 'Continuous improvement through shared knowledge and adaptation.', 'Resistance to change and a focus on maintaining the status quo.', 'C'),
+(293, 20255513, 12, 7, 'What is the primary goal of supply chain management?', 'To maximize production efficiency within a single manufacturing facility.', 'To minimize costs associated with marketing and sales activities.', 'To optimize the flow of goods, information, and finances across the entire supply network.', 'To negotiate the lowest possible prices with individual suppliers, regardless of quality o', 'C'),
+(294, 20255513, 12, 8, 'What is the primary goal of supply chain management?', 'To maximize production efficiency within a single manufacturing facility.', 'To minimize costs associated with marketing and sales activities.', 'To optimize the flow of goods, information, and finances across the entire supply network.', 'To negotiate the lowest possible prices with individual suppliers, regardless of quality o', 'C'),
+(295, 20258013, 12, 7, 'Which leadership style is characterized by a leader who allows subordinates to make decisi', 'Autocratic Leadership', 'Democratic Leadership', 'Laissez-faire Leadership', 'Transformational Leadership', 'C'),
+(296, 20258013, 12, 8, 'Which leadership style is characterized by a leader who allows subordinates to make decisi', 'Autocratic Leadership', 'Democratic Leadership', 'Laissez-faire Leadership', 'Transformational Leadership', 'C'),
+(297, 20251921, 12, 7, 'What does the acronym SMART stand for in the context of goal setting?', 'Simple, Measurable, Achievable, Realistic, Timely', 'Strategic, Monetary, Attainable, Relevant, Trackable', 'Specific, Measurable, Attainable, Relevant, Time-bound', 'Standard, Meaningful, Agreed-upon, Realistic, Tangible', 'C'),
+(298, 20251921, 12, 8, 'What does the acronym SMART stand for in the context of goal setting?', 'Simple, Measurable, Achievable, Realistic, Timely', 'Strategic, Monetary, Attainable, Relevant, Trackable', 'Specific, Measurable, Attainable, Relevant, Time-bound', 'Standard, Meaningful, Agreed-upon, Realistic, Tangible', 'C'),
+(299, 20252405, 1, 7, 'Chào bu?i sáng (Good morning) in Thai is:', '??????????/??? (Sawasdee krap/ka)', '???????????? (Ratri Sawat)', '??????????? (Arun Sawat)', '?????? (Khop Khun)', 'C'),
+(300, 20252405, 1, 8, 'Chào bu?i sáng (Good morning) in Thai is:', '??????????/??? (Sawasdee krap/ka)', '???????????? (Ratri Sawat)', '??????????? (Arun Sawat)', '?????? (Khop Khun)', 'C'),
+(301, 20257362, 1, 7, 'The polite particle used by males at the end of a sentence in Thai is:', '??? (ka)', '???? (krap)', '?? (na)', '??? (ja)', 'B'),
+(302, 20257362, 1, 8, 'The polite particle used by males at the end of a sentence in Thai is:', '??? (ka)', '???? (krap)', '?? (na)', '??? (ja)', 'B'),
+(303, 20258656, 1, 7, 'How do you say \'Thank you\' in Thai?', '????? (khot thot)', '????????? (mai pen rai)', '?????? (khop khun)', '?????? (sawasdee)', 'C'),
+(304, 20258656, 1, 8, 'How do you say \'Thank you\' in Thai?', '????? (khot thot)', '????????? (mai pen rai)', '?????? (khop khun)', '?????? (sawasdee)', 'C'),
+(305, 20258614, 1, 7, 'What is the Thai word for \'water\'?', '???? (khao)', '??? (nam)', '?? (fai)', '??? (din)', 'B'),
+(306, 20258614, 1, 8, 'What is the Thai word for \'water\'?', '???? (khao)', '??? (nam)', '?? (fai)', '??? (din)', 'B'),
+(307, 20258717, 1, 7, 'Which of these is a polite greeting in Thai?', '????????? (sabai dee mai)', '?????????????? (gin khao rue yang)', '????? (pai nai)', '???????????? (non lap fan dee)', 'A'),
+(308, 20258717, 1, 8, 'Which of these is a polite greeting in Thai?', '????????? (sabai dee mai)', '?????????????? (gin khao rue yang)', '????? (pai nai)', '???????????? (non lap fan dee)', 'A'),
+(309, 20250575, 1, 7, 'What does \'mai pen rai\' mean in Thai?', 'You\'re welcome', 'I\'m sorry', 'It\'s okay/Never mind', 'How are you?', 'C'),
+(310, 20250575, 1, 8, 'What does \'mai pen rai\' mean in Thai?', 'You\'re welcome', 'I\'m sorry', 'It\'s okay/Never mind', 'How are you?', 'C'),
+(311, 20257836, 16, 7, 'Which CSS property is used to control the spacing between individual letters within a text', 'line-height', 'word-spacing', 'letter-spacing', 'text-indent', 'C'),
+(312, 20257836, 16, 8, 'Which CSS property is used to control the spacing between individual letters within a text', 'line-height', 'word-spacing', 'letter-spacing', 'text-indent', 'C'),
+(313, 20257598, 16, 7, 'What is the purpose of the `z-index` property in CSS?', 'To specify the element\'s position on the z-axis (depth)', 'To control the element\'s visibility', 'To set the element\'s size in pixels', 'To change the element\'s font size', 'A'),
+(314, 20257598, 16, 8, 'What is the purpose of the `z-index` property in CSS?', 'To specify the element\'s position on the z-axis (depth)', 'To control the element\'s visibility', 'To set the element\'s size in pixels', 'To change the element\'s font size', 'A'),
+(315, 20253052, 16, 7, 'Which of the following selectors has the highest specificity?', 'element', '.class', '#id', '* (universal selector)', 'C'),
+(316, 20253052, 16, 8, 'Which of the following selectors has the highest specificity?', 'element', '.class', '#id', '* (universal selector)', 'C'),
+(317, 20253487, 16, 7, 'What does the `box-sizing: border-box;` property do?', 'It makes the element\'s border visible.', 'It includes the padding and border in the element\'s total width and height.', 'It adds a box shadow to the element.', 'It removes the border from the element.', 'B'),
+(318, 20253487, 16, 8, 'What does the `box-sizing: border-box;` property do?', 'It makes the element\'s border visible.', 'It includes the padding and border in the element\'s total width and height.', 'It adds a box shadow to the element.', 'It removes the border from the element.', 'B'),
+(319, 20250529, 16, 7, 'Which CSS property is used to create a responsive image that scales appropriately on diffe', 'width: 100%;', 'height: auto;', 'max-width: 100%; height: auto;', 'object-fit: contain;', 'C'),
+(320, 20250529, 16, 8, 'Which CSS property is used to create a responsive image that scales appropriately on diffe', 'width: 100%;', 'height: auto;', 'max-width: 100%; height: auto;', 'object-fit: contain;', 'C'),
+(321, 20257731, 5, 7, 'A ball is thrown upwards. Neglecting air resistance, what is the ball\'s acceleration at it', '0 m/s²', '9.8 m/s² downwards', '9.8 m/s² upwards', 'Depends on the initial velocity', 'B'),
+(322, 20257731, 5, 8, 'A ball is thrown upwards. Neglecting air resistance, what is the ball\'s acceleration at it', '0 m/s²', '9.8 m/s² downwards', '9.8 m/s² upwards', 'Depends on the initial velocity', 'B'),
+(323, 20257252, 5, 7, 'Which of the following is a vector quantity?', 'Speed', 'Mass', 'Temperature', 'Velocity', 'D'),
+(324, 20257252, 5, 8, 'Which of the following is a vector quantity?', 'Speed', 'Mass', 'Temperature', 'Velocity', 'D'),
+(325, 20250669, 5, 7, 'If the net work done on an object is positive, then the object\'s kinetic energy:', 'Decreases', 'Increases', 'Remains the same', 'Becomes zero', 'B'),
+(326, 20250669, 5, 8, 'If the net work done on an object is positive, then the object\'s kinetic energy:', 'Decreases', 'Increases', 'Remains the same', 'Becomes zero', 'B'),
+(327, 20254444, 5, 7, 'Which of the following electromagnetic waves has the shortest wavelength?', 'Radio waves', 'Microwaves', 'Visible light', 'Gamma rays', 'D'),
+(328, 20254444, 5, 8, 'Which of the following electromagnetic waves has the shortest wavelength?', 'Radio waves', 'Microwaves', 'Visible light', 'Gamma rays', 'D'),
+(329, 20251831, 6, 7, 'What type of chemical bond is formed when atoms share electrons?', 'Ionic Bond', 'Covalent Bond', 'Metallic Bond', 'Hydrogen Bond', 'B'),
+(330, 20251831, 6, 8, 'What type of chemical bond is formed when atoms share electrons?', 'Ionic Bond', 'Covalent Bond', 'Metallic Bond', 'Hydrogen Bond', 'B'),
+(331, 20254376, 6, 7, 'Which of the following is NOT a colligative property?', 'Boiling Point Elevation', 'Freezing Point Depression', 'Osmotic Pressure', 'Molar Mass', 'D'),
+(332, 20254376, 6, 8, 'Which of the following is NOT a colligative property?', 'Boiling Point Elevation', 'Freezing Point Depression', 'Osmotic Pressure', 'Molar Mass', 'D'),
+(333, 20250916, 6, 7, 'What is the pH of a neutral solution at 25°C?', '0', '7', '14', '1', 'B'),
+(334, 20250916, 6, 8, 'What is the pH of a neutral solution at 25°C?', '0', '7', '14', '1', 'B'),
+(335, 20255904, 6, 7, 'Which of the following best describes an endothermic reaction?', 'A reaction that releases heat to the surroundings.', 'A reaction that absorbs heat from the surroundings.', 'A reaction that produces light.', 'A reaction that forms a precipitate.', 'B'),
+(336, 20255904, 6, 8, 'Which of the following best describes an endothermic reaction?', 'A reaction that releases heat to the surroundings.', 'A reaction that absorbs heat from the surroundings.', 'A reaction that produces light.', 'A reaction that forms a precipitate.', 'B'),
+(337, 20253947, 6, 7, 'Which of the following elements is a halogen?', 'Sodium (Na)', 'Iron (Fe)', 'Chlorine (Cl)', 'Argon (Ar)', 'C'),
+(338, 20253947, 6, 8, 'Which of the following elements is a halogen?', 'Sodium (Na)', 'Iron (Fe)', 'Chlorine (Cl)', 'Argon (Ar)', 'C');
 
 -- --------------------------------------------------------
 
@@ -273,7 +398,8 @@ INSERT INTO `tbltopics` (`TopicID`, `CategoryID`, `TopicName`, `TopicDescription
 (12, 4, 'Management', 'Câu hỏi về quản lý', '2025-10-25 04:37:26', 1),
 (13, 5, 'English', 'Câu hỏi tiếng Anh', '2025-10-25 04:37:26', 1),
 (14, 5, 'Vietnamese Literature', 'Câu hỏi văn học Việt Nam', '2025-10-25 04:37:26', 1),
-(15, 6, 'Laravel', NULL, '2025-10-26 08:32:46', 1);
+(15, 6, 'Laravel', NULL, '2025-10-26 08:32:46', 1),
+(16, 6, 'CSS', NULL, '2025-11-01 15:35:22', 1);
 
 -- --------------------------------------------------------
 
@@ -401,25 +527,25 @@ ALTER TABLE `tbllesson`
 -- AUTO_INCREMENT for table `tblscore`
 --
 ALTER TABLE `tblscore`
-  MODIFY `ScoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `ScoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
 
 --
 -- AUTO_INCREMENT for table `tblstudent`
 --
 ALTER TABLE `tblstudent`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tblstudentquestion`
 --
 ALTER TABLE `tblstudentquestion`
-  MODIFY `SQID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+  MODIFY `SQID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=339;
 
 --
 -- AUTO_INCREMENT for table `tbltopics`
 --
 ALTER TABLE `tbltopics`
-  MODIFY `TopicID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `TopicID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
