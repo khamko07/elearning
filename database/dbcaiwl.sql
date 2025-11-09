@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblautonumbers`
+-- Table structurefff for table `tblautonumbers`
 --
 
 CREATE TABLE `tblautonumbers` (
