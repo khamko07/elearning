@@ -8,6 +8,8 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+
+
 .about-image {
     text-align: center;
     margin-bottom: 30px;
@@ -68,7 +70,6 @@
 
 <div class="about-container">
     <div class="about-image">
-        <img src="assets/jame.jpg" alt="FIM University">
     </div>
     
     <div class="about-content">
