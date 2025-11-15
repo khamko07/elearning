@@ -68,7 +68,7 @@
 
 <div class="about-container">
     <div class="about-image">
-        <img src="assets/jame.jpg" alt="FIM University">
+        <img src="assets/pf.jpg" alt="FIM University">
     </div>
     
     <div class="about-content">
@@ -76,7 +76,7 @@
         
         <p>
             Trước hết, em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến thầy TS. 
-            Trần Văn Hưng, giảng viên khoa Tin Học - Trường Đại học sư phạm Đà Nẵng, 
+            Phạm Anh Phuong, giảng viên khoa Tin Học - Trường Đại học sư phạm Đà Nẵng, 
             người đã tận tình hướng dẫn, chỉ bảo và động viên em trong suốt quá trình thực 
             hiện đồ án chuyên ngành này.
         </p>
@@ -88,7 +88,7 @@
         </p>
         
         <p>
-            Đồ án chuyên ngành với đề tài "Xây dựng website bán điện thoại" là kết 
+            Đồ án chuyên ngành với đề tài "XÂY DỰNG HỆ THỐNG THI TRỰC TUYẾN BẰNG PHP MYSQL TÍCH HỢP API GEMINI" là kết 
             quả của quá trình cố gắng không ngừng của bản thân em và được sự giúp đỡ, 
             động viên khích lệ của các thầy cô giáo, gia đình và bạn bè. Em xin chân thành 
             cảm ơn tất cả những người đã giúp đỡ em trong quá trình thực hiện đồ án.
