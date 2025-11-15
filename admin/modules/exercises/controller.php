@@ -173,15 +173,39 @@ function doDelete()
 
 	$id = 	$_GET['id'];
 
+	// Get exercise info before deleting to know which page to return to
 	$exercise = new Exercise();
-	$exercise->delete($id);
+	$exerciseData = $exercise->single_exercise($id);
+	$lessonId = isset($exerciseData->LessonID) ? $exerciseData->LessonID : '';
 
-	$sql = "DELETE FROM tblstudentquestion  WHERE ExerciseID='{$id}'";
+	// Check if tblstudentquestion table exists and delete related records
+	$checkTable = "SHOW TABLES LIKE 'tblstudentquestion'";
+	$mydb->setQuery($checkTable);
+	$result = $mydb->executeQuery();
+	
+	if ($mydb->num_rows($result) > 0) {
+		// Table exists, delete related student questions
+		$sql = "DELETE FROM tblstudentquestion WHERE ExerciseID='{$id}'";
+		$mydb->setQuery($sql);
+		$mydb->executeQuery();
+	}
+
+	// Delete related student scores/answers for this exercise
+	$sql = "DELETE FROM tblscore WHERE ExerciseID='{$id}'";
 	$mydb->setQuery($sql);
 	$mydb->executeQuery();
 
+	// Then delete the exercise itself
+	$exercise->delete($id);
+
 	message("Question already Deleted!", "info");
-	redirect('index.php');
+	
+	// Redirect back to topics page with category if available
+	if (!empty($lessonId)) {
+		redirect('index.php?view=topics&category=' . $lessonId);
+	} else {
+		redirect('index.php');
+	}
 }
 
 function doBulkDelete()
