@@ -59,7 +59,7 @@ require_once("../include/initialize.php");
       <div class="wrap-login100" style="background: transparent;">
         <form class="login100-form validate-form" action="" method="POST">
           <span class="login100-form-title p-b-43">
-            Login to continue
+            Welcome to Admin
           </span>
           
           <p><?php echo check_message()?>;</p>
