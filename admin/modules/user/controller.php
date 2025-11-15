@@ -79,11 +79,6 @@ switch ($action) {
 			$user->TYPE			= "Administrator" ; //$_POST['user_type'];
 			$user->update($_POST['user_id']);
 
-			 $sql = "SELECT * FROM `tblstudent` WHERE `IDNO`='".$_POST['user_id']."'";
-			 $mydb->setQuery($sql);
-			 $mydb->executeQuery();
-
-
 			  message("[". $_POST['user_name'] ."] has been updated!", "success");
 			redirect("index.php");
 		}
