@@ -13,7 +13,7 @@ if (isset($_SESSION['StudentID'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Register</title>
+<title>eLearning</title>
 
 <!-- Bootstrap core CSS -->
 <link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet"> 

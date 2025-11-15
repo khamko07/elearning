@@ -18,7 +18,7 @@ require_once("../include/initialize.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Login V18</title>
+  <title>eLearning</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet"> 

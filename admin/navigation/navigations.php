@@ -5,7 +5,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>COMPUTER AIDED INSTRUCTION IN WORLD LITERATURE</title>
+<title>eLearning</title>
 
 <!-- Bootstrap core CSS -->
 <link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet">
@@ -227,12 +227,6 @@ body {
 </div>
 
   <ul class="nav navbar-top-links navbar-right">
-   <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['NAME']; ?>  
-            </a> 
-
-    </li>
          <li><a href="<?php echo web_root; ?>admin/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
   </ul>

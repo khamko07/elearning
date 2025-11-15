@@ -6,7 +6,7 @@ require_once("include/initialize.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>eLearning</title>
   <link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet">
   <style type="text/css">
