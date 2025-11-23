@@ -80,7 +80,7 @@ admin_confirm_logged_in();
           <li>
             <a href="<?php echo web_root; ?>admin/modules/user/index.php" class="nav-link">
               <i class="fas fa-users"></i>
-              <span>Manage Users</span>
+              <span>Manage Admin</span>
             </a>
           </li>
         </ul>

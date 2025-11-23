@@ -10,9 +10,7 @@
       <h1 class="page-header mb-0">
         <i class="fas fa-users me-2"></i>List of Users
       </h1>
-      <a href="index.php?view=add" class="btn btn-primary">
-        <i class="fas fa-plus me-2"></i>Add New User
-      </a>
+      <!-- Add User button removed - not needed -->
     </div>
   </div>
 </div>

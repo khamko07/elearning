@@ -12,7 +12,9 @@ switch ($view) {
 		break;
 
 	case 'add' :
-		$content    = 'add.php';		
+		// Add user functionality disabled
+		message('Adding new users is not available','info');
+		redirect('index.php');
 		break;
 
 	case 'edit' :

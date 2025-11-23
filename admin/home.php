@@ -136,22 +136,22 @@ if($_SESSION['TYPE']=="Administrator") {
         </span>
       </a>
       
-      <!-- Manage Users (Admin only) -->
+      <!-- Manage Admin -->
       <?php if($_SESSION['TYPE']=="Administrator"): ?>
       <a href="<?php echo web_root; ?>admin/modules/user/index.php" class="category-card" style="text-decoration: none; color: inherit;">
         <div class="card-icon">
           <i class="fas fa-users"></i>
         </div>
-        <h3 class="card-title">Manage Users</h3>
-        <p class="card-description">Manage administrator and user accounts</p>
+        <h3 class="card-title">Manage Admin</h3>
+        <p class="card-description">View and manage administrator accounts</p>
         <div class="card-stats">
           <div class="stat">
             <span class="stat-value"><?php echo $userCount; ?></span>
-            <span class="stat-label">Users</span>
+            <span class="stat-label">Admins</span>
           </div>
         </div>
         <span class="btn btn-primary btn-block">
-          <i class="fas fa-arrow-right me-2"></i>Manage Users
+          <i class="fas fa-arrow-right me-2"></i>Manage Admin
         </span>
       </a>
       <?php endif; ?>
