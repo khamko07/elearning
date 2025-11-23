@@ -72,9 +72,9 @@ admin_confirm_logged_in();
             </a>
           </li>
           <li>
-            <a href="<?php echo web_root; ?>admin/modules/modstudent/index.php" class="nav-link">
-              <i class="fas fa-user"></i>
-              <span>Student</span>
+            <a href="<?php echo web_root; ?>admin/modules/students/index.php" class="nav-link">
+              <i class="fas fa-user-graduate"></i>
+              <span>Registered Students</span>
             </a>
           </li>
           <li>
@@ -150,6 +150,21 @@ admin_confirm_logged_in();
           "info": "Showing _START_ to _END_ of _TOTAL_ entries",
           "infoEmpty": "No entries to show",
           "infoFiltered": "(filtered from _MAX_ total entries)"
+        }
+      });
+    }
+    
+    // Initialize DataTables for #studentsTable (registered students list)
+    if ($('#studentsTable').length && !$.fn.DataTable.isDataTable('#studentsTable')) {
+      $('#studentsTable').DataTable({
+        "order": [[ 0, "desc" ]], // Sort by # descending
+        "pageLength": 25,
+        "language": {
+          "search": "Search:",
+          "lengthMenu": "Show _MENU_ entries",
+          "info": "Showing _START_ to _END_ of _TOTAL_ students",
+          "infoEmpty": "No students to show",
+          "infoFiltered": "(filtered from _MAX_ total students)"
         }
       });
     }

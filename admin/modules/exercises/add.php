@@ -132,8 +132,6 @@
               <i class="fas fa-folder me-1"></i>Category <span class="text-danger">*</span>
             </label>
             <div>
-                            <?php if ($preSelectedCategory): ?>
-                              <!-- Category is locked when coming from specific category page -->
               <?php if ($preSelectedCategory): ?>
                 <!-- Category is locked when coming from specific category page -->
                 <div class="input-group">

@@ -118,13 +118,13 @@ if($_SESSION['TYPE']=="Administrator") {
         </span>
       </a>
       
-      <!-- Students Management -->
-      <a href="<?php echo web_root; ?>admin/modules/modstudent/index.php" class="category-card" style="text-decoration: none; color: inherit;">
+      <!-- Registered Students -->
+      <a href="<?php echo web_root; ?>admin/modules/students/index.php" class="category-card" style="text-decoration: none; color: inherit;">
         <div class="card-icon">
           <i class="fas fa-user-graduate"></i>
         </div>
-        <h3 class="card-title">Manage Students</h3>
-        <p class="card-description">View and manage student accounts and information</p>
+        <h3 class="card-title">Registered Students</h3>
+        <p class="card-description">View list of students who have registered in the system</p>
         <div class="card-stats">
           <div class="stat">
             <span class="stat-value"><?php echo $studentCount; ?></span>
@@ -132,7 +132,7 @@ if($_SESSION['TYPE']=="Administrator") {
           </div>
         </div>
         <span class="btn btn-primary btn-block">
-          <i class="fas fa-arrow-right me-2"></i>Manage Students
+          <i class="fas fa-arrow-right me-2"></i>View Students
         </span>
       </a>
       
