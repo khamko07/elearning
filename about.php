@@ -3,8 +3,8 @@
     <div class="col-lg-10 col-xl-8">
       <div class="card">
         <div class="card-body" style="padding: var(--space-10);">
-          <div class="text-center mb-5">
-            <img src="<?php echo web_root; ?>assets/pf.jpg" alt="FIM University" class="img-fluid" style="max-width: 400px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+          <div class="text-center mb-5" style="display: flex; justify-content: center; align-items: center;">
+            <img src="<?php echo web_root; ?>assets/pf.jpg" alt="FIM University" class="img-fluid" style="max-width: 400px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: block; margin: 0 auto;">
           </div>
           
           <div class="text-center mb-5">
