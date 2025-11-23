@@ -1,120 +1,160 @@
-<style type="text/css">
-  .admin-dashboard {
-    padding: 20px 0;
-  }
-  
-  .dashboard-header {
-    margin-bottom: 40px;
-  }
-  
-  .dashboard-header h3 {
-    color: #2c3e50;
-    font-size: 28px;
-    font-weight: 600;
-  }
-  
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-  }
-  
-  .dashboard-card {
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-    border: 2px solid transparent;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dashboard-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-    border-color: #667eea;
-    text-decoration: none;
-  }
-  
-  .dashboard-card-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-  
-  .dashboard-card-icon img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-  }
-  
-  .dashboard-card-label {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-top: 15px;
-  }
-  
-  .dashboard-card:hover .dashboard-card-label {
-    color: #667eea;
-  }
-  
-  @media (max-width: 768px) {
-    .dashboard-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-  }
-</style>
+<?php
+// Get statistics for dashboard
+$contentCount = 0;
+$exerciseCount = 0;
+$studentCount = 0;
+$userCount = 0;
 
-<div class="container admin-dashboard">
-  <div class="dashboard-header">
-    <h3>Administrator Panel: Welcome <?php echo $_SESSION['NAME'];?></h3>
+// Count contents
+$sql = "SELECT COUNT(*) as total FROM tblcontent";
+$mydb->setQuery($sql);
+$result = $mydb->loadSingleResult();
+$contentCount = $result ? $result->total : 0;
+
+// Count exercises
+$sql = "SELECT COUNT(*) as total FROM tblexercise";
+$mydb->setQuery($sql);
+$result = $mydb->loadSingleResult();
+$exerciseCount = $result ? $result->total : 0;
+
+// Count students
+$sql = "SELECT COUNT(*) as total FROM tblstudent";
+$mydb->setQuery($sql);
+$result = $mydb->loadSingleResult();
+$studentCount = $result ? $result->total : 0;
+
+// Count users (if admin)
+if($_SESSION['TYPE']=="Administrator") {
+    $sql = "SELECT COUNT(*) as total FROM tblusers";
+    $mydb->setQuery($sql);
+    $result = $mydb->loadSingleResult();
+    $userCount = $result ? $result->total : 0;
+}
+?>
+
+<div class="admin-dashboard">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header mb-5">
+    <h1 class="mb-2">Administrator Panel</h1>
+    <p class="lead text-muted">Welcome back, <?php echo htmlspecialchars($_SESSION['NAME']); ?>!</p>
   </div>
- 
-  <div class="dashboard-grid">
-    <!-- Content Management -->
-    <a href="<?php echo web_root; ?>admin/modules/content/index.php" class="dashboard-card" title="Learning Content">
-      <div class="dashboard-card-icon">
-        <img src="<?php echo web_root; ?>admin/adminMenu/images/lesson1.gif" alt="Content"> 
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid mb-5">
+    <div class="stat-card">
+      <div class="stat-card-icon">
+        <i class="fas fa-file-text"></i>
       </div>
-      <div class="dashboard-card-label">Learning Content</div>
-    </a>
+      <div class="stat-card-value"><?php echo $contentCount; ?></div>
+      <div class="stat-card-label">Learning Contents</div>
+    </div>
     
-    <!-- Exercises -->
-    <a href="<?php echo web_root; ?>admin/modules/exercises/index.php" class="dashboard-card" title="Exercises">
-      <div class="dashboard-card-icon">
-        <img src="<?php echo web_root; ?>admin/adminMenu/images/exercises.jpg" alt="Exercises"> 
+    <div class="stat-card">
+      <div class="stat-card-icon">
+        <i class="fas fa-question-circle"></i>
       </div>
-      <div class="dashboard-card-label">Exercises</div>
-    </a>
+      <div class="stat-card-value"><?php echo $exerciseCount; ?></div>
+      <div class="stat-card-label">Questions</div>
+    </div>
     
-    <!-- Manage Users (Admin only) -->
-    <?php if($_SESSION['TYPE']=="Administrator"){ ?>
-    <a href="<?php echo web_root; ?>admin/modules/user/index.php" class="dashboard-card" title="Manage Users">
-      <div class="dashboard-card-icon">
-        <img src="<?php echo web_root; ?>admin/adminMenu/images/user.png" alt="Users"> 
+    <div class="stat-card">
+      <div class="stat-card-icon">
+        <i class="fas fa-user-graduate"></i>
       </div>
-      <div class="dashboard-card-label">Manage Users</div>
-    </a>
-    <?php } ?>
+      <div class="stat-card-value"><?php echo $studentCount; ?></div>
+      <div class="stat-card-label">Students</div>
+    </div>
     
-    <!-- Students Management -->
-    <a href="<?php echo web_root; ?>admin/modules/modstudent/index.php" class="dashboard-card" title="Manage Students">
-      <div class="dashboard-card-icon">
-        <img src="<?php echo web_root; ?>admin/adminMenu/images/user.png" alt="Students"> 
+    <?php if($_SESSION['TYPE']=="Administrator"): ?>
+    <div class="stat-card">
+      <div class="stat-card-icon">
+        <i class="fas fa-users"></i>
       </div>
-      <div class="dashboard-card-label">Manage Students</div>
-    </a>
+      <div class="stat-card-value"><?php echo $userCount; ?></div>
+      <div class="stat-card-label">Users</div>
+    </div>
+    <?php endif; ?>
   </div>
-  
+
+  <!-- Quick Actions -->
+  <div class="mb-5">
+    <h3 class="mb-4">
+      <i class="fas fa-bolt me-2"></i>Quick Actions
+    </h3>
+    <div class="content-grid">
+      <!-- Content Management -->
+      <a href="<?php echo web_root; ?>admin/modules/content/index.php" class="category-card" style="text-decoration: none; color: inherit;">
+        <div class="card-icon">
+          <i class="fas fa-file-text"></i>
+        </div>
+        <h3 class="card-title">Learning Content</h3>
+        <p class="card-description">Manage educational content, articles, and learning materials</p>
+        <div class="card-stats">
+          <div class="stat">
+            <span class="stat-value"><?php echo $contentCount; ?></span>
+            <span class="stat-label">Contents</span>
+          </div>
+        </div>
+        <span class="btn btn-primary btn-block">
+          <i class="fas fa-arrow-right me-2"></i>Manage Content
+        </span>
+      </a>
+      
+      <!-- Exercises -->
+      <a href="<?php echo web_root; ?>admin/modules/exercises/index.php" class="category-card" style="text-decoration: none; color: inherit;">
+        <div class="card-icon">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 class="card-title">Questions Management</h3>
+        <p class="card-description">Create and manage quiz questions, categories, and topics</p>
+        <div class="card-stats">
+          <div class="stat">
+            <span class="stat-value"><?php echo $exerciseCount; ?></span>
+            <span class="stat-label">Questions</span>
+          </div>
+        </div>
+        <span class="btn btn-primary btn-block">
+          <i class="fas fa-arrow-right me-2"></i>Manage Questions
+        </span>
+      </a>
+      
+      <!-- Students Management -->
+      <a href="<?php echo web_root; ?>admin/modules/modstudent/index.php" class="category-card" style="text-decoration: none; color: inherit;">
+        <div class="card-icon">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <h3 class="card-title">Manage Students</h3>
+        <p class="card-description">View and manage student accounts and information</p>
+        <div class="card-stats">
+          <div class="stat">
+            <span class="stat-value"><?php echo $studentCount; ?></span>
+            <span class="stat-label">Students</span>
+          </div>
+        </div>
+        <span class="btn btn-primary btn-block">
+          <i class="fas fa-arrow-right me-2"></i>Manage Students
+        </span>
+      </a>
+      
+      <!-- Manage Users (Admin only) -->
+      <?php if($_SESSION['TYPE']=="Administrator"): ?>
+      <a href="<?php echo web_root; ?>admin/modules/user/index.php" class="category-card" style="text-decoration: none; color: inherit;">
+        <div class="card-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="card-title">Manage Users</h3>
+        <p class="card-description">Manage administrator and user accounts</p>
+        <div class="card-stats">
+          <div class="stat">
+            <span class="stat-value"><?php echo $userCount; ?></span>
+            <span class="stat-label">Users</span>
+          </div>
+        </div>
+        <span class="btn btn-primary btn-block">
+          <i class="fas fa-arrow-right me-2"></i>Manage Users
+        </span>
+      </a>
+      <?php endif; ?>
+    </div>
+  </div>
 </div>

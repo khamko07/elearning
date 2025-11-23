@@ -4,34 +4,48 @@
      }
 
 ?>
-    <div class="row">
-      <div class="col-lg-12"> 
-            <h1 class="page-header">All Questions (Legacy View) <small>|  <label class="label label-xs" style="font-size: 12px"><a href="index.php?view=add">  <i class="fa fa-plus-circle fw-fa"></i> New</a></label> | <a href="index.php?view=categories" class="label label-info" style="font-size: 12px"><i class="fa fa-cog"></i> Manage Categories</a> | <a href="index.php" class="label label-primary" style="font-size: 12px"><i class="fa fa-home"></i> Back to Categories View</a> |</small></h1> 
-       		 
-       		</div>
-        	<!-- /.col-lg-12 -->
-   		 </div>
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+      <h1 class="page-header mb-0">
+        <i class="fas fa-question-circle me-2"></i>All Questions (Legacy View)
+      </h1>
+      <div class="btn-group">
+        <a href="index.php?view=add" class="btn btn-primary">
+          <i class="fas fa-plus me-2"></i>Add New Question
+        </a>
+        <a href="index.php?view=categories" class="btn btn-info">
+          <i class="fas fa-cog me-2"></i>Manage Categories
+        </a>
+        <a href="index.php" class="btn btn-outline-secondary">
+          <i class="fas fa-home me-2"></i>Back to Categories View
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
    		 
-   		 <!-- Bulk Actions -->
-   		 <div class="row" style="margin-bottom: 15px;">
-   		     <div class="col-lg-12">
-   		         <div id="bulkActions" style="display: none;">
-   		             <div class="alert alert-info">
-   		                 <i class="fa fa-info-circle"></i> 
-   		                 Đã chọn <span id="selectedCount">0</span> câu hỏi. 
-   		                 <button type="button" class="btn btn-danger btn-sm" onclick="bulkDelete()" style="margin-left: 10px;">
-   		                     <i class="fa fa-trash"></i> Xóa đã chọn
-   		                 </button>
-   		                 <button type="button" class="btn btn-default btn-sm" onclick="clearSelection()">
-   		                     <i class="fa fa-times"></i> Bỏ chọn tất cả
-   		                 </button>
-   		             </div>
-   		         </div>
-   		     </div>
-   		 </div>
+<!-- Bulk Actions -->
+<div class="row mb-3">
+  <div class="col-lg-12">
+    <div id="bulkActions" class="alert alert-info" style="display: none;">
+      <i class="fas fa-info-circle me-2"></i>
+      <strong>Selected:</strong> <span id="selectedCount">0</span> question(s).
+      <div class="btn-group ms-3">
+        <button type="button" class="btn btn-danger btn-sm" onclick="bulkDelete()">
+          <i class="fas fa-trash me-1"></i>Delete Selected
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearSelection()">
+          <i class="fas fa-times me-1"></i>Clear Selection
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
    		 
-			    <form action="controller.php?action=delete" Method="POST">  					
-				<table id="exerciseTable" class="table table-bordered table-hover" cellspacing="0" style="font-size:12px" >
+<form action="controller.php?action=delete" Method="POST">  					
+  <div class="table-responsive">
+    <table id="exerciseTable" class="table table-bordered table-hover admin-table" cellspacing="0" style="font-size:12px">
 				
 				  <thead>
 				  	<tr>
@@ -76,26 +90,31 @@
 				  		echo '<td>' . $result->ChoiceC.'</a></td>'; 
 				  		echo '<td>' . $result->ChoiceD.'</a></td>'; 
 				  		echo '<td>' . $result->Answer.'</a></td>'; 
-				  		echo '<td > <a title="Edit" href="index.php?view=edit&id='.$result->ExerciseID.'" class="btn btn-primary btn-xs" ><i class="fa fa-pencil fa-fw"></i></a>
-				  					 <a title="Delete" href="controller.php?action=delete&id='.$result->ExerciseID.'" class="btn btn-danger btn-xs" onclick="return confirmDelete(\''.$result->ExerciseID.'\', \''.addslashes($result->Question).'\')"><i class="fa fa-bitbucket  fa-fw"></i> </a>
-				  					 </td>';
+				  		echo '<td>
+				  		        <div class="btn-group" role="group">
+				  		          <a title="Edit" href="index.php?view=edit&id='.$result->ExerciseID.'" class="btn btn-sm btn-primary">
+				  		            <i class="fas fa-edit"></i>
+				  		          </a>
+				  		          <a title="Delete" href="controller.php?action=delete&id='.$result->ExerciseID.'" class="btn btn-sm btn-danger" onclick="return confirmDelete(\''.$result->ExerciseID.'\', \''.addslashes($result->Question).'\')">
+				  		            <i class="fas fa-trash"></i>
+				  		          </a>
+				  		        </div>
+				  		      </td>';
 				  		echo '</tr>';
 				  		$cnt++;
 				  		}
 				  	?>
-				  </tbody>
-					
-				</table>
-				 
-			
-				</form>
+      </tbody>
+    </table>
+  </div>
+</form>
 
 <script>
 function confirmDelete(exerciseId, questionText) {
     // Truncate question text if too long  
-    var displayText = questionText.length > 30 ? questionText.substring(0, 30) + '...' : questionText;
+    var displayText = questionText.length > 50 ? questionText.substring(0, 50) + '...' : questionText;
     
-    var confirmMessage = 'Xóa câu hỏi: "' + displayText + '"?\n\nThao tác này không thể hoàn tác!';
+    var confirmMessage = 'Delete question: "' + displayText + '"?\n\nThis action cannot be undone!';
     
     return confirm(confirmMessage);
 }
@@ -151,11 +170,11 @@ function bulkDelete() {
     const selectedIds = Array.from(checkboxes).map(cb => cb.value);
     
     if (selectedIds.length === 0) {
-        alert('Vui lòng chọn ít nhất một câu hỏi để xóa!');
+        alert('Please select at least one question to delete!');
         return;
     }
     
-    const confirmMessage = `Xóa ${selectedIds.length} câu hỏi đã chọn?\n\nThao tác này không thể hoàn tác!`;
+    const confirmMessage = `Delete ${selectedIds.length} selected question(s)?\n\nThis action cannot be undone!`;
     
     if (confirm(confirmMessage)) {
         // Create form and submit

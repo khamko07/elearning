@@ -1,141 +1,117 @@
 <?php 
 require_once ("include/initialize.php");   
 if (isset($_SESSION['StudentID'])) {
-  # code...
   redirect('index.php');
 }
 ?> 
-  
 
-<style type="text/css">
-  body {
-    background: url('assets/ued.jpg') no-repeat center center fixed;
-    background-size: cover;
-  }
-</style>
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>eLearning</title>
+  <title>Student Login - eLearning</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->  
   <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 
-<link href="<?php echo web_root; ?>css/bootstrap.min.css" rel="stylesheet"> 
-<link href="<?php echo web_root; ?>fonts/font-awesome.min.css" rel="stylesheet" media="screen">  
- 
-<!--===============================================================================================-->
-  <link rel="stylesheet" type="text/css" href="<?php echo web_root; ?>css/util.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo web_root; ?>css/main.css">
-<!--===============================================================================================-->
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link href="<?php echo web_root; ?>css/main.css" rel="stylesheet">
 </head>
 <body>
-  
-  <div class="limiter">
-    <div class="container-login100" style="background: url('assets/ued.jpg') no-repeat center center fixed; background-size: cover;">
-           <?php check_message(); ?>
-      <div class="wrap-login100" style="flex-direction: column; align-items: center; padding: 60px 40px 33px 40px;">
-        <div class="login100-pic js-tilt" data-tilt  style="background: transparent; width: 100%; text-align: center; margin-bottom: 20px;">
-          <img src="images/text-ued-1.png" style="max-width: 70%; height: auto; object-fit: contain;" alt="Logo">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="<?php echo web_root; ?>images/text-ued-1.png" alt="Logo" class="login-logo">
+        <h2>Welcome Back</h2>
+        <p>Sign in to continue your learning journey</p>
+      </div>
+
+      <?php check_message(); ?>
+
+      <form class="login-form" action="" method="POST">
+        <div class="form-group">
+          <label for="user_email" class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <input 
+              type="text" 
+              id="user_email" 
+              name="user_email" 
+              class="form-control" 
+              placeholder="Enter your username"
+              required
+              autocomplete="username"
+            >
+          </div>
         </div>
-         
-        <form class="login100-form validate-form" action="" method="POST"> 
-          <span class="login100-form-title">
-            Member Login 
-          </span>
 
-          <div class="wrap-input100 validate-input" >
-            <input class="input100" type="text" name="user_email" placeholder="Username">
-            <span class="focus-input100"></span>
-            <span class="symbol-input100">
-              <i class="fa fa-user" aria-hidden="true"></i>
+        <div class="form-group">
+          <label for="user_pass" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <i class="fas fa-lock"></i>
             </span>
+            <input 
+              type="password" 
+              id="user_pass" 
+              name="user_pass" 
+              class="form-control" 
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            >
           </div>
+        </div>
 
-          <div class="wrap-input100 validate-input" data-validate = "Password is required">
-            <input class="input100" type="password" name="user_pass" placeholder="Password">
-            <span class="focus-input100"></span>
-            <span class="symbol-input100">
-              <i class="fa fa-lock" aria-hidden="true"></i>
-            </span>
-          </div>
-          
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" type="submit" name="btnLogin">
-              Login
-            </button>
-          </div>
+        <button type="submit" name="btnLogin" class="btn btn-primary btn-block">
+          <i class="fas fa-sign-in-alt me-2"></i>Login
+        </button>
+      </form>
 
-          <div class="container-login100-form-btn" style="margin-top:10px;">
-            <a class="btn btn-default btn-block" href="admin/login.php">Admin Login</a>
-          </div>
-
-      <!--     <div class="text-center p-t-12">
-            <span class="txt1">
-              Forgot
-            </span>
-            <a class="txt2" href="#">
-              Username / Password?
-            </a>
-          </div> -->
-
-          <div class="text-center p-t-136">
-            <a class="txt2" href="register.php">
-              Create your Account
-              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-            </a>
-          </div>
-        </form>
+      <div class="login-footer">
+        <a href="register.php">
+          <i class="fas fa-user-plus me-2"></i>Create Account
+        </a>
+        <span class="separator">|</span>
+        <a href="admin/login.php">
+          <i class="fas fa-user-shield me-2"></i>Admin Login
+        </a>
       </div>
     </div>
   </div>
-  
-  
+
+  <!-- Scripts -->
+  <script type="text/javascript" language="javascript" src="<?php echo web_root; ?>js/jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <?php 
-
-if(isset($_POST['btnLogin'])){
-  $email = trim($_POST['user_email']);
-  $upass  = trim($_POST['user_pass']);
-  $h_upass = sha1($upass);
-  
-   if ($email == '' OR $upass == '') {
-
+  if(isset($_POST['btnLogin'])){
+    $email = trim($_POST['user_email']);
+    $upass  = trim($_POST['user_pass']);
+    $h_upass = sha1($upass);
+    
+    if ($email == '' OR $upass == '') {
       message("Invalid Username and Password!", "error");
-      redirect (web_root."login.php");
-         
+      redirect(web_root."login.php");
     } else {  
       //it creates a new objects of member
-        $student = new Student();
-        //make use of the static function, and we passed to parameters
-        $res = $student::studentAuthentication($email, $h_upass);
-        if ($res==true) {  
-             redirect(web_root."index.php"); 
-
-          echo $_SESSION['StudentID'];
-        }else{
-          message("Account does not exist! Please contact Administrator.", "error");
-          redirect (web_root."login.php");
-        }
-   }
- } 
- ?> 
-
-<script type="text/javascript" language="javascript" src="<?php echo web_root; ?>js/jquery.js"></script>
-<script src="<?php echo web_root; ?>js/bootstrap.min.js"></script> 
-<!--===============================================================================================-->
-  <script src="<?php echo web_root; ?>vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-  <script src="<?php echo web_root; ?>vendor/tilt/tilt.jquery.min.js"></script>
-  <script >
-    $('.js-tilt').tilt({
-      scale: 1.1
-    })
-  </script>
-<!--===============================================================================================-->
-  <script src="js/main.js"></script>
-
+      $student = new Student();
+      //make use of the static function, and we passed to parameters
+      $res = $student::studentAuthentication($email, $h_upass);
+      if ($res==true) {  
+        redirect(web_root."index.php"); 
+        echo $_SESSION['StudentID'];
+      } else {
+        message("Account does not exist! Please contact Administrator.", "error");
+        redirect(web_root."login.php");
+      }
+    }
+  } 
+  ?>
 </body>
 </html>

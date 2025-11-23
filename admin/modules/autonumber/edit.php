@@ -7,103 +7,64 @@ if(!isset($_SESSION['USERID'])){
   $singleauto = $autonumber->single_autonumber($AUTOKEY);
 
 ?> 
- <form class="form-horizontal span6" action="controller.php?action=edit" method="POST">
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      <i class="fas fa-edit me-2"></i>Update Autonumber
+    </h1>
+  </div>
+</div>
 
-            <div class="row">
-         <div class="col-lg-12">
-            <h1 class="page-header">Update Autonumber</h1>
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-body">
+        <form action="controller.php?action=edit" method="POST"> 
+          <input type="hidden" name="AUTOID" id="AUTOID" value="<?php echo $singleauto->AUTOID; ?>">
+          
+          <div class="mb-3">
+            <label for="AUTOSTART" class="form-label">
+              <i class="fas fa-play me-1"></i>Start <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" id="AUTOSTART" name="AUTOSTART" placeholder="Start number" type="text" value="<?php echo $singleauto->AUTOSTART; ?>" required>
           </div>
-          <!-- /.col-lg-12 -->
-       </div> 
-                  <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOSTART">Start:</label>
 
-                      <div class="col-md-8">
-                      <input  type="hidden" name="AUTOID" id="AUTOID" value="<?php  echo $singleauto->AUTOID; ?>">
-                         <input class="form-control input-sm" id="AUTOSTART" name="AUTOSTART" placeholder=
-                            "Start" type="text" value="<?php  echo $singleauto->AUTOSTART; ?>">
-                      </div>
-                    </div>
-                  </div>
+          <div class="mb-3">
+            <label for="AUTOINC" class="form-label">
+              <i class="fas fa-plus me-1"></i>Increment <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" id="AUTOINC" name="AUTOINC" placeholder="Increment value" type="text" value="<?php echo $singleauto->AUTOINC; ?>" required>
+          </div>
 
-                     <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOINC">INC:</label>
+          <div class="mb-3">
+            <label for="AUTOEND" class="form-label">
+              <i class="fas fa-stop me-1"></i>End <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" id="AUTOEND" name="AUTOEND" placeholder="End number" type="text" value="<?php echo $singleauto->AUTOEND; ?>" required>
+          </div>
 
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOINC" name="AUTOINC" placeholder=
-                            "INC" type="text" value="<?php  echo $singleauto->AUTOINC; ?>">
-                      </div>
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOEND">End:</label>
-
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOEND" name="AUTOEND" placeholder=
-                            "End" type="text" value="<?php  echo $singleauto->AUTOEND; ?>">
-                      </div>
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "AUTOKEY">End:</label>
-
-                      <div class="col-md-8">
-                         <input class="form-control input-sm" id="AUTOKEY" name="AUTOKEY" placeholder=
-                            "Key" type="text" value="<?php  echo $singleauto->AUTOKEY; ?>">
-                      </div>
-                    </div>
-                  </div>
+          <div class="mb-3">
+            <label for="AUTOKEY" class="form-label">
+              <i class="fas fa-key me-1"></i>Key <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" id="AUTOKEY" name="AUTOKEY" placeholder="Autonumber key" type="text" value="<?php echo $singleauto->AUTOKEY; ?>" required>
+            <small class="form-text text-muted">Unique identifier for this autonumber sequence</small>
+          </div>
 
 
 
             
-             <div class="form-group">
-                    <div class="col-md-8">
-                      <label class="col-md-4 control-label" for=
-                      "idno"></label>
-
-                      <div class="col-md-8">
-                      <!-- <a href="index.php" class="btn btn_fixnmix"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<strong>Back</strong></a> -->
-                      <button class="btn btn-primary btn-sm" name="save" type="submit" ><span class="fa fa-save fw-fa"></span> Save</button>
-                   
-                      </div>
-                    </div>
-                  </div>
-
-              
-          </fieldset> 
-
-        <div class="form-group">
-                <div class="rows">
-                  <div class="col-md-6">
-                    <label class="col-md-6 control-label" for=
-                    "otherperson"></label>
-
-                    <div class="col-md-6">
-                   
-                    </div>
-                  </div>
-
-                  <div class="col-md-6" align="right">
-                   
-
-                   </div>
-                  
-              </div>
-              </div>
-          
+          <div class="d-flex gap-2 mt-4">
+            <button class="btn btn-primary" name="save" type="submit">
+              <i class="fas fa-save me-2"></i>Update
+            </button>
+            <a href="index.php" class="btn btn-outline-secondary">
+              <i class="fas fa-arrow-left me-2"></i>Cancel
+            </a>
+          </div>
         </form>
-      
-
-        </div><!--End of container-->
+      </div>
+    </div>
+  </div>
+</div>
   

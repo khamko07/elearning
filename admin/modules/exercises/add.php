@@ -17,272 +17,264 @@
                       }
 
                        ?> 
-                     <form class="form-horizontal span6" action="controller.php?action=add" method="POST" style="margin-top: 20px;"> 
-                        <div class="row">
-                           <div class="col-lg-12">
-                              <h1 class="page-header">Add New Question</h1>
-                            </div>
-                            <!-- /.col-lg-12 -->
-                         </div>
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      <i class="fas fa-question-circle me-2"></i>Add New Question
+    </h1>
+  </div>
+</div>
 
-                        <!-- AI Question Generator Section -->
-                        <div class="form-group" style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-                            <div class="col-md-12">
-                                <h4><i class="fa fa-magic"></i> AI Question Generator</h4>
-                                <p class="text-muted" style="margin-bottom: 15px;">
-                                    <i class="fa fa-info-circle"></i> 
-                                    Tự động tạo câu hỏi trắc nghiệm bằng AI. Chỉ cần nhập chủ đề và chọn độ khó!
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="aiTopic">AI Topic (auto-filled):</label>
-                                        <input type="text" class="form-control" id="aiTopic" placeholder="Chọn Category và Topic trước" readonly style="background-color: #f5f5f5;">
-                                        <small class="text-muted">Sẽ tự động điền khi bạn chọn Category và Topic</small>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="difficulty">Độ khó:</label>
-                                        <select class="form-control" id="difficulty">
-                                            <option value="dễ">Dễ</option>
-                                            <option value="trung bình" selected>Trung bình</option>
-                                            <option value="khó">Khó</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="numQuestions">Số lượng câu hỏi:</label>
-                                        <select class="form-control" id="numQuestions">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>&nbsp;</label><br>
-                                        <button type="button" class="btn btn-success" id="generateQuestion">
-                                            <i class="fa fa-magic"></i> Tạo Câu Hỏi
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top: 10px;">
-                                    <div class="col-md-12">
-                                        <div id="loadingIndicator" style="display: none;">
-                                            <i class="fa fa-spinner fa-spin"></i> Đang tạo câu hỏi với AI...
-                                        </div>
-                                        <div id="aiError" class="alert alert-danger" style="display: none;"></div>
+<div class="row">
+  <div class="col-lg-12">
+    <form action="controller.php?action=add" method="POST">
+      
+      <!-- AI Question Generator Section -->
+      <div class="card mb-4">
+        <div class="card-header bg-gradient-primary text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-magic me-2"></i>AI Question Generator
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="text-muted mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            Tự động tạo câu hỏi trắc nghiệm bằng AI. Chỉ cần nhập chủ đề và chọn độ khó!
+          </p>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="aiTopic" class="form-label">AI Topic (auto-filled):</label>
+              <input type="text" class="form-control" id="aiTopic" placeholder="Chọn Category và Topic trước" readonly style="background-color: #f5f5f5;">
+              <small class="form-text text-muted">Sẽ tự động điền khi bạn chọn Category và Topic</small>
+            </div>
+            <div class="col-md-3">
+              <label for="difficulty" class="form-label">Độ khó:</label>
+              <select class="form-select" id="difficulty">
+                <option value="dễ">Dễ</option>
+                <option value="trung bình" selected>Trung bình</option>
+                <option value="khó">Khó</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="numQuestions" class="form-label">Số lượng câu hỏi:</label>
+              <select class="form-select" id="numQuestions">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">&nbsp;</label>
+              <button type="button" class="btn btn-success w-100" id="generateQuestion">
+                <i class="fas fa-magic me-1"></i>Tạo Câu Hỏi
+              </button>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <div id="loadingIndicator" class="alert alert-info" style="display: none;">
+                <div class="spinner-border spinner-border-sm me-2" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <i class="fas fa-spinner fa-spin me-2"></i>Đang tạo câu hỏi với AI...
+              </div>
+              <div id="aiError" class="alert alert-danger" style="display: none;"></div>
+              
+              <!-- Info message for bulk operations -->
+              <div id="bulkInfoMessage" class="alert alert-info mt-3">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Hướng dẫn Bulk Insert:</strong>
+                Nhập chủ đề và click "Tạo Câu Hỏi" để AI tạo nhiều câu hỏi, sau đó bạn có thể chọn "Select All" và "Insert Selected" để thêm nhiều câu cùng lúc.
+              </div>
                                         
-                                        <!-- Info message for bulk operations -->
-                                        <div id="bulkInfoMessage" class="alert alert-info" style="margin-top: 15px;">
-                                            <i class="fa fa-info-circle"></i> 
-                                            <strong>Hướng dẫn Bulk Insert:</strong> 
-                                            Nhập chủ đề và click "Tạo Câu Hỏi" để AI tạo nhiều câu hỏi, sau đó bạn có thể chọn "Select All" và "Insert Selected" để thêm nhiều câu cùng lúc.
-                                        </div>
-                                        
-                                        <!-- Multiple Questions Result Section -->
-                                        <div id="multipleQuestionsSection" style="display: none; margin-top: 20px;">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <h5><i class="fa fa-list"></i> Câu hỏi đã tạo: <span id="questionCount">0</span></h5>
-                                                </div>
-                                                <div class="col-md-6 text-right">
-                                                    <div class="btn-group" style="margin-bottom: 15px;">
-                                                        <button type="button" class="btn btn-default btn-sm" id="selectAllQuestions">
-                                                            <i class="fa fa-check-square-o"></i> Select All
-                                                        </button>
-                                                        <button type="button" class="btn btn-default btn-sm" id="deselectAllQuestions">
-                                                            <i class="fa fa-square-o"></i> Deselect All
-                                                        </button>
-                                                        <button type="button" class="btn btn-success btn-sm" id="bulkInsertQuestions" disabled>
-                                                            <i class="fa fa-plus-circle"></i> Insert Selected (<span id="selectedCount">0</span>)
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="questionsList" class="panel-group" style="margin-top: 15px;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+              <!-- Multiple Questions Result Section -->
+              <div id="multipleQuestionsSection" style="display: none; margin-top: 20px;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>Câu hỏi đã tạo: <span id="questionCount" class="badge bg-primary">0</span>
+                  </h5>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="selectAllQuestions">
+                      <i class="fas fa-check-square me-1"></i>Select All
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="deselectAllQuestions">
+                      <i class="far fa-square me-1"></i>Deselect All
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" id="bulkInsertQuestions" disabled>
+                      <i class="fas fa-plus-circle me-1"></i>Insert Selected (<span id="selectedCount">0</span>)
+                    </button>
+                  </div>
+                </div>
+                <div id="questionsList" class="accordion" style="margin-top: 15px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                        <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for="Category">Category:</label>
-                          <div class="col-md-8">
+      <!-- Main Form Section -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-edit me-2"></i>Question Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="Category" class="form-label">
+              <i class="fas fa-folder me-1"></i>Category <span class="text-danger">*</span>
+            </label>
+            <div>
                             <?php if ($preSelectedCategory): ?>
                               <!-- Category is locked when coming from specific category page -->
-                              <div class="input-group">
-                                <input type="text" class="form-control" id="LockedCategoryName" value="<?php echo $preSelectedCategory->CategoryName; ?>" readonly style="background-color: #f0f0f0; cursor: not-allowed;" data-category-name="<?php echo htmlspecialchars($preSelectedCategory->CategoryName); ?>">
-                                <span class="input-group-addon" title="Category is locked">
-                                  <i class="fa fa-lock"></i>
-                                </span>
-                              </div>
-                              <input type="hidden" name="CategoryID" id="CategoryID" value="<?php echo $preSelectedCategory->CategoryID; ?>">
-                              <input type="hidden" name="CategorySelect" id="CategorySelect" value="<?php echo $preSelectedCategory->CategoryID; ?>">
-                              <input type="hidden" name="Category" id="CategoryInput" value="">
-                              <small class="help-block text-info">
-                                <i class="fa fa-lock"></i> 
-                                Category is locked to <strong><?php echo $preSelectedCategory->CategoryName; ?></strong>
-                              </small>
-                            <?php else: ?>
-                              <!-- Normal category selection -->
-                              <div class="input-group">
-                                <select class="form-control" name="CategorySelect" id="CategorySelect" onchange="handleCategorySelect()">
-                                    <option value="">-- Chọn từ danh sách có sẵn --</option>
-                                    <?php
-                                    $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
-                                    $mydb->setQuery($sql);
-                                    $categories = $mydb->loadResultList();
-                                    foreach ($categories as $category) {
-                                        echo '<option value="'.$category->CategoryID.'" data-name="'.$category->CategoryName.'">'.$category->CategoryName.'</option>';
-                                    }
-                                    ?>
-                                    <option value="new">✏️ Nhập Category mới...</option>
-                                </select>
-                                <span class="input-group-addon" style="cursor: pointer;" onclick="toggleCategoryInput()" title="Nhập tên mới">
-                                  <i class="fa fa-edit"></i>
-                                </span>
-                              </div>
-                              <input type="text" class="form-control" name="Category" id="CategoryInput" 
-                                     placeholder="Nhập tên Category mới (ví dụ: Lịch sử, Địa lý...)" 
-                                     style="margin-top: 10px; display: none;">
-                              <input type="hidden" name="CategoryID" id="CategoryID" value="">
-                              <small class="help-block text-muted">
-                                  <i class="fa fa-info-circle"></i> 
-                                  Chọn từ danh sách hoặc nhập tên mới
-                              </small>
-                            <?php endif; ?>
-                          </div>
-                        </div>
-                      </div>
+              <?php if ($preSelectedCategory): ?>
+                <!-- Category is locked when coming from specific category page -->
+                <div class="input-group">
+                  <input type="text" class="form-control" id="LockedCategoryName" value="<?php echo $preSelectedCategory->CategoryName; ?>" readonly style="background-color: #f0f0f0; cursor: not-allowed;" data-category-name="<?php echo htmlspecialchars($preSelectedCategory->CategoryName); ?>">
+                  <span class="input-group-text" title="Category is locked">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                <input type="hidden" name="CategoryID" id="CategoryID" value="<?php echo $preSelectedCategory->CategoryID; ?>">
+                <input type="hidden" name="CategorySelect" id="CategorySelect" value="<?php echo $preSelectedCategory->CategoryID; ?>">
+                <input type="hidden" name="Category" id="CategoryInput" value="">
+                <small class="form-text text-info mt-1">
+                  <i class="fas fa-lock me-1"></i>
+                  Category is locked to <strong><?php echo $preSelectedCategory->CategoryName; ?></strong>
+                </small>
+              <?php else: ?>
+                <!-- Normal category selection -->
+                <div class="input-group">
+                  <select class="form-select" name="CategorySelect" id="CategorySelect" onchange="handleCategorySelect()">
+                    <option value="">-- Chọn từ danh sách có sẵn --</option>
+                    <?php
+                    $sql = "SELECT * FROM tblcategories WHERE IsActive = 1 ORDER BY CategoryName";
+                    $mydb->setQuery($sql);
+                    $categories = $mydb->loadResultList();
+                    foreach ($categories as $category) {
+                      echo '<option value="'.$category->CategoryID.'" data-name="'.$category->CategoryName.'">'.$category->CategoryName.'</option>';
+                    }
+                    ?>
+                    <option value="new">✏️ Nhập Category mới...</option>
+                  </select>
+                  <span class="input-group-text" style="cursor: pointer;" onclick="toggleCategoryInput()" title="Nhập tên mới">
+                    <i class="fas fa-edit"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control mt-2" name="Category" id="CategoryInput" 
+                       placeholder="Nhập tên Category mới (ví dụ: Lịch sử, Địa lý...)" 
+                       style="display: none;">
+                <input type="hidden" name="CategoryID" id="CategoryID" value="">
+                <small class="form-text text-muted mt-1">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Chọn từ danh sách hoặc nhập tên mới
+                </small>
+              <?php endif; ?>
+            </div>
+          </div>
                       
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for="Topic">Topic:</label>
-                          <div class="col-md-8"> 
-                            <div class="input-group">
-                              <select class="form-control" name="TopicSelect" id="TopicSelect" onchange="handleTopicSelect()">
-                                  <option value="">-- Chọn Category trước --</option>
-                              </select>
-                              <span class="input-group-addon" style="cursor: pointer;" onclick="toggleTopicInput()" title="Nhập tên mới">
-                                <i class="fa fa-edit"></i>
-                              </span>
-                            </div>
-                            <input type="text" class="form-control" name="Topic" id="TopicInput" 
-                                   placeholder="Nhập tên Topic mới (ví dụ: Chiến tranh thế giới, Khí hậu nhiệt đới...)" 
-                                   style="margin-top: 10px; display: none;">
-                            <input type="hidden" name="TopicID" id="TopicID" value="">
-                            <small class="help-block text-muted">
-                                <i class="fa fa-info-circle"></i> 
-                                Chọn từ danh sách hoặc nhập tên mới
-                            </small>
-                          </div>
-                        </div>
-                      </div>
+          <div class="mb-3">
+            <label for="Topic" class="form-label">
+              <i class="fas fa-tag me-1"></i>Topic <span class="text-danger">*</span>
+            </label>
+            <div class="input-group">
+              <select class="form-select" name="TopicSelect" id="TopicSelect" onchange="handleTopicSelect()">
+                <option value="">-- Chọn Category trước --</option>
+              </select>
+              <span class="input-group-text" style="cursor: pointer;" onclick="toggleTopicInput()" title="Nhập tên mới">
+                <i class="fas fa-edit"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control mt-2" name="Topic" id="TopicInput" 
+                   placeholder="Nhập tên Topic mới (ví dụ: Chiến tranh thế giới, Khí hậu nhiệt đới...)" 
+                   style="display: none;">
+            <input type="hidden" name="TopicID" id="TopicID" value="">
+            <small class="form-text text-muted mt-1">
+              <i class="fas fa-info-circle me-1"></i>
+              Chọn từ danh sách hoặc nhập tên mới
+            </small>
+          </div>
                       
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <div class="col-md-offset-4 col-md-8">
-                            <a href="index.php?view=categories" class="btn btn-info btn-sm">
-                                <i class="fa fa-cog"></i> Quản lý Categories & Topics
-                            </a>
-                          </div>
-                        </div>
-                      </div> 
-                       <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "Question">Question:</label>
+          <div class="mb-3">
+            <a href="index.php?view=categories" class="btn btn-outline-info btn-sm">
+              <i class="fas fa-cog me-1"></i>Quản lý Categories & Topics
+            </a>
+          </div>
+          
+          <div class="mb-3">
+            <label for="Question" class="form-label">
+              <i class="fas fa-question me-1"></i>Question <span class="text-danger">*</span>
+            </label>
+            <textarea class="form-control" id="Question" name="Question" placeholder="Question Name" rows="3" required></textarea>
+          </div>
 
-                          <div class="col-md-8">
-                            <textarea  class="form-control input-sm" id="Question" name="Question" placeholder=
-                                "Question Name" type="text"></textarea>
-                            
-                          </div>
-                        </div>
-                      </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="ChoiceA" class="form-label">
+                <i class="fas fa-circle me-1 text-primary"></i>Choice A <span class="text-danger">*</span>
+              </label>
+              <input class="form-control" id="ChoiceA" name="ChoiceA" placeholder="Enter choice A" type="text" value="" required>
+            </div>
 
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "ChoiceA">A:</label>
+            <div class="col-md-6">
+              <label for="ChoiceB" class="form-label">
+                <i class="fas fa-circle me-1 text-success"></i>Choice B <span class="text-danger">*</span>
+              </label>
+              <input class="form-control" id="ChoiceB" name="ChoiceB" placeholder="Enter choice B" type="text" value="" required>
+            </div>
 
-                          <div class="col-md-8">
-                            
-                             <input class="form-control input-sm" id="ChoiceA" name="ChoiceA" placeholder=
-                                "" type="text" value="">
-                          </div>
-                        </div>
-                      </div>
+            <div class="col-md-6">
+              <label for="ChoiceC" class="form-label">
+                <i class="fas fa-circle me-1 text-warning"></i>Choice C <span class="text-danger">*</span>
+              </label>
+              <input class="form-control" id="ChoiceC" name="ChoiceC" placeholder="Enter choice C" type="text" value="" required>
+            </div>
 
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "ChoiceB">B:</label>
+            <div class="col-md-6">
+              <label for="ChoiceD" class="form-label">
+                <i class="fas fa-circle me-1 text-danger"></i>Choice D <span class="text-danger">*</span>
+              </label>
+              <input class="form-control" id="ChoiceD" name="ChoiceD" placeholder="Enter choice D" type="text" value="" required>
+            </div>
+          </div>
 
-                          <div class="col-md-8">
-                            
-                             <input class="form-control input-sm" id="ChoiceB" name="ChoiceB" placeholder=
-                                "" type="text" value="" required>
-                          </div>
-                        </div>
-                      </div>
+          <div class="mb-3">
+            <label for="Answer" class="form-label">
+              <i class="fas fa-check-circle me-1"></i>Correct Answer <span class="text-danger">*</span>
+            </label>
+            <select class="form-select" id="Answer" name="Answer" required>
+              <option value="">-- Select correct answer --</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+            <small class="form-text text-muted mt-1">Select the correct answer from choices above</small>
+          </div>
 
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "ChoiceC">C:</label>
-
-                          <div class="col-md-8">
-                            
-                             <input class="form-control input-sm" id="ChoiceC" name="ChoiceC" placeholder=
-                                "" type="text" value="" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "ChoiceD">D:</label>
-
-                          <div class="col-md-8">
-                              <input class="form-control input-sm" id="ChoiceD" name="ChoiceD" placeholder=
-                                "" type="text" value="" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "Answer">Answer:</label>
-
-                          <div class="col-md-8">
-                            
-                             <input class="form-control input-sm" id="Answer" name="Answer" placeholder=
-                                "Answer" type="text" value="" required>
-                          </div>
-                        </div>
-                      </div> 
-
-                      <div class="form-group">
-                        <div class="col-md-8">
-                          <label class="col-md-4 control-label" for=
-                          "idno"></label>
-
-                          <div class="col-md-8">
-                           <button class="btn btn-primary btn-sm" name="save" type="submit" ><span class="fa fa-save fw-fa"></span>  Save</button> 
-                           <button type="button" class="btn btn-default btn-sm" onclick="clearForm()">
-                               <span class="fa fa-refresh"></span> Clear Form
-                           </button>
-                           </div>
-                        </div>
-                      </div> 
-                      </form>
+          <div class="d-flex gap-2 mt-4">
+            <button class="btn btn-primary" name="save" type="submit">
+              <i class="fas fa-save me-2"></i>Save
+            </button>
+            <button type="button" class="btn btn-outline-secondary" onclick="clearForm()">
+              <i class="fas fa-redo me-2"></i>Clear Form
+            </button>
+            <a href="index.php" class="btn btn-outline-secondary">
+              <i class="fas fa-arrow-left me-2"></i>Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- API Configuration removed - now using hardcoded API key -->
 

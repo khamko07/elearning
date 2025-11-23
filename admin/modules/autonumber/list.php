@@ -4,14 +4,22 @@ if(!isset($_SESSION['USERID'])){
 }
 ?>
 
- 
-           <div class="center wow fadeInDown">
-                 <h2 class="page-header">List of Autonumbers</h2>
-                <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p> -->
-            </div>
-           
-			<form action="controller.php?action=delete" Method="POST">  	 		
-				<table id="dash-table" class="table table-striped  table-hover table-responsive" style="font-size:12px" cellspacing="0">
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+      <h1 class="page-header mb-0">
+        <i class="fas fa-hashtag me-2"></i>List of Autonumbers
+      </h1>
+      <a href="index.php?view=add" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Add New Autonumber
+      </a>
+    </div>
+  </div>
+</div>
+
+<form action="controller.php?action=delete" Method="POST">  	 		
+  <div class="table-responsive">
+    <table id="dash-table" class="table table-striped table-hover admin-table" style="font-size:12px" cellspacing="0">
 
 				
 				  <thead>
@@ -37,16 +45,17 @@ if(!isset($_SESSION['USERID'])){
 				  		echo '</tr>';
 				  	} 
 				  	?>
-				  </tbody>
-					
-				</table>
-				     <div class="btn-group">
-				  <a href="index.php?view=add" class="btn btn-default">New</a>
-					<?php
-					if($_SESSION['TYPE']=='Administrator'){
-					echo '<button type="submit" class="btn btn-default" name="delete"><span class="glyphicon glyphicon-trash"></span> Delete Selected</button>';
-					; }?>
-				</div>
-
-
-			</form> 
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="mt-3">
+    <?php
+    if($_SESSION['TYPE']=='Administrator'){
+      echo '<button type="submit" class="btn btn-danger" name="delete" onclick="return confirm(\'Are you sure you want to delete selected autonumbers?\')">
+              <i class="fas fa-trash me-2"></i>Delete Selected
+            </button>';
+    }
+    ?>
+  </div>
+</form> 
