@@ -65,15 +65,17 @@ if (empty($topic)) {
 }
 
 // Get API key from config
-$apiKey = getGeminiApiKey();
+$apiKey = getGroqApiKey();
 if (!$apiKey) {
     http_response_code(500);
     echo json_encode(['error' => 'API key chưa được cấu hình. Vui lòng liên hệ quản trị viên.']);
     exit;
 }
 
-// Create the prompt for Gemini API
-$prompt = "Tạo một câu hỏi trắc nghiệm về chủ đề \"{$topic}\" với độ khó {$difficulty}.
+// Create the prompt for Groq API (OpenAI-compatible format)
+$systemPrompt = "Bạn là một trợ lý tạo câu hỏi trắc nghiệm chuyên nghiệp. Trả lời CHÍNH XÁC theo định dạng JSON được yêu cầu.";
+
+$userPrompt = "Tạo một câu hỏi trắc nghiệm về chủ đề \"{$topic}\" với độ khó {$difficulty}.
 
 Vui lòng trả lời theo định dạng JSON chính xác sau:
 {
@@ -94,30 +96,34 @@ Yêu cầu:
 - Phù hợp cho nền tảng e-learning
 - Sử dụng tiếng Việt hoặc tiếng Anh tùy theo chủ đề";
 
-// Prepare the request data
+// Prepare the request data (OpenAI format)
 $requestData = [
-    'contents' => [
+    'model' => GROQ_MODEL,
+    'messages' => [
         [
-            'parts' => [
-                [
-                    'text' => $prompt
-                ]
-            ]
+            'role' => 'system',
+            'content' => $systemPrompt
+        ],
+        [
+            'role' => 'user',
+            'content' => $userPrompt
         ]
-    ]
+    ],
+    'temperature' => 0.7,
+    'max_tokens' => 1000
 ];
 
 // Initialize cURL
 $ch = curl_init();
 
 curl_setopt_array($ch, [
-    CURLOPT_URL => GEMINI_API_URL,
+    CURLOPT_URL => GROQ_API_URL,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => json_encode($requestData),
     CURLOPT_HTTPHEADER => [
         'Content-Type: application/json',
-        'X-goog-api-key: ' . $apiKey
+        'Authorization: Bearer ' . $apiKey
     ],
     CURLOPT_TIMEOUT => 30,
     CURLOPT_SSL_VERIFYPEER => true
@@ -150,7 +156,7 @@ if ($httpCode !== 200) {
     exit;
 }
 
-// Parse the response
+// Parse the response (OpenAI/Groq format)
 $responseData = json_decode($response, true);
 
 if (!$responseData) {
@@ -159,7 +165,17 @@ if (!$responseData) {
     exit;
 }
 
-if (!isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+// Check for error in response
+if (isset($responseData['error'])) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'API Error: ' . ($responseData['error']['message'] ?? 'Unknown error')
+    ]);
+    exit;
+}
+
+// Extract the generated text from OpenAI-compatible response
+if (!isset($responseData['choices'][0]['message']['content'])) {
     http_response_code(500);
     echo json_encode([
         'error' => 'Invalid API response format', 
@@ -169,7 +185,7 @@ if (!isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
     exit;
 }
 
-$generatedText = $responseData['candidates'][0]['content']['parts'][0]['text'];
+$generatedText = $responseData['choices'][0]['message']['content'];
 
 // Try multiple methods to clean and parse the JSON
 $questionData = null;

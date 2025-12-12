@@ -1,4 +1,10 @@
 <?php
+require_once("include/initialize.php");
+
+if (!isset($_SESSION['StudentID'])) {
+    redirect('login.php');
+}
+
 $studentid = $_SESSION['StudentID'];
 $score = 0;
 $id = isset($_GET['id']) ? $_GET['id'] : '';
