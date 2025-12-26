@@ -1,0 +1,340 @@
+/**
+ * Responsive Styles
+ * E-Learning System UI Modernization
+ * 
+ * This file contains media queries and responsive design rules
+ */
+
+/* ============================================
+   BREAKPOINTS
+   ============================================ */
+/* Mobile First Approach */
+
+/* Small devices (tablets, 576px and up) */
+@media (min-width: 576px) {
+  /* Add tablet-specific styles here */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  /* Navigation adjustments */
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .navbar-toggler {
+    display: none;
+  }
+
+  /* Grid adjustments */
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Card adjustments */
+  .category-card {
+    min-height: 350px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  /* Grid adjustments */
+  .content-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Navigation adjustments */
+  .navbar {
+    padding: var(--space-4) var(--space-6);
+  }
+
+  /* Dashboard adjustments */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  /* Add large desktop-specific styles here */
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* ============================================
+   MOBILE SPECIFIC STYLES
+   ============================================ */
+@media (max-width: 767px) {
+  /* Navigation */
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - 70px);
+    background-color: var(--bg-white);
+    z-index: var(--z-dropdown);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    overflow-y: auto;
+  }
+
+  .navbar-collapse.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .nav-link {
+    padding: var(--space-3) var(--space-4);
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    display: block;
+    width: 100%;
+    margin: var(--space-2) 0;
+    box-shadow: none;
+    border: none;
+    background-color: var(--gray-50);
+  }
+
+  /* Cards */
+  .card {
+    padding: var(--space-4);
+  }
+
+  .content-card .card-header {
+    padding: var(--space-4);
+  }
+
+  .content-card .card-body {
+    padding: var(--space-4);
+  }
+
+  /* Login */
+  .login-card {
+    padding: var(--space-6);
+  }
+
+  /* Quiz */
+  .quiz-container {
+    padding: var(--space-4);
+  }
+
+  .question-card {
+    padding: var(--space-4);
+  }
+
+  .quiz-footer {
+    flex-direction: column;
+  }
+
+  .quiz-footer .btn {
+    width: 100%;
+  }
+
+  /* Result */
+  .result-container {
+    padding: var(--space-4);
+  }
+
+  .score-card {
+    padding: var(--space-6);
+  }
+
+  .score-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn {
+    width: 100%;
+  }
+
+  /* Dashboard */
+  .welcome-section {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Forms */
+  .form-control {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Buttons */
+  .btn {
+    min-height: 44px; /* Touch-friendly size */
+    min-width: 44px;
+  }
+}
+
+/* ============================================
+   TABLET SPECIFIC STYLES
+   ============================================ */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Grid adjustments */
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cards */
+  .category-card {
+    min-height: 320px;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .navbar,
+  .sidebar,
+  .btn,
+  .quiz-footer,
+  .result-actions {
+    display: none !important;
+  }
+
+  .card,
+  .question-card,
+  .score-card {
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
+    page-break-inside: avoid;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE
+   ============================================ */
+@media (prefers-contrast: high) {
+  .card,
+  .content-card,
+  .category-card {
+    border: 2px solid var(--text-primary);
+  }
+
+  .btn {
+    border-width: 2px;
+  }
+
+  .form-control {
+    border-width: 2px;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   DARK MODE (Future Enhancement)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  /* Dark mode styles can be added here in the future */
+  /* For now, we maintain light mode as default */
+}
+

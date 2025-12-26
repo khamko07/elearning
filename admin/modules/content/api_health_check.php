@@ -1,7 +1,7 @@
 <?php
 /**
  * Quick API Health Check
- * Tests if Gemini API is working properly
+ * Tests if Groq API is working properly
  */
 
 // Include config
@@ -12,7 +12,7 @@ header('Content-Type: text/html; charset=utf-8');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gemini API Health Check</title>
+    <title>Groq API Health Check</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; background: #f5f7fb; }
         .status { padding: 20px; border-radius: 8px; margin: 20px 0; }
@@ -25,21 +25,21 @@ header('Content-Type: text/html; charset=utf-8');
     </style>
 </head>
 <body>
-    <h1>🔍 Gemini API Health Check</h1>
+    <h1>🔍 Groq API Health Check</h1>
     
     <?php
     // Check 1: Config file exists
     echo "<div class='info'><strong>Check 1:</strong> Configuration File</div>";
-    if (defined('GEMINI_API_KEY')) {
+    if (defined('GROQ_API_KEY')) {
         echo "<div class='status success'>✅ Config file loaded successfully</div>";
     } else {
-        echo "<div class='status error'>❌ Config file not found or GEMINI_API_KEY not defined</div>";
+        echo "<div class='status error'>❌ Config file not found or GROQ_API_KEY not defined</div>";
         exit;
     }
     
     // Check 2: API Key configured
     echo "<div class='info'><strong>Check 2:</strong> API Key Configuration</div>";
-    $apiKey = getGeminiApiKey();
+    $apiKey = getGroqApiKey();
     if ($apiKey && $apiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
         $maskedKey = substr($apiKey, 0, 10) . '...' . substr($apiKey, -5);
         echo "<div class='status success'>✅ API Key is configured<br>Key: <code>{$maskedKey}</code></div>";
@@ -59,36 +59,34 @@ header('Content-Type: text/html; charset=utf-8');
     
     // Check 4: API Endpoint
     echo "<div class='info'><strong>Check 4:</strong> API Endpoint</div>";
-    echo "<div class='status success'>✅ Endpoint configured: <code>" . GEMINI_API_URL . "</code></div>";
+    echo "<div class='status success'>✅ Endpoint configured: <code>" . GROQ_API_URL . "</code></div>";
     
     // Check 5: Test API Call
     echo "<div class='info'><strong>Check 5:</strong> Test API Call</div>";
-    echo "<p>Sending a simple test request to Gemini API...</p>";
+    echo "<p>Sending a simple test request to Groq API...</p>";
     
     $testPrompt = "Say 'Hello, API is working!' in exactly that phrase.";
     
     $requestData = [
-        'contents' => [
+        'model' => GROQ_MODEL,
+        'messages' => [
             [
-                'parts' => [
-                    ['text' => $testPrompt]
-                ]
+                'role' => 'user',
+                'content' => $testPrompt
             ]
         ],
-        'generationConfig' => [
-            'temperature' => 0.1,
-            'maxOutputTokens' => 50
-        ]
+        'temperature' => 0.1,
+        'max_tokens' => 50
     ];
     
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, GEMINI_API_URL);
+    curl_setopt($ch, CURLOPT_URL, GROQ_API_URL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
-        'X-goog-api-key: ' . $apiKey
+        'Authorization: Bearer ' . $apiKey
     ]);
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
     
@@ -104,8 +102,8 @@ header('Content-Type: text/html; charset=utf-8');
     
     if ($httpCode === 200) {
         $responseData = json_decode($response, true);
-        if (isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
-            $generatedText = $responseData['candidates'][0]['content']['parts'][0]['text'];
+        if (isset($responseData['choices'][0]['message']['content'])) {
+            $generatedText = $responseData['choices'][0]['message']['content'];
             echo "<div class='status success'>";
             echo "✅ API Call Successful!<br>";
             echo "<strong>Response:</strong> " . htmlspecialchars($generatedText) . "<br>";
@@ -129,7 +127,7 @@ header('Content-Type: text/html; charset=utf-8');
             echo "- API key is invalid<br>";
             echo "- API key doesn't have proper permissions<br>";
             echo "- API is not enabled for this key<br>";
-            echo "<br><strong>Solution:</strong> Get a new API key from <a href='https://aistudio.google.com/app/apikey' target='_blank'>Google AI Studio</a>";
+            echo "<br><strong>Solution:</strong> Get a new API key from <a href='https://console.groq.com/keys' target='_blank'>Groq Console</a>";
         }
         echo "</div>";
         exit;
@@ -138,8 +136,8 @@ header('Content-Type: text/html; charset=utf-8');
     // Final Summary
     echo "<div class='info' style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;'>";
     echo "<h2 style='margin-top: 0; color: white;'>🎉 All Checks Passed!</h2>";
-    echo "<p>Your Gemini API is configured correctly and working properly.</p>";
-    echo "<p><strong>You can now use the AI Content Generator!</strong></p>";
+    echo "<p>Your Groq API is configured correctly and working properly.</p>";
+    echo "<p><strong>You can now use the AI Content Generator with Llama 3.3!</strong></p>";
     echo "<p>Next steps:</p>";
     echo "<ul>";
     echo "<li>Go to: <a href='index.php?view=add' style='color: #fff3cd;'>Add Content Page</a></li>";

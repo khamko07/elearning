@@ -5,7 +5,7 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-## 📖 Tổng quan hhh 
+## 📖 Tổng quan -   d    d
 
 Hệ thống E-Learning là một nền tảng học trực tuyến đơn giản và dễ sử dụng, được xây dựng bằng PHP và MySQL. Hệ thống cung cấp các chức năng cơ bản để quản lý và phân phối nội dung học tập, bao gồm video bài giảng, tài liệu PDF, nội dung bài học dạng văn bản, và bài tập trắc nghiệm.
 
@@ -45,7 +45,7 @@ Hệ thống này được phát triển nhằm:
 - **Quản lý Categories**: Tạo và quản lý danh mục bài tập
 - **Quản lý Topics**: Tạo và quản lý chủ đề bài tập
 
-#### 👥 Quản lý Học viên (Students)
+#### 👥 Quản lý Học viên (Students) 
 - **Danh sách Học viên**: Xem tất cả học viên đã đăng ký
 - **Xem Thông tin**: Xem thông tin chi tiết của học viên
 - **Quản lý Tài khoản**: Thêm, sửa, xóa tài khoản học viên

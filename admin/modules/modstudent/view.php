@@ -22,190 +22,156 @@
   $singlecourse = $course->single_course($singlesy->COURSEID); 
   ?>
   
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      <i class="fas fa-user-graduate me-2"></i>Student Profile
+    </h1>
+  </div>
+</div>
+
 <div class="row">
-         <div class="col-lg-12">
-            <h1 class="page-header">Student Profile</h1>
-          </div>
-          <!-- /.col-lg-12 -->
-       </div>
- 
-        <div class="col-sm-3"><!--left col-->
-               <div class="panel panel-default">            
-            <div class="panel-body">
-          <!--    <a href="" data-target="#myModal"  data-toggle="modal" > 
-              <img title="profile image" width="223" height="250" src="<?php echo web_root.'admin/modules/modstudent/'.$singlestudent->PROIMAGE ?>">  
-            </a> -->
-               <a href="#" style="width:205;height:20" > 
-              <img title="profile image" width="100%" height="40%" src="<?php echo web_root.'admin/modules/modstudent/'.$singlestudent->PROIMAGE ?>">  
-            </a>
-             </div>
-          <ul class="list-group">
-       
-         
-            <li class="list-group-item text-muted">Photo</li>
-           <!--  <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li> -->
-            <li class="list-group-item text-right">
-            <span class="pull-left"><strong>Real name</strong></span> 
-            <strong><?php echo $singlestudent->FNAME .'  '.$singlestudent->LNAME; ?></strong>
-            </li>
-            
-          </ul> 
-               
-            
-          </div>
-          
-        </div> 
-        <div class="col-sm-9">
-        <?php
-        check_message();
-            
-        ?>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <img class="img-fluid rounded mb-3" 
+             title="profile image" 
+             src="<?php echo web_root.'admin/modules/modstudent/'.$singlestudent->PROIMAGE ?>" 
+             alt="Student Photo"
+             style="max-height: 250px; object-fit: cover;">
+        <h5 class="card-title"><?php echo $singlestudent->FNAME .'  '.$singlestudent->LNAME; ?></h5>
+        <p class="text-muted mb-0">Student ID: <?php echo $singlestudent->IDNO; ?></p>
+      </div>
+    </div>
+  </div> 
+  <div class="col-md-9">
+    <?php
+    check_message();
+    ?>
 
-          <h2> <?php echo $singlestudent->FNAME .' '.$singlestudent->MNAME.' '.$singlestudent->LNAME; ?>  </h2>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="mb-0"><?php echo $singlestudent->FNAME .' '.$singlestudent->MNAME.' '.$singlestudent->LNAME; ?></h3>
+      </div>
+      <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="basicInfo-tab" data-bs-toggle="tab" data-bs-target="#basicInfo" type="button" role="tab">
+              <i class="fas fa-info-circle me-1"></i>Information
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="workstat-tab" data-bs-toggle="tab" data-bs-target="#workstat" type="button" role="tab">
+              <i class="fas fa-briefcase me-1"></i>Work Status
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content mt-3" id="myTabContent">
+          <div class="tab-pane fade show active" id="basicInfo" role="tabpanel">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-id-card me-1 text-primary"></i>Id Number</strong>
+                  <p class="mb-0"><?php echo $singlestudent->IDNO; ?></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-graduation-cap me-1 text-success"></i>Course</strong>
+                  <p class="mb-0"><?php echo $singlecourse->DESCRIPTION.' ('.$singlecourse->COURSE.')'; ?></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-calendar me-1 text-info"></i>School Year</strong>
+                  <p class="mb-0"><?php echo $singlesy->SYFROM .'-'.$singlesy->SYTO; ?></p>
+                </div>
+              </div> 
 
-          <ul class="nav nav-tabs " id="myTab">
-            <li class="active"><a href="#basicInfo" data-toggle="tab">Information</a></li>
-            <!-- <li><a href="#parent" data-toggle="tab">Other Information</a></li> -->
-            <li><a href="#workstat" data-toggle="tab">Work Status</a></li>
-            
-          </ul>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-user me-1"></i>First Name</strong>
+                  <p class="mb-0"><?php echo $singlestudent->FNAME; ?></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-user me-1"></i>Last Name</strong>
+                  <p class="mb-0"><?php echo $singlestudent->LNAME; ?></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <strong><i class="fas fa-user me-1"></i>Middle Name</strong>
+                  <p class="mb-0"><?php echo $singlestudent->MNAME; ?></p>
+                </div>
+              </div>
               
-          <div class="tab-content">
-           
-            <div class="tab-pane active" id="basicInfo"><br/>
-            
-             <ul class="list-group bottomline">  
-               <li class="list-unstyled text-left">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group ">
-                      <strong>Id Number </strong>
-                      <?php echo ': '.$singlestudent->IDNO; ?>
-                      </div> 
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group ">
-                      <strong>Course </strong>
-                      <?php echo ': '.$singlecourse->DESCRIPTION.'('.$singlecourse->COURSE.')'; ?>
-                      </div> 
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group ">
-                      <strong>School Year </strong>
-                      <?php echo ': '.$singlesy->SYFROM .'-'.$singlesy->SYTO; ?>
-                      </div> 
-                    </div>
-               </div>
-                </li> 
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <strong><i class="fas fa-map-marker-alt me-1 text-danger"></i>Address</strong>
+                  <p class="mb-0"><?php echo $singlestudent->ADDRESS; ?></p>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-envelope me-1 text-primary"></i>Email Address</strong>
+                  <p class="mb-0"><?php echo $singlestudent->EMAILADD; ?></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-phone me-1 text-success"></i>Contact Number</strong>
+                  <p class="mb-0"><?php echo $singlestudent->PHONE; ?></p>
+                </div>
+              </div>
 
-                  <li class="list-unstyled text-left">
-                    <div class="row">
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group ">
-                      <strong>First Name </strong> 
-                     <?php echo ': '.$singlestudent->FNAME; ?>   
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group">
-                        <strong>Last Name </strong>
-                    <?php echo ': '.$singlestudent->LNAME; ?> 
-                      </div>
-                    </div>
-                   <div class="col-xs-12 col-sm-4 col-md-4">
-                      <div class="form-group">
-                        <strong>Middle Name </strong>
-                    <?php echo ': '.$singlestudent->MNAME; ?> 
-                      </div>
-                    </div>
-                  </div>
-                  </li>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-male me-1"></i>Father</strong>
+                  <p class="mb-0"><?php echo $singleparents->FATHER; ?></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-briefcase me-1"></i>Father's Occupation</strong>
+                  <p class="mb-0"><?php echo $singleparents->FOCCUPATION; ?></p>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-female me-1"></i>Mother</strong>
+                  <p class="mb-0"><?php echo $singleparents->MOTHER; ?></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-briefcase me-1"></i>Mother's Occupation</strong>
+                  <p class="mb-0"><?php echo $singleparents->MOCCUPATION; ?></p>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-sort-numeric-up me-1"></i>Rank in the Family</strong>
+                  <p class="mb-0"><?php echo $singleparents->RANKFAMILY; ?></p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <strong><i class="fas fa-wheelchair me-1"></i>Disability</strong>
+                  <p class="mb-0"><?php echo $singleparents->DISABILITY; ?></p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                  <li class="list-unstyled text-left">
-                  <div class="form-group ">
-                  <strong>Address </strong>
-                  <?php echo ': '.$singlestudent->ADDRESS; ?> 
-                  </div>
-                </li> 
-                   
-                  <li class="list-unstyled text-left"> 
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group ">
-                        <strong>Email Address </strong>
-                         <?php echo ': '.$singlestudent->EMAILADD; ?>
-                    </div>
-                   </div>
-                   <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group ">
-                      <strong>Contact Number</strong>
-                         <?php echo ': '.$singlestudent->PHONE; ?>
-                     </div>
-                    </div>
-                  </div>  
-                  </li>
-
-                   <li class="list-unstyled text-left">
-                    <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group ">
-                      <strong>Father</strong> 
-                     <?php echo ': '.$singleparents->FATHER; ?>   
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                        <strong>Occupation</strong>
-                    <?php echo ': '.$singleparents->FOCCUPATION; ?> 
-                      </div>
-                    </div>
-                  </div>
-                  </li>
-
-                 <li class="list-unstyled text-left">
-                    <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group ">
-                      <strong>Mother</strong> 
-                     <?php echo ': '.$singleparents->MOTHER; ?>   
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group">
-                        <strong>Occupation</strong>
-                    <?php echo ': '.$singleparents->MOCCUPATION; ?> 
-                      </div>
-                    </div>
-                  </div>
-                  </li>
-
-                   <li class="list-unstyled text-left">
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                      <div class="form-group ">
-                        <strong>Rank in the Family</strong> 
-                        <?php echo ': '.$singleparents->RANKFAMILY; ?>
-                        </div>
-                    </div> 
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="form-group ">
-                      <strong>Disability</strong> 
-                        <?php echo ': '.$singleparents->DISABILITY; ?>
-                        </div>
-                        </div>
-                        </div>
-                    </li>
-
-
-                </ul> 
-               
-             </div><!--/tab-pane-->
-
-              <div class="tab-pane " id="workstat">
-              <div class="table-responsive"> <br/>
-                <form action="controller.php?action=delete" Method="POST">                      
-                <table   class="table table-hover"  > 
+          <div class="tab-pane fade" id="workstat" role="tabpanel">
+            <div class="table-responsive">
+              <form action="controller.php?action=delete" Method="POST">                      
+                <table class="table table-hover admin-table"> 
                   <thead> 
                         <!-- <th>No.</th> -->
                         <th>Company</th>
@@ -245,31 +211,14 @@
                     
                     
                 </table>
-                <div class="btn-group">
-                  
-                  <?php
-                  echo isset($btn);
-                  ?>
-                 
-                  <!-- <button type="submit" class="btn btn-default" name="delete"><span class="glyphicon glyphicon-trash"></span> Delete Selected</button> -->
-                </div>
-                </form>
-             
-                <div class="row">
-                  <div class="col-md-4 col-md-offset-4 text-center">
-                    <ul class="pagination" id="myPager"></ul>
-                  </div>
-                </div>
-              </div><!--/table-resp-->
-              
-            
-              
-             </div><!--/tab-pane-->
-
-               
-              </div><!--/tab-pane-->
-          </div><!--/tab-content-->
- <!-- <a href="index.php?view=testedit">Test Add Design</a> --> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
  
  
          <!-- Modal -->

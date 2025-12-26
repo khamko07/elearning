@@ -23,12 +23,13 @@ class Database {
 			exit();
 		 
 		}else{
-
 			$db_select = mysqli_select_db($this->conn,database_name);
 			if (!$db_select) {
 				echo "Problem in selecting database! Contact administrator!";
 				exit();
 			}
+			// Set charset to utf8mb4 for proper Unicode support
+			mysqli_set_charset($this->conn, "utf8mb4");
 		}
 
 	}
@@ -123,6 +124,14 @@ class Database {
 			mysqli_close($this->conn);
 			unset($this->conn);
 		}
+	}
+	
+	public function getError() {
+		return $this->error_msg;
+	}
+	
+	public function getErrorNo() {
+		return $this->error_no;
 	}
 	
 } 

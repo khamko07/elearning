@@ -19,21 +19,30 @@ if (!$category) {
 }
 ?>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <ol class="breadcrumb">
-                <li><a href="index.php">Exercise Management</a></li>
-                <li class="active"><?php echo $category->CategoryName; ?></li>
-            </ol>
-            
-            <h1><?php echo $category->CategoryName; ?> - Topics & Questions
-                <small>| <a href="index.php?view=add&category=<?php echo $categoryId; ?>" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Add New Question</a> |</small>
-            </h1>
-            <?php if ($category->CategoryDescription): ?>
-                <p class="lead text-muted"><?php echo $category->CategoryDescription; ?></p>
-            <?php endif; ?>
-        </div>
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.php"><i class="fas fa-home me-1"></i>Exercise Management</a></li>
+        <li class="breadcrumb-item active"><?php echo $category->CategoryName; ?></li>
+      </ol>
+    </nav>
+    
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        <h1 class="page-header mb-2">
+          <i class="fas fa-folder-open me-2"></i><?php echo $category->CategoryName; ?> - Topics & Questions
+        </h1>
+        <?php if ($category->CategoryDescription): ?>
+          <p class="text-muted mb-0"><?php echo $category->CategoryDescription; ?></p>
+        <?php endif; ?>
+      </div>
+      <a href="index.php?view=add&category=<?php echo $categoryId; ?>" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Add New Question
+      </a>
     </div>
+  </div>
+</div>
 
     <?php 
     $sql = "SELECT t.*, COUNT(e.ExerciseID) as QuestionCount
@@ -47,22 +56,24 @@ if (!$category) {
     
     foreach ($topics as $topic) {
     ?>
-    <div class="panel panel-info" style="margin-bottom: 20px;">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <i class="fa fa-tag"></i> <?php echo $topic->TopicName; ?>
-                <span class="badge pull-right"><?php echo $topic->QuestionCount; ?> questions</span>
-            </h3>
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-tag me-2"></i><?php echo $topic->TopicName; ?>
+                </h5>
+                <span class="badge bg-light text-dark"><?php echo $topic->QuestionCount; ?> questions</span>
+            </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
             <?php if ($topic->TopicDescription): ?>
-                <p class="text-muted"><?php echo $topic->TopicDescription; ?></p>
+                <p class="text-muted mb-3"><?php echo $topic->TopicDescription; ?></p>
             <?php endif; ?>
             
             <?php if ($topic->QuestionCount > 0): ?>
                 <!-- Questions Table -->
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" style="font-size: 12px;">
+                    <table class="table table-bordered table-hover admin-table" style="font-size: 12px;">
                         <thead>
                             <tr>
                                 <th width="3%">
@@ -95,10 +106,16 @@ if (!$category) {
                                 echo '<td>'.substr($question->ChoiceC, 0, 20).(strlen($question->ChoiceC) > 20 ? '...' : '').'</td>';
                                 echo '<td>'.substr($question->ChoiceD, 0, 20).(strlen($question->ChoiceD) > 20 ? '...' : '').'</td>';
                                 echo '<td align="center"><strong>'.$question->Answer.'</strong></td>';
-                                echo '<td>';
-                                echo '<a title="Edit" href="index.php?view=edit&id='.$question->ExerciseID.'" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a> ';
-                                echo '<a title="Delete" href="../exercises/controller.php?action=delete&id='.$question->ExerciseID.'" class="btn btn-danger btn-xs" onclick="return confirm(\'Delete this question?\')"><i class="fa fa-trash"></i></a>';
-                                echo '</td>';
+                                echo '<td>
+                                        <div class="btn-group" role="group">
+                                          <a title="Edit" href="index.php?view=edit&id='.$question->ExerciseID.'" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                          </a>
+                                          <a title="Delete" href="../exercises/controller.php?action=delete&id='.$question->ExerciseID.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Delete this question?\')">
+                                            <i class="fas fa-trash"></i>
+                                          </a>
+                                        </div>
+                                      </td>';
                                 echo '</tr>';
                                 $cnt++;
                             }
@@ -108,22 +125,26 @@ if (!$category) {
                 </div>
                 
                 <!-- Bulk Actions for this topic -->
-                <div class="bulk-actions-topic" data-topic="<?php echo $topic->TopicID; ?>" style="display: none; margin-top: 10px;">
+                <div class="bulk-actions-topic" data-topic="<?php echo $topic->TopicID; ?>" style="display: none; margin-top: 15px;">
                     <div class="alert alert-info">
-                        <i class="fa fa-info-circle"></i> 
-                        Selected <span class="selected-count">0</span> questions in this topic.
-                        <button type="button" class="btn btn-danger btn-sm" onclick="bulkDeleteTopic(<?php echo $topic->TopicID; ?>)">
-                            <i class="fa fa-trash"></i> Delete Selected
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm" onclick="clearTopicSelection(<?php echo $topic->TopicID; ?>)">
-                            <i class="fa fa-times"></i> Clear Selection
-                        </button>
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Selected:</strong> <span class="selected-count">0</span> question(s) in this topic.
+                        <div class="btn-group ms-3">
+                          <button type="button" class="btn btn-danger btn-sm" onclick="bulkDeleteTopic(<?php echo $topic->TopicID; ?>)">
+                            <i class="fas fa-trash me-1"></i>Delete Selected
+                          </button>
+                          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearTopicSelection(<?php echo $topic->TopicID; ?>)">
+                            <i class="fas fa-times me-1"></i>Clear Selection
+                          </button>
+                        </div>
                     </div>
                 </div>
             <?php else: ?>
                 <div class="alert alert-warning">
-                    <i class="fa fa-info-circle"></i> No questions in this topic yet.
-                    <a href="index.php?view=add" class="btn btn-sm btn-success">Add First Question</a>
+                    <i class="fas fa-info-circle me-2"></i>No questions in this topic yet.
+                    <a href="index.php?view=add" class="btn btn-sm btn-success ms-2">
+                      <i class="fas fa-plus me-1"></i>Add First Question
+                    </a>
                 </div>
             <?php endif; ?>
         </div>
@@ -132,14 +153,16 @@ if (!$category) {
     
     <?php if (empty($topics)): ?>
     <div class="alert alert-info text-center">
-        <i class="fa fa-info-circle"></i> No topics available in this category yet.
-        <a href="index.php?view=categories" class="btn btn-sm btn-info">Manage Categories & Topics</a>
+        <i class="fas fa-info-circle me-2"></i>No topics available in this category yet.
+        <a href="index.php?view=categories" class="btn btn-sm btn-info ms-2">
+          <i class="fas fa-cog me-1"></i>Manage Categories & Topics
+        </a>
     </div>
     <?php endif; ?>
     
-    <div class="text-center" style="margin-top: 30px;">
-        <a href="index.php" class="btn btn-default">
-            <i class="fa fa-arrow-left"></i> Back to Categories
+    <div class="text-center mt-4">
+        <a href="index.php" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Categories
         </a>
     </div>
 

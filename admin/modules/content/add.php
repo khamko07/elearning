@@ -130,7 +130,7 @@
 }
 </style>
 
-<form class="form-horizontal span6" action="controller.php?action=add" method="POST">
+<form class="form-horizontal span6" action="controller.php?action=add" method="POST" id="contentForm">
   <div class="row">
     <div class="col-lg-10">
       <h1 class="page-header">Add New Learning Content</h1>
@@ -250,7 +250,8 @@ Code block example
   <div class="form-group">
     <div class="col-md-11">
       <div class="col-md-10 col-md-offset-2">
-        <button class="btn btn-primary" name="save" type="submit"><i class="fa fa-save"></i> Save Content</button>
+        <input type="hidden" name="save" value="1">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Content</button>
         <a href="index.php" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>
       </div>
     </div>
@@ -531,13 +532,28 @@ document.getElementById('btnGenerate').addEventListener('click', async function(
         document.getElementById('Title').value = topic;
       }
       
-      // Show success message
+      // Show success message with better dialog
       const wordCount = data.metadata && data.metadata.word_count ? data.metadata.word_count : 'N/A';
       const languageName = data.metadata && data.metadata.language_name ? data.metadata.language_name : languageNames[language];
-      alert(`✅ Content generated successfully!\n\nTopic: ${topic}\nLanguage: ${languageName}\nDifficulty: ${difficulty}\nWord count: ${wordCount}\n\nPlease review and edit as needed before saving.`);
       
-      // Switch to Write tab to show content
-      document.querySelector('.editor-tab[data-tab="write"]').click();
+      // Use modern confirm dialog
+      const message = `✅ Content generated successfully!\n\nTopic: ${topic}\nLanguage: ${languageName}\nDifficulty: ${difficulty}\nWord count: ${wordCount}\n\nPlease review and edit as needed before saving.`;
+      
+      // Show alert and after OK, switch to preview tab
+      if (confirm(message)) {
+        // Switch to Preview tab to show generated content
+        const previewTab = document.querySelector('.editor-tab[data-tab="preview"]');
+        if (previewTab) {
+          previewTab.click();
+          // Scroll to content area
+          setTimeout(() => {
+            document.querySelector('.github-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      } else {
+        // User cancelled, stay on write tab
+        document.querySelector('.editor-tab[data-tab="write"]').click();
+      }
       
     } else if (data && data.error) {
       // Show error from API
@@ -564,6 +580,36 @@ document.getElementById('Body').addEventListener('input', function() {
     const preview = document.getElementById('preview');
     preview.innerHTML = markdownToHtml(this.value) || '<p style="color: #656d76; font-style: italic;">Nothing to preview</p>';
   }
+});
+
+// Form validation before submit
+document.getElementById('contentForm').addEventListener('submit', function(e) {
+  const title = document.getElementById('Title').value.trim();
+  const body = document.getElementById('Body').value.trim();
+  
+  // Log form data before submit
+  console.log('Form submitting...');
+  console.log('Title:', title);
+  console.log('Topic:', document.getElementById('Topic').value);
+  console.log('Body length:', body.length);
+  
+  if (!title) {
+    e.preventDefault();
+    alert('Please enter a title');
+    document.getElementById('Title').focus();
+    return false;
+  }
+  
+  if (!body) {
+    e.preventDefault();
+    alert('Please enter content');
+    document.getElementById('Body').focus();
+    return false;
+  }
+  
+  // Form is valid, allow submission
+  console.log('Form validation passed, submitting...');
+  return true;
 });
 </script>
 

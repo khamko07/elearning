@@ -1,7 +1,7 @@
 <?php
 /**
- * Gemini API Content Generator for Learning Materials
- * Generates comprehensive educational content in Markdown format
+ * Groq API Content Generator for Learning Materials
+ * Generates comprehensive educational content in Markdown format using Llama 3.3
  */
 
 ob_start();
@@ -57,9 +57,9 @@ if (empty($topic)) {
 }
 
 // Get API key
-$apiKey = getGeminiApiKey();
+$apiKey = getGroqApiKey();
 if (!$apiKey) {
-    echo json_encode(['error' => 'Gemini API key not configured']);
+    echo json_encode(['error' => 'Groq API key not configured']);
     exit;
 }
 
@@ -199,32 +199,33 @@ CRITICAL REQUIREMENTS:
 - Make it engaging and informative
 - All section headings, content, and examples must be in {$lang['name']}";
 
-// API request data
+// API request data (OpenAI/Groq format)
 $requestData = [
-    'contents' => [
+    'model' => GROQ_MODEL,
+    'messages' => [
         [
-            'parts' => [
-                ['text' => $prompt]
-            ]
+            'role' => 'system',
+            'content' => 'You are an expert educator who creates comprehensive, well-structured learning materials.'
+        ],
+        [
+            'role' => 'user',
+            'content' => $prompt
         ]
     ],
-    'generationConfig' => [
-        'temperature' => 0.8,
-        'maxOutputTokens' => 4096,
-        'topP' => 0.95,
-        'topK' => 40
-    ]
+    'temperature' => 0.8,
+    'max_tokens' => 4096,
+    'top_p' => 0.95
 ];
 
 // Make API request
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, GEMINI_API_URL);
+curl_setopt($ch, CURLOPT_URL, GROQ_API_URL);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: application/json',
-    'X-goog-api-key: ' . $apiKey
+    'Authorization: Bearer ' . $apiKey
 ]);
 curl_setopt($ch, CURLOPT_TIMEOUT, 60); // Longer timeout for detailed content
 
@@ -250,7 +251,7 @@ if ($httpCode !== 200) {
 
 $responseData = json_decode($response, true);
 
-if (!$responseData || !isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
+if (!$responseData || !isset($responseData['choices'][0]['message']['content'])) {
     echo json_encode([
         'error' => 'Invalid API response format',
         'debug' => substr($response, 0, 500)
@@ -258,7 +259,7 @@ if (!$responseData || !isset($responseData['candidates'][0]['content']['parts'][
     exit;
 }
 
-$generatedContent = trim($responseData['candidates'][0]['content']['parts'][0]['text']);
+$generatedContent = trim($responseData['choices'][0]['message']['content']);
 
 // Clean up markdown (remove extra spaces, normalize line breaks)
 $generatedContent = preg_replace('/\n{3,}/', "\n\n", $generatedContent);

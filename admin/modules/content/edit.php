@@ -7,8 +7,12 @@ global $mydb;
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id <= 0) {
-  echo '<div class="alert alert-danger">Invalid content ID</div>';
-  echo '<a href="index.php" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>';
+  echo '<div class="alert alert-danger">
+          <i class="fas fa-exclamation-circle me-2"></i>Invalid content ID
+        </div>';
+  echo '<a href="index.php" class="btn btn-outline-secondary">
+          <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>';
   exit;
 }
 
@@ -17,11 +21,23 @@ $mydb->setQuery("SELECT * FROM tblcontent WHERE ContentID = {$id}");
 $content = $mydb->loadSingleResult();
 
 if (!$content) {
-  echo '<div class="alert alert-danger">Content not found</div>';
-  echo '<a href="index.php" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>';
+  echo '<div class="alert alert-danger">
+          <i class="fas fa-exclamation-circle me-2"></i>Content not found
+        </div>';
+  echo '<a href="index.php" class="btn btn-outline-secondary">
+          <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>';
   exit;
 }
 ?>
+
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      <i class="fas fa-edit me-2"></i>Edit Content
+    </h1>
+  </div>
+</div>
 
 <style>
 /* Lao Language Font */

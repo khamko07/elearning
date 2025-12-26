@@ -1,48 +1,58 @@
 <?php
 /**
- * Gemini API Configuration
+ * Groq API Configuration (OpenAI-compatible)
  * 
  * Instructions:
- * 1. Get your Gemini API key from: https://aistudio.google.com/app/apikey
+ * 1. Get your Groq API key from: https://console.groq.com/keys
  * 2. Replace the API key below with your actual key
  * 3. Make sure this file is secure and not accessible via web browser
  */
 
-// Gemini API Configuration - Replace with your actual API key
-define('GEMINI_API_KEY', 'AIzaSyBL3wdc11HnFzLKUVuji4cULFR6x0JA-FM');
-define('GEMINI_API_URL', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent');
+// Groq API Configuration - Replace with your actual API key
+define('GROQ_API_KEY', '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');
+define('GROQ_API_URL', 'https://api.groq.com/openai/v1/chat/completions');
+define('GROQ_MODEL', 'llama-3.3-70b-versatile');
 
 // API Settings
-define('GEMINI_TIMEOUT', 30); // seconds
-define('GEMINI_MAX_RETRIES', 3);
+define('GROQ_TIMEOUT', 30); // seconds
+define('GROQ_MAX_RETRIES', 3);
 
 // Question Generation Settings
 define('DEFAULT_DIFFICULTY', 'medium');
 define('MAX_TOPIC_LENGTH', 100);
 
 /**
- * Get Gemini API Key
+ * Get Groq API Key
  * Priority: 1. Environment variable, 2. Config constant
  */
-function getGeminiApiKey() {
+function getGroqApiKey() {
     // Check environment variable first (more secure)
-    $envKey = getenv('GEMINI_API_KEY');
+    $envKey = getenv('GROQ_API_KEY');
     if ($envKey && $envKey !== '') {
         return $envKey;
     }
     
     // Fallback to config constant
-    if (defined('GEMINI_API_KEY') && GEMINI_API_KEY !== 'YOUR_GEMINI_API_KEY_HERE') {
-        return GEMINI_API_KEY;
+    if (defined('GROQ_API_KEY') && GROQ_API_KEY !== 'YOUR_GROQ_API_KEY_HERE') {
+        return GROQ_API_KEY;
     }
     
     return null;
 }
 
 /**
- * Check if Gemini API is configured
+ * Check if Groq API is configured
  */
+function isGroqApiConfigured() {
+    return getGroqApiKey() !== null;
+}
+
+// Backward compatibility aliases (for easier migration)
+function getGeminiApiKey() {
+    return getGroqApiKey();
+}
+
 function isGeminiApiConfigured() {
-    return getGeminiApiKey() !== null;
+    return isGroqApiConfigured();
 }
 ?>

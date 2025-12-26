@@ -39,7 +39,7 @@ switch ($action) {
 		if ($_POST['user_name'] == "" OR $_POST['user_email'] == "" OR $_POST['user_pass'] == "") {
 			$messageStats = false;
 			message("All field is required!","error");
-			redirect('index.php?view=add');
+			redirect('index.php');
 		}else{	
 			$user = New User();
 			// $user->USERID 		= $_POST['user_id'];

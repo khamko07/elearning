@@ -9,62 +9,99 @@
   font-style: normal;
 }
 
-/* Apply Lao font for Lao text */
 .lao-text {
   font-family: 'Phetsarath OT', Arial, sans-serif !important;
 }
 
-.action-buttons .btn {
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-.table tbody tr:hover {
-  background-color: #f5f7fb;
-}
 .content-title {
-  font-weight: 600;
-  color: #333;
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
 }
+
 .content-topic {
-  color: #667eea;
+  color: var(--secondary-indigo);
   font-style: italic;
 }
 </style>
 
-<div class="row"><div class="col-lg-12"><h1 class="page-header">Contents</h1></div></div>
-<p><a href="index.php?view=add" class="btn btn-primary"><i class="fa fa-plus"></i> Add Content</a></p>
-<table class="table table-striped" id="example">
-  <thead><tr><th>#</th><th>Title</th><th>Topic</th><th>Created</th><th>Actions</th></tr></thead>
-  <tbody>
+<div class="row mb-4">
+  <div class="col-lg-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="page-header mb-0">
+        <i class="fas fa-file-text me-2"></i>Learning Contents
+      </h1>
+      <a href="index.php?view=add" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Add Content
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
     <?php
     global $mydb;
     $mydb->setQuery("SELECT * FROM tblcontent ORDER BY CreatedAt DESC");
     $rows = $mydb->loadResultList();
-    $i=1; foreach($rows as $r){
-      // Detect Lao text
-      $hasLao = preg_match('/[\x{0E80}-\x{0EFF}]/u', $r->Title . ' ' . $r->Topic);
-      $laoClass = $hasLao ? ' class="lao-text"' : '';
-      
-      echo '<tr>';
-      echo '<td>'.$i++.'</td>';
-      echo '<td><span class="content-title"'.$laoClass.'>'.htmlentities($r->Title).'</span></td>';
-      echo '<td><span class="content-topic"'.$laoClass.'>'.htmlentities($r->Topic).'</span></td>';
-      echo '<td>'.date('M j, Y g:i A', strtotime($r->CreatedAt)).'</td>';
-      echo '<td class="action-buttons">';
-      echo '<a href="index.php?view=preview&id='.$r->ContentID.'" class="btn btn-info btn-sm" title="View Content">';
-      echo '<i class="fa fa-eye"></i> View';
-      echo '</a>';
-      echo '<a href="index.php?view=edit&id='.$r->ContentID.'" class="btn btn-warning btn-sm" title="Edit Content">';
-      echo '<i class="fa fa-edit"></i> Edit';
-      echo '</a>';
-      echo '<a href="controller.php?action=delete&id='.$r->ContentID.'" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this content?\')" title="Delete Content">';
-      echo '<i class="fa fa-trash"></i> Delete';
-      echo '</a>';
-      echo '</td>';
-      echo '</tr>';
+    
+    // Debug: Check if query executed successfully
+    if ($mydb->getError()) {
+      echo '<div class="alert alert-danger">Database Error: ' . htmlspecialchars($mydb->getError()) . '</div>';
     }
-    ?>
-  </tbody>
-</table>
-
-
+    
+    if (empty($rows)): ?>
+      <div class="text-center py-5">
+        <i class="fas fa-file-text fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">No Content Yet</h4>
+        <p class="text-muted">Start by creating your first learning content.</p>
+        <a href="index.php?view=add" class="btn btn-primary">
+          <i class="fas fa-plus me-2"></i>Add Your First Content
+        </a>
+      </div>
+    <?php else: ?>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover admin-table" id="contentTable">
+          <thead>
+            <tr>
+              <th width="5%">#</th>
+              <th>Title</th>
+              <th>Topic</th>
+              <th>Created</th>
+              <th width="20%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $i=1; 
+            foreach($rows as $r){
+              // Detect Lao text
+              $hasLao = preg_match('/[\x{0E80}-\x{0EFF}]/u', $r->Title . ' ' . ($r->Topic ?? ''));
+              $laoClass = $hasLao ? ' lao-text' : '';
+              
+              echo '<tr>';
+              echo '<td>'.$i++.'</td>';
+              echo '<td><span class="content-title'.$laoClass.'">'.htmlspecialchars($r->Title).'</span></td>';
+              echo '<td><span class="content-topic'.$laoClass.'">'.htmlspecialchars($r->Topic ?? 'N/A').'</span></td>';
+              echo '<td>'.date('M j, Y g:i A', strtotime($r->CreatedAt)).'</td>';
+              echo '<td>
+                      <div class="btn-group" role="group">
+                        <a href="index.php?view=preview&id='.$r->ContentID.'" class="btn btn-sm btn-info" title="View Content">
+                          <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="index.php?view=edit&id='.$r->ContentID.'" class="btn btn-sm btn-warning" title="Edit Content">
+                          <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="controller.php?action=delete&id='.$r->ContentID.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure you want to delete this content?\')" title="Delete Content">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </div>
+                    </td>';
+              echo '</tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    <?php endif; ?>
+  </div>
+</div>
