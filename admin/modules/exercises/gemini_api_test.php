@@ -1,5 +1,5 @@
 <?php
-// Test version of Gemini API without session validation
+// AI API for quiz generation using Groq (OpenAI-compatible)
 header('Content-Type: application/json');
 
 try {
@@ -34,29 +34,20 @@ if ($numQuestions < 1 || $numQuestions > 10) {
     exit;
 }
 
-$apiKey = getGeminiApiKey();
+$apiKey = getGroqApiKey();
 if (!$apiKey) {
     echo json_encode(['error' => 'API key not configured']);
     exit;
 }
 
-// Try multiple models in order of preference (based on available models)
-$models = [
-    'gemini-2.0-flash',
-    'gemini-2.5-flash',
-    'gemini-2.5-pro',
-    'gemini-pro-latest',
-    'gemini-flash-latest'
-];
+// Groq API URL and Model
+$apiUrl = defined('GROQ_API_URL') ? GROQ_API_URL : 'https://api.groq.com/openai/v1/chat/completions';
+$model = defined('GROQ_MODEL') ? GROQ_MODEL : 'llama-3.3-70b-versatile';
 
-$lastError = '';
-
-foreach ($models as $model) {
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent";
+// Build prompt
+if ($numQuestions == 1) {
+    $prompt = "Create a multiple choice question about '{$topic}' with {$difficulty} difficulty.
     
-    if ($numQuestions == 1) {
-        $prompt = "Create a multiple choice question about '{$topic}' with {$difficulty} difficulty.
-        
 Return only valid JSON:
 {
     \"question\": \"Your question\",
@@ -68,9 +59,9 @@ Return only valid JSON:
     },
     \"answer\": \"A\"
 }";
-    } else {
-        $prompt = "Create {$numQuestions} multiple choice questions about '{$topic}' with {$difficulty} difficulty.
-        
+} else {
+    $prompt = "Create {$numQuestions} multiple choice questions about '{$topic}' with {$difficulty} difficulty.
+    
 Return only valid JSON array:
 [
     {
@@ -96,130 +87,136 @@ Return only valid JSON array:
 ]
 
 Make sure each question is unique and covers different aspects of {$topic}.";
-    }
+}
 
-    $requestData = [
-        'contents' => [
-            [
-                'parts' => [
-                    ['text' => $prompt]
-                ]
-            ]
+// Groq API request body (OpenAI-compatible format)
+$requestData = [
+    'model' => $model,
+    'messages' => [
+        [
+            'role' => 'system',
+            'content' => 'You are a helpful assistant that generates quiz questions. Always respond with valid JSON only, no additional text or explanations.'
+        ],
+        [
+            'role' => 'user',
+            'content' => $prompt
         ]
-    ];
+    ],
+    'temperature' => 0.7,
+    'max_tokens' => 2048
+];
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'X-goog-api-key: ' . $apiKey
-    ]);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $apiUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Authorization: Bearer ' . $apiKey
+]);
+curl_setopt($ch, CURLOPT_TIMEOUT, defined('GROQ_TIMEOUT') ? GROQ_TIMEOUT : 30);
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlError = curl_error($ch);
-    curl_close($ch);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch);
+curl_close($ch);
 
-    if ($curlError) {
-        $lastError = "cURL error with $model: $curlError";
-        continue;
-    }
+if ($curlError) {
+    echo json_encode(['error' => 'cURL error: ' . $curlError]);
+    exit;
+}
 
-    if ($httpCode !== 200) {
-        $lastError = "HTTP $httpCode with model $model. Response: " . substr($response, 0, 200);
-        continue;
-    }
+if ($httpCode !== 200) {
+    echo json_encode(['error' => "HTTP $httpCode from Groq API. Response: " . substr($response, 0, 300)]);
+    exit;
+}
 
-    $responseData = json_decode($response, true);
-    if (!$responseData || !isset($responseData['candidates'][0]['content']['parts'][0]['text'])) {
-        $lastError = "Invalid response format from $model";
-        continue;
-    }
+$responseData = json_decode($response, true);
 
-    $generatedText = trim($responseData['candidates'][0]['content']['parts'][0]['text']);
+// Parse OpenAI-compatible response format
+if (!$responseData || !isset($responseData['choices'][0]['message']['content'])) {
+    echo json_encode(['error' => 'Invalid response format from Groq API', 'raw_response' => substr($response, 0, 500)]);
+    exit;
+}
+
+$generatedText = trim($responseData['choices'][0]['message']['content']);
+
+// Try to parse JSON
+$questionData = json_decode($generatedText, true);
+
+if (!$questionData) {
+    // Try extracting JSON from text
+    $startPos = strpos($generatedText, '{');
+    $endPos = strrpos($generatedText, '}');
     
-    // Try to parse JSON
-    $questionData = json_decode($generatedText, true);
+    if ($startPos !== false && $endPos !== false) {
+        $jsonText = substr($generatedText, $startPos, $endPos - $startPos + 1);
+        $questionData = json_decode($jsonText, true);
+    }
     
+    // Try array format
     if (!$questionData) {
-        // Try extracting JSON from text
-        $startPos = strpos($generatedText, '{');
-        $endPos = strrpos($generatedText, '}');
+        $startPos = strpos($generatedText, '[');
+        $endPos = strrpos($generatedText, ']');
         
         if ($startPos !== false && $endPos !== false) {
             $jsonText = substr($generatedText, $startPos, $endPos - $startPos + 1);
             $questionData = json_decode($jsonText, true);
         }
+    }
+}
+
+// Validate question data
+if ($numQuestions == 1) {
+    // Single question validation
+    if ($questionData && 
+        isset($questionData['question']) && 
+        isset($questionData['choices']) && 
+        isset($questionData['answer']) &&
+        is_array($questionData['choices']) &&
+        count($questionData['choices']) >= 4) {
         
-        // Try array format
-        if (!$questionData) {
-            $startPos = strpos($generatedText, '[');
-            $endPos = strrpos($generatedText, ']');
-            
-            if ($startPos !== false && $endPos !== false) {
-                $jsonText = substr($generatedText, $startPos, $endPos - $startPos + 1);
-                $questionData = json_decode($jsonText, true);
+        // Success!
+        echo json_encode([
+            'success' => true,
+            'data' => $questionData,
+            'model_used' => $model,
+            'count' => 1
+        ]);
+        exit;
+    }
+} else {
+    // Multiple questions validation
+    if ($questionData && is_array($questionData) && count($questionData) >= 1) {
+        $validQuestions = [];
+        
+        foreach ($questionData as $q) {
+            if (isset($q['question']) && 
+                isset($q['choices']) && 
+                isset($q['answer']) &&
+                is_array($q['choices']) &&
+                count($q['choices']) >= 4) {
+                $validQuestions[] = $q;
             }
         }
-    }
-
-    // Validate question data
-    if ($numQuestions == 1) {
-        // Single question validation
-        if ($questionData && 
-            isset($questionData['question']) && 
-            isset($questionData['choices']) && 
-            isset($questionData['answer']) &&
-            is_array($questionData['choices']) &&
-            count($questionData['choices']) >= 4) {
-            
+        
+        if (count($validQuestions) >= 1) {
             // Success!
             echo json_encode([
                 'success' => true,
-                'data' => $questionData,
+                'data' => $validQuestions,
                 'model_used' => $model,
-                'count' => 1
+                'count' => count($validQuestions)
             ]);
             exit;
         }
-    } else {
-        // Multiple questions validation
-        if ($questionData && is_array($questionData) && count($questionData) >= 1) {
-            $validQuestions = [];
-            
-            foreach ($questionData as $q) {
-                if (isset($q['question']) && 
-                    isset($q['choices']) && 
-                    isset($q['answer']) &&
-                    is_array($q['choices']) &&
-                    count($q['choices']) >= 4) {
-                    $validQuestions[] = $q;
-                }
-            }
-            
-            if (count($validQuestions) >= 1) {
-                // Success!
-                echo json_encode([
-                    'success' => true,
-                    'data' => $validQuestions,
-                    'model_used' => $model,
-                    'count' => count($validQuestions)
-                ]);
-                exit;
-            }
-        }
     }
-    
-    $lastError = "Invalid question format from $model";
 }
 
-// All models failed
+// Failed to parse valid question data
 echo json_encode([
-    'error' => 'All models failed. Last error: ' . $lastError,
-    'models_tried' => $models
+    'error' => 'Failed to parse valid question format from AI response',
+    'raw_text' => substr($generatedText, 0, 500)
 ]);
 ?>
